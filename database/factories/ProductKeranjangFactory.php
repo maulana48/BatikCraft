@@ -17,7 +17,10 @@ class ProductKeranjangFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'product_id' => $this->faker->numberBetween($min = 1, $max = 5),
+            'keranjang_id' => $this->faker->numberBetween($min = 1, $max = 5),
+            'jumlah' => mt_rand(5, 100),
+            'status' => mt_rand(1, 3)
         ];
     }
 }

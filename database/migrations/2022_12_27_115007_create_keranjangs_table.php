@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('keranjangs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id');
+            $table->bigInteger('user_id');
             $table->decimal('total_harga');
             $table->timestamps();
         });

@@ -17,7 +17,8 @@ class PemesananKeranjangFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'keranjang_id' => $this->faker->numberBetween($min = 1, $max = 5),
+            'pemesanan_id' => $this->faker->numberBetween($min = 1, $max = 6)
         ];
     }
 }

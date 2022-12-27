@@ -17,7 +17,8 @@ class KeranjangFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => mt_rand(1, 5),
+            'total_harga' => $this->faker->randomElement([100000, 200000, 250000, 400000, 120000]),
         ];
     }
 }

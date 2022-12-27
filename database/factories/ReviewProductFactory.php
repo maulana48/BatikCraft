@@ -17,7 +17,11 @@ class ReviewProductFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => $this->faker->numberBetween($min = 1, $max = 5),
+            'product_id' => $this->faker->numberBetween($min = 1, $max = 5),
+            'judul' => $this->faker->sentence(mt_rand(3, 8)),
+            'komentar' => $this->faker->sentence(mt_rand(5, 20)),
+            'rating' => mt_rand(1, 5)
         ];
     }
 }
