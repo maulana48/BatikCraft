@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ HotelController };
+use App\Http\Controllers\{ TestController, LandingController, AuthController };
+use App\Http\Livewire\Auth\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +18,20 @@ use App\Http\Controllers\{ HotelController };
 Route::get('/w', function () {
     return view('welcome');
 });
-Route::get('/test', function () {
-    return view('components.parent');
-});
+Route::get('/test', [TestController::class, 'index']);
 
-Route::prefix('/')
+Route::prefix('')
+    ->name('auth.')
+    ->controller(AuthController::class)
+    ->group(function(){
+        Route::any('/login', 'login')->name('login');
+        Route::any('/logout', 'logout')->name('logout');
+        Route::any('/registration', 'registration')->name('registration');
+    });
+
+Route::prefix('/landing')
     ->name('landing.')
-    ->controller(HotelController::class)
+    ->controller(LandingController::class)
     ->group(function(){
         Route::get('/', 'index')->name('index');
         Route::get('/show/{slug}', 'show')->name('show');

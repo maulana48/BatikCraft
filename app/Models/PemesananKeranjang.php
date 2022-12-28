@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class PemesananKeranjang extends Model
 {
     use HasFactory;
+
+    
+    public function keranjang()
+    {
+        return $this->belongsTo(Keranjang::class, 'keranjang_id');
+    }
+
+    public function pemesanan()
+    {
+        return $this->belongsTo(Pemesanan::class, 'pemesanan_id');
+    }
 }

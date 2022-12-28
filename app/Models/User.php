@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -24,14 +25,14 @@ class User extends Authenticatable
     //     'password',
     // ];
 
-    public function booking()
+    public function keranjang()
     {
-        return $this->hasMany(Booking::class, 'user_id', 'id');
+        return $this->hasOne(Keranjang::class, 'user_id', 'id');
     }
 
-    public function review()
+    public function reviewproduct()
     {
-        return $this->hasMany(Review::class, 'user_id', 'id');
+        return $this->hasMany(ReviewProduct::class, 'user_id', 'id');
     }
 
     /**

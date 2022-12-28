@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('product_batiks', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('kategori_product_id');
-            $table->string('name');
+            $table->string('nama');
             $table->decimal('harga');
             $table->text('deskripsi');
             $table->string('tipe_warna');
