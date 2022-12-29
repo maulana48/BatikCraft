@@ -18,7 +18,7 @@ class MediaFactory extends Factory
     {
         return [
             'entitas_id' => $this->faker->numberBetween($min = 1, $max = 15),
-            'nama_entitas' => $this->faker->randomElement(['KategoriProduct', 'Pembayaran', 'ReviewProduct', 'User']),
+            'nama_entitas' => $this->faker->randomElement(['kategori_product', 'product_batik', 'review_product', 'user']),
             'file' => 'img/error.png',   // $this->faker->name(),
             'ekstensi' => 'png',     // $this->faker->randomElement(['jpg', 'png', 'svg', 'jpeg']),
         ];

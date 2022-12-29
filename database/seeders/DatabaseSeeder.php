@@ -34,6 +34,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\ProductBatik::factory(20)->create();
         \App\Models\ProductKeranjang::factory(10)->create();
         \App\Models\ReviewProduct::factory(10)->create();
-        \App\Models\Media::factory(20)->create();
+        //  \App\Models\Media::factory(20)->create();
     }
 }

@@ -3,26 +3,40 @@
 namespace App\Http\Livewire\Layouts;
 
 use Livewire\Component;
+use App\Models\{ 
+    KategoriProduct
+};
 
 class Navbar extends Component
 {
-    public $url = 'navbar';
+    public $url = 'index';
+    public $urlT;
+    private $kategoriNav;
 
-    public function login(){
-        $this->url = 'login';
+    public function loginNav(){
+        $this->emit('landing', 'login');
     }
 
-    public function logout(){
-        $this->url = 'logout';
+    public function logoutNav(){
+        $this->emit('logout');
     }
 
-    public function registration(){
-        $this->url = 'registration';
+    public function registrationNav(){
+        $this->emit('registration');
+    }
+
+    public function detailBatik($urlT){
+        $this->emit('detailBatik', $urlT);
+    }
+
+    public function kategoriBatik($urlT){
+        $this->emit('detailBatik', $urlT);
     }
     public function render()
     {
-        return view('livewire.layouts.' . $this->url, [
-            'url' => $this->url,
+        $this->kategoriNav = KategoriProduct::all();
+        return view('livewire.layouts.navbar', [
+            'kategori' => $this->kategoriNav
         ]);
     }
 }

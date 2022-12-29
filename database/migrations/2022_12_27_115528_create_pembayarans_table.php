@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
+            $table->string('entity_name')->default('pembayaran');
             $table->bigInteger('pemesanan_id');
             $table->integer('no_pembayaran');
             $table->decimal('total_biaya');

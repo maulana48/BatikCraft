@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pemesanan_keranjangs', function (Blueprint $table) {
             $table->id();
+            $table->string('entity_name')->default('pemesanan_keranjang');
             $table->bigInteger('keranjang_id');
             $table->bigInteger('pemesanan_id');
             $table->timestamps();

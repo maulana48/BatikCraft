@@ -25,6 +25,7 @@ class ProductBatikFactory extends Factory
             'stok' => mt_rand(5, 100),
             'asal_kota' => $this->faker->city(),
             'motif_batik' => $this->faker->words(3, true),
+            'media' => 'img/error.png'
         ];
     }
 }

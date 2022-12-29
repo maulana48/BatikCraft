@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->id();
+            $table->string('entity_name')->default('pemesanan');
             $table->decimal('total_harga');
             $table->string('alamat_pengiriman');
             $table->string('metode_pengiriman');

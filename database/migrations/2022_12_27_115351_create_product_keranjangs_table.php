@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_keranjangs', function (Blueprint $table) {
             $table->id();
+            $table->string('entity_name')->default('product_keranjang');
             $table->bigInteger('product_id');
             $table->bigInteger('keranjang_id');
             $table->integer('jumlah');

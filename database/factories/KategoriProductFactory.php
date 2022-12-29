@@ -18,7 +18,8 @@ class KategoriProductFactory extends Factory
     {
         return [
             'nama' => $this->faker->sentence(mt_rand(1, 3)),
-            'deskripsi' => $this->faker->sentence(mt_rand(5, 8))
+            'deskripsi' => $this->faker->sentence(mt_rand(5, 8)),
+            'media' => 'img/error.png'
         ];
     }
 }

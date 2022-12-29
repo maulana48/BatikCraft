@@ -12,32 +12,32 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
                 <input type="text" name="search" id="search"
-                    class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
+                    class="w-full border border-[#6100c1] border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
                     placeholder="search">
                 <button
-                    class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
+                    class="bg-[#6100c1] border border-[#6100c1] text-white px-8 rounded-r-md hover:bg-transparent hover:text-[#6100c1] transition">Search</button>
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-heart"></i>
                     </div>
                     <div class="text-xs leading-3">Wishlist</div>
                     <div
-                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">
                         8</div>
                 </a>
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
                     <div class="text-xs leading-3">Cart</div>
                     <div
-                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">
                         2</div>
                 </a>
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-user"></i>
                     </div>
@@ -51,7 +51,7 @@
     <!-- navbar -->
     <nav class="bg-gray-800">
         <div class="container flex">
-            <div class="px-8 py-4 bg-primary flex items-center cursor-pointer relative group">
+            <div class="px-8 py-4 bg-[#6100c1] flex items-center cursor-pointer relative group">
                 <span class="text-white">
                     <i class="fa-solid fa-bars"></i>
                 </span>
@@ -102,7 +102,7 @@
 
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-primary text-base">
+        <a href="../index.html" class="text-[#6100c1] text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -121,12 +121,12 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="first-name" class="text-gray-600">First Name <span
-                                class="text-primary">*</span></label>
+                                class="text-[#6100c1]">*</span></label>
                         <input type="text" name="first-name" id="first-name" class="input-box">
                     </div>
                     <div>
                         <label for="last-name" class="text-gray-600">Last Name <span
-                                class="text-primary">*</span></label>
+                                class="text-[#6100c1]">*</span></label>
                         <input type="text" name="last-name" id="last-name" class="input-box">
                     </div>
                 </div>
@@ -224,13 +224,13 @@
 
             <div class="flex items-center mb-4 mt-2">
                 <input type="checkbox" name="aggrement" id="aggrement"
-                    class="text-primary focus:ring-0 rounded-sm cursor-pointer w-3 h-3">
+                    class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer w-3 h-3">
                 <label for="aggrement" class="text-gray-600 ml-3 cursor-pointer text-sm">I agree to the <a href="#"
-                        class="text-primary">terms & conditions</a></label>
+                        class="text-[#6100c1]">terms & conditions</a></label>
             </div>
 
             <a href="#"
-                class="block w-full py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium">Place
+                class="block w-full py-3 px-4 text-center text-white bg-[#6100c1] border border-[#6100c1] rounded-md hover:bg-transparent hover:text-[#6100c1] transition font-medium">Place
                 order</a>
         </div>
 

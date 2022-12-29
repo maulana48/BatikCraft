@@ -33,32 +33,32 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
                 <input type="text" name="search" id="search"
-                    class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
+                    class="w-full border border-[#6100c1] border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
                     placeholder="search">
                 <button
-                    class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
+                    class="bg-[#6100c1] border border-[#6100c1] text-white px-8 rounded-r-md hover:bg-transparent hover:text-[#6100c1] transition">Search</button>
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-heart"></i>
                     </div>
                     <div class="text-xs leading-3">Wishlist</div>
                     <div
-                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">
                         8</div>
                 </a>
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
                     <div class="text-xs leading-3">Cart</div>
                     <div
-                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">
                         2</div>
                 </a>
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-user"></i>
                     </div>
@@ -72,7 +72,7 @@
     <!-- navbar -->
     <nav class="bg-gray-800">
         <div class="container flex">
-            <div class="px-8 py-4 bg-primary flex items-center cursor-pointer relative group">
+            <div class="px-8 py-4 bg-[#6100c1] flex items-center cursor-pointer relative group">
                 <span class="text-white">
                     <i class="fa-solid fa-bars"></i>
                 </span>
@@ -123,7 +123,7 @@
 
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-primary text-base">
+        <a href="../index.html" class="text-[#6100c1] text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -157,49 +157,49 @@
                         </span>
                         Manage account
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
                         Profile information
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
                         Manage addresses
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
                         Change password
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-solid fa-box-archive"></i>
                         </span>
                         My order history
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
                         My returns
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
                         My Cancellations
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
                         My reviews
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-credit-card"></i>
                         </span>
                         Payment methods
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
                         voucher
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative text-primary block font-medium capitalize transition">
+                    <a href="#" class="relative text-[#6100c1] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-heart"></i>
                         </span>
@@ -208,7 +208,7 @@
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </span>
@@ -230,12 +230,12 @@
                     <h2 class="text-gray-800 text-xl font-medium uppercase">Italian L shape</h2>
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">In Stock</span></p>
                 </div>
-                <div class="text-primary text-lg font-semibold">$320.00</div>
+                <div class="text-[#6100c1] text-lg font-semibold">$320.00</div>
                 <a href="#"
-                    class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">add
+                    class="px-6 py-2 text-center text-sm text-white bg-[#6100c1] border border-[#6100c1] rounded hover:bg-transparent hover:text-[#6100c1] transition uppercase font-roboto font-medium">add
                     to cart</a>
 
-                <div class="text-gray-600 cursor-pointer hover:text-primary">
+                <div class="text-gray-600 cursor-pointer hover:text-[#6100c1]">
                     <i class="fa-solid fa-trash"></i>
                 </div>
             </div>
@@ -248,12 +248,12 @@
                     <h2 class="text-gray-800 text-xl font-medium uppercase">Dining Table</h2>
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">In Stock</span></p>
                 </div>
-                <div class="text-primary text-lg font-semibold">$320.00</div>
+                <div class="text-[#6100c1] text-lg font-semibold">$320.00</div>
                 <a href="#"
-                    class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">add
+                    class="px-6 py-2 text-center text-sm text-white bg-[#6100c1] border border-[#6100c1] rounded hover:bg-transparent hover:text-[#6100c1] transition uppercase font-roboto font-medium">add
                     to cart</a>
 
-                <div class="text-gray-600 cursor-pointer hover:text-primary">
+                <div class="text-gray-600 cursor-pointer hover:text-[#6100c1]">
                     <i class="fa-solid fa-trash"></i>
                 </div>
             </div>
@@ -266,12 +266,12 @@
                     <h2 class="text-gray-800 text-xl font-medium uppercase">Sofa</h2>
                     <p class="text-gray-500 text-sm">Availability: <span class="text-red-600">Out of Stock</span></p>
                 </div>
-                <div class="text-primary text-lg font-semibold">$320.00</div>
+                <div class="text-[#6100c1] text-lg font-semibold">$320.00</div>
                 <a href="#"
                     class="cursor-not-allowed px-6 py-2 text-center text-sm text-white bg-red-400 border border-red-400 rounded transition uppercase font-roboto font-medium">add
                     to cart</a>
 
-                <div class="text-gray-600 cursor-pointer hover:text-primary">
+                <div class="text-gray-600 cursor-pointer hover:text-[#6100c1]">
                     <i class="fa-solid fa-trash"></i>
                 </div>
             </div>

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_batiks', function (Blueprint $table) {
             $table->id();
+            $table->string('entity_name')->default('product_batik');
             $table->bigInteger('kategori_product_id');
             $table->string('nama');
             $table->decimal('harga');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->integer('stok');
             $table->string('asal_kota');
             $table->string('motif_batik');
+            $table->text('media');
             $table->timestamps();
         });
     }

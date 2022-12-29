@@ -38,7 +38,7 @@
 
 <body>
     @livewire('layouts.navbar')
-    @yield('content')
+        @yield('content')
     @livewire('layouts.footer')
 
     @livewireScripts

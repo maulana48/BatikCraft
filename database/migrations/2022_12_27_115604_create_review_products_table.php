@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('review_products', function (Blueprint $table) {
             $table->id();
+            $table->string('entity_name')->default('review_product');
             $table->bigInteger('user_id');
             $table->bigInteger('product_id');
             $table->string('judul');
             $table->string('komentar');
             $table->tinyInteger('rating');
+            $table->text('media');
             $table->timestamps();
         });
     }

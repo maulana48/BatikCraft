@@ -21,7 +21,8 @@ class ReviewProductFactory extends Factory
             'product_id' => $this->faker->numberBetween($min = 1, $max = 5),
             'judul' => $this->faker->sentence(mt_rand(3, 8)),
             'komentar' => $this->faker->sentence(mt_rand(5, 20)),
-            'rating' => mt_rand(1, 5)
+            'rating' => mt_rand(1, 5),
+            'media' => 'img/error.png'
         ];
     }
 }

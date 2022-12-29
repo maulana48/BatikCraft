@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductBatik extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
     
     public function kategoriproduct()
     {
@@ -22,5 +23,10 @@ class ProductBatik extends Model
     public function productkeranjang()
     {
         return $this->hasMany(ProductKeranjang::class, 'product_id', 'id');
+    }
+    
+    public function media(): HasOne
+    {
+        return $this->hasOne(Media::class, ['entitas_id', 'nama_entitas'], ['id', 'entity_name']);
     }
 }
