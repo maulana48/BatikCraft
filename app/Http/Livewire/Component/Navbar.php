@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Layouts;
+namespace App\Http\Livewire\Component;
 
 use Livewire\Component;
 use App\Models\{ 
@@ -14,7 +14,7 @@ class Navbar extends Component
     private $kategoriNav;
 
     public function loginNav(){
-        $this->emit('landing', 'login');
+        dd($this->emit('Landing', 'login'));
     }
 
     public function logoutNav(){
@@ -35,7 +35,7 @@ class Navbar extends Component
     public function render()
     {
         $this->kategoriNav = KategoriProduct::all();
-        return view('livewire.layouts.navbar', [
+        return view('livewire.component.navbar', [
             'kategori' => $this->kategoriNav
         ]);
     }

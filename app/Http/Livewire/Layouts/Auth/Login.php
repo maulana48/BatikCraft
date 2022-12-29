@@ -36,7 +36,8 @@ class Login extends Component
         
         $token = $user->createToken('auth_token');
         session()->put('token', $token);
-        return redirect()->route('landing.index');
+        session()->put('user', $user);
+        return redirect('/');
     }
 
     public function render()

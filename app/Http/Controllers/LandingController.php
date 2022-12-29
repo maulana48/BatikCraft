@@ -24,7 +24,7 @@ class LandingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index1()
+    public function index()
     {
 		$batik = DB::table('product_batiks')
             ->leftJoin('review_products', 'review_products.product_id', '=', 'product_batiks.id')
@@ -46,7 +46,7 @@ class LandingController extends Controller
         ]);
     }
 
-    public function index()
+    public function index1()
     {
 		$batik = ProductBatik::find(1);
         $kategori = KategoriProduct::where('id', $batik->kategori_products_id)->get();

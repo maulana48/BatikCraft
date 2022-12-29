@@ -3,24 +3,45 @@
 namespace App\Http\Livewire\Layouts;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\{ DB };
+use App\Models\{ 
+    ProductBatik,
+    KategoriProduct,
+    Keranjang,
+    Pembayaran,
+    Pemesanan,
+    PemesananKeranjang,
+    ProductKeranjang,
+    ReviewProduct,
+    User 
+};
 
 class Index extends Component
 {
-    public $kategori;
+    public $title;
+    public $icon;
+    public $url;
+    public $urlT;
     public $batik;
-    public $terbaru;
+	public $terbaru;
+	public $kategori;
 
-    public function mount($kategori, $batik, $terbaru){
-        $this->kategori = [$kategori];
-        $this->batik = [$batik];
-        $this->terbaru = [$terbaru];
+    public function mount(){
+		$batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])
+            ->latest()
+            ->get();
+        
+        $kategori = KategoriProduct::all();
+        $terbaru = $batik->take(4);
+
+	    $this->batik = $batik;
+	    $this->terbaru = $terbaru;
+	    $this->kategori = $kategori;
+        $this->url = 'index';
+
     }
     public function render()
     {
-        return view('livewire.layouts.index', [
-            'kategoriA' => $this->kategori[0],
-            'batikA' => $this->batik[0],
-            'terbaruA' => $this->terbaru[0]
-        ]);
+        return view('livewire.layouts.index');
     }
 }

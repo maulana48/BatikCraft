@@ -4,7 +4,7 @@
     <header class="py-4 shadow-sm bg-white">
         <div class="container flex items-center justify-between">
             <a href="index.html">
-                <img src="../assets/images/logo.svg" alt="Logo" class="w-32">
+                <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/logo.svg" alt="Logo" class="w-32">
             </a>
     
             <div class="w-full max-w-xl relative flex">

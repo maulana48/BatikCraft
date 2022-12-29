@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ TestController, LandingController, AuthController };
-use App\Http\Livewire\Auth\Auth;
+use App\Http\Livewire\{ Landing, Dashboard };
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +18,10 @@ use App\Http\Livewire\Auth\Auth;
 Route::get('/w', function () {
     return view('welcome');
 });
-Route::get('/test', [TestController::class, 'index']);
+Route::get('/', Landing::class);
+Route::get('/dashboard', Dashboard::class);
 
-Route::prefix('')
+Route::prefix('/test')
     ->name('auth.')
     ->controller(AuthController::class)
     ->group(function(){

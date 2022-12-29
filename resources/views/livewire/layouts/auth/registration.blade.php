@@ -25,7 +25,7 @@
                         <label for="nama" class="text-gray-600 mb-2 block">Nama Lengkap</label>
                         <input type="text" wire:model="nama" name="nama" id="nama"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6100c1] placeholder-gray-400"
-                            placeholder="fulan fulana">
+                            placeholder="masukkan nama anda">
                     </div>
                     <div>
                         <label for="gender" class="text-gray-600 mb-2 block">Gender</label>
@@ -73,8 +73,8 @@
                             placeholder="*******">
                     </div>
                     <div>
-                        <label for="confirm" class="text-gray-600 mb-2 block">Confirm password</label>
-                        <input type="password" wire:model="confirm" name="confirm" id="confirm"
+                        <label for="password_confirmation" class="text-gray-600 mb-2 block">Konfirmasi password</label>
+                        <input type="password" wire:model="password_confirmation" name="password_confirmation" id="password_confirmation"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6100c1] placeholder-gray-400"
                             placeholder="*******">
                     </div>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="mt-4">
                     <button type="submit"
-                        class="block w-full py-2 text-center text-white bg-[#6100c1] border border-[#6100c1] rounded hover:bg-transparent hover:text-[#6100c1] transition uppercase font-roboto font-medium">Daftarkan</button>
+                        class="block w-full py-2 bg-[#6100c1] border border-[#6100c1] rounded hover:bg-transparent hover:text-[#6100c1] transition uppercase font-roboto font-medium">Daftarkan</button>
                 </div>
             </form>
     

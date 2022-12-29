@@ -18,13 +18,14 @@ class Registration extends Component
     public $no_telepon;
     public $tanggal_lahir;
     public $password;
-    public $confirm;
+    public $password_confirmation;
     public $media;
     public function registration(){
         $messages = [
         'required' => 'Input :attribute tidak boleh kosong.',
         'min' => 'Input :attribute harus lebih dari 3 karakter',
         'email' => ':attribute tidak valid',
+        'confirmed' => 'konfirmasi password tidak valid'
         ];
 
         $rules = [
@@ -34,13 +35,13 @@ class Registration extends Component
             'alamat' => 'required',
             'no_telepon' => 'required|min:12',
             'tanggal_lahir' => 'required',
-            'password' => 'required',
-            'confirm' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required',
             'media' => 'required|image|max:2048',
         ];
         
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media->store('img/Aspirasi', ['disk' => 'public_uploads']);
+        $payload['media'] = $this->media->store('img/User', ['disk' => 'public_uploads']);
 
         $payload['password'] = Hash::make($payload['password']);
         $payload['role'] = 2;

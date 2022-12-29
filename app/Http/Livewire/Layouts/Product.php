@@ -3,24 +3,48 @@
 namespace App\Http\Livewire\Layouts;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\{ DB };
+use App\Models\{ 
+    ProductBatik,
+    KategoriProduct,
+    Keranjang,
+    Pembayaran,
+    Pemesanan,
+    PemesananKeranjang,
+    ProductKeranjang,
+    ReviewProduct,
+    User 
+};
 
 class Product extends Component
 {
+    public $title;
+    public $icon;
+    public $url;
+    public $urlT;
     public $kategoriBatik;
     public $batik;
+    public $rating;
     public $tipe_warna;
 
-    public function mount($kategoriBatik, $batik, $tipe_warna){
-        $this->kategoriBatik = [$kategoriBatik];
-        $this->batik = [$batik];
-        $this->tipe_warna = [$tipe_warna];
+    public function mount(){
+		$batik = ProductBatik::find(5);
+        $rating = $batik->reviewproduct;
+        foreach($rating as $r){
+            $this->rating += $r->rating;
+        }
+        $this->rating = $this->rating / count($rating);
+        $kategori = ProductBatik::where('id', $batik->kategori_product_id)->get();
+        $tipe_warna = ProductBatik::where([['tipe_warna', $batik->tipe_warna], ['kategori_product_id', $batik->kategori_product_id]])->get();
+        $this->title = 'BatikCraft';
+	    $this->icon = 'batik(1).png';
+	    $this->batik = $batik;
+	    $this->tipe_warna = $tipe_warna;
+	    $this->kategoriBatik = $kategori;
+        $this->url = 'product';
     }
     public function render()
     {
-        return view('livewire.layouts.index', [
-            'kategoriBatikA' => $this->kategoriBatik[0],
-            'batikA' => $this->batik[0],
-            'tipe_warnaA' => $this->tipe_warna[0]
-        ]);
+        return view('livewire.layouts.product');
     }
 }

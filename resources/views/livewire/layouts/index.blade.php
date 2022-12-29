@@ -53,7 +53,7 @@
     <div class="container py-16">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">shop by category</h2>
         <div class="grid grid-cols-3 gap-3">
-            @foreach ($kategoriA as $k)
+            @foreach ($kategori as $k)
             <div class="relative rounded-sm overflow-hidden group">
                 @if ($k->media)
                     <img src="{{ asset($k->media) }}" alt="category 1" class="w-full">
@@ -73,7 +73,7 @@
     <div class="container pb-16">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">top new arrival</h2>
         <div class="grid grid-cols-4 gap-6">
-            @foreach ($terbaruA as $t)
+            @foreach ($terbaru as $t)
             @livewire('component.card', ['product' => $t], key($t->id))
             @endforeach
         </div>
@@ -93,7 +93,7 @@
     <div class="container pb-16">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">recomended for you</h2>
         <div class="grid grid-cols-4 gap-6">
-            @foreach ($batikA as $b)
+            @foreach ($batik as $b)
             @livewire('component.card', ['product' => $b], key($b->id))
             @endforeach
         </div>
