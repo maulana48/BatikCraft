@@ -25,10 +25,14 @@ class Shop extends Component
     public $batik;
 	public $terbaru;
 	public $kategori;
+	public $merks = [];
+	public $merk;
     
 	public $filter = [];
 	public $filters = [];
 	public $sort;
+
+    // public $listeners = ['toShop' => 'mount'];
 
     public function mount(){
 		$batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
@@ -37,22 +41,33 @@ class Shop extends Component
 
 	    $this->batik = $batik;
 	    $this->kategori = $kategori;
+        $merk = $batik->groupBy('merk')->map(function ($value) {
+            return $value;
+        });
+        $this->merks = $merk;
         $this->url = 'product';
-
-        dd(ProductBatik::select('merk')->distinct()->get());
     }
 
-    public function filtering($filter){
-        $this->filter = $filter;
+    public function filtering($kategori = [], $merk = []){
+        $this->kategori = $kategori;
+        $this->merk = $merk;
 		$this->batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
 
-        if(count($this->filter) != 0){
+        // filter kategori
+        if(count($this->kategori) != 0){
             $filtered = $this->batik->filter(function ($value, $key) {
-                return in_array($value->kategori_product_id,$this->filter);
+                return in_array($value->kategori_product_id,$this->kategori);
             });
         }
         else{
             $filtered = $this->batik;
+        }
+
+        // filter merk
+        if(count($this->merk) != 0){
+            $filtered = $this->batik->filter(function ($value, $key) {
+                return in_array($value->merk,$this->merk);
+            });
         }
 
         $this->batik = $filtered;

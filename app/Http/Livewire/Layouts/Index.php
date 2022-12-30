@@ -23,6 +23,7 @@ class Index extends Component
     public $url;
     public $urlT;
     public $batik;
+    public $productId;
 	public $terbaru;
 	public $kategori;
 
@@ -40,8 +41,24 @@ class Index extends Component
         $this->url = 'index';
 
     }
+
+    public function shop(){
+        $this->url = 'shop';
+        $this->emitUp('shop');
+    }
+
+    public function detailProduct($id){
+        $this->url = 'product';
+        $this->productId = $id;
+    }
+
+    public function kategoriProduct($id){
+        $this->url = 'auth.kategori';
+        $this->productId = $id;
+    }
+
     public function render()
     {
-        return view('livewire.layouts.index');
+        return view('livewire.layouts.' . $this->url);
     }
 }

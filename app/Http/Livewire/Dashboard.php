@@ -10,13 +10,15 @@ class Dashboard extends Component
     public $icon;
     public $url;
     public $urlT;
+    public $listeners = ['home'];
 
     public function mount(){
         $this->url = 'index';
     }
 
-    public function test(){
-        $this->url = $this->url;
+    public function home(){
+        return view('livewire.dashboard.index');
+        die;
     }
 
     public function product(){
@@ -31,12 +33,20 @@ class Dashboard extends Component
         $this->url = 'layouts.footer';
     }
 
+    public function profile(){
+        $this->url = 'profile';
+    }
+
+    public function login(){
+        $this->url = 'auth.login';
+    }
+
     public function logout(){
-        $this->url = 'dashboard.logout';
+        $this->url = 'auth.logout';
     }
 
     public function registration(){
-        $this->url = 'dashboard.registration';
+        $this->url = 'auth.registration';
     }
 
     public function render()
@@ -44,10 +54,7 @@ class Dashboard extends Component
         $this->title = 'BatikCraft';
         $this->icon = 'batik(1).png';
         // $this->emitTo('index', 'render');
-        return view('livewire.dashboard', [
-            'url' => $this->url,
-            'urlT' => $this->urlT,
-        ])->layout('layouts.app', [
+        return view('livewire.dashboard')->layout('layouts.app', [
             'title' => $this->title,
             'icon' => $this->icon,
             'admin' => true

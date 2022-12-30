@@ -11,8 +11,8 @@
                 accusantium perspiciatis, sapiente
                 magni eos dolorum ex quos dolores odio</p>
             <div class="mt-12">
-                <a href="#" class="bg-[#6100c1] border border-[#6100c1] text-white px-8 py-3 font-medium 
-                        rounded-md hover:bg-transparent hover:text-[#6100c1]">Shop Now</a>
+                <button wire:click="shop" class="bg-[#6100c1] border border-[#6100c1] text-white px-8 py-3 font-medium 
+                        rounded-md hover:bg-transparent hover:text-[#6100c1]">Shop Now</button>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">top new arrival</h2>
         <div class="grid grid-cols-4 gap-6">
             @foreach ($terbaru as $t)
-            @livewire('component.card', ['product' => $t], key($t->id))
+                @livewire('component.card', ['product' => $t], key($t->id))
             @endforeach
         </div>
     </div>

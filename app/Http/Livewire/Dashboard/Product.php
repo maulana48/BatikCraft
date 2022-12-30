@@ -52,13 +52,13 @@ class Product extends Component
     }
     
     
-        public function test(){
-            dd($this->batikEdit);
-        }
-    public function product(){
-        $this->url = 'product';
-        $this->emitUp('transaksi');
-    }
+    // public function test(){
+    //     dd($this->batikEdit);
+    // }
+    // public function product(){
+    //     $this->url = 'product';
+    //     $this->emitUp('transaksi');
+    // }
     
     public function create(){
         $this->url = 'form';

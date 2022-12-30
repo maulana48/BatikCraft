@@ -27,8 +27,8 @@ class Product extends Component
     public $rating;
     public $tipe_warna;
 
-    public function mount(){
-		$batik = ProductBatik::find(5);
+    public function mount($user, $productId){
+		$batik = ProductBatik::find($productId);
         $rating = $batik->reviewproduct;
         foreach($rating as $r){
             $this->rating += $r->rating;

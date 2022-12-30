@@ -6,8 +6,15 @@ use Livewire\Component;
 
 class Sidebar extends Component
 {
+    public $url = 'component.sidebar';
+    public $listeners = ['logout'];
+
+    public function logout(){
+        $this->emit('logout');
+        $this->render();
+    }
     public function render()
     {
-        return view('livewire.component.sidebar');
+        return view('livewire.' . $this->url);
     }
 }
