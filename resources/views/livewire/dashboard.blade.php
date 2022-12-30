@@ -64,16 +64,21 @@
                 id="nav-content">
                 <ul class="list-reset lg:flex flex-1 items-center px-4 md:px-0">
                     <li class="mr-6 my-2 md:my-0">
-                        <button wire:click="test"
+                        <button wire:click="mount"
                             class="block py-1 md:py-3 pl-1 align-middle @if($url == 'index') text-blue-400 border-blue-400 @else text-gray-500 border-gray-900  @endif no-underline hover:text-gray-100 border-b-2  hover:border-blue-400">
-                            <i class="fas fa-home fa-fw mr-3 text-blue-400"></i><span
-                                class="pb-1 md:pb-0 text-sm">Home</span>
+                            <i class="fas fa-home fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Home</span>
                         </button>
                     </li>
                     <li class="mr-6 my-2 md:my-0">
                         <button wire:click="product"
-                            class="block py-1 md:py-3 pl-1 align-middle @if($url == 'product') text-blue-400 border-blue-400 @else text-gray-500 border-gray-900  @endif no-underline hover:text-gray-100 border-b-2  hover:border-pink-400">
-                            <i class="fas fa-tasks fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Products</span>
+                            class="block py-1 md:py-3 pl-1 align-middle @if($url == 'product') text-pink-400 border-pink-400 @else text-gray-500 border-gray-900  @endif no-underline hover:text-gray-100 border-b-2  hover:border-pink-400">
+                            <i class="fas fa-tasks fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Produk</span>
+                        </button>
+                    </li>
+                    <li class="mr-6 my-2 md:my-0">
+                        <button  wire:click="transaksi"
+                            class="block py-1 md:py-3 pl-1 align-middle @if($url == 'transaksi') text-orange-400 border-orange-400 @else text-gray-500 border-gray-900  @endif no-underline hover:text-gray-100 border-b-2  hover:border-orange-400">
+                            <i class="fa fa-clipboard-list fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Pemesanan</span>
                         </button>
                     </li>
                     <li class="mr-6 my-2 md:my-0">
@@ -101,7 +106,7 @@
     
         </div>
     </nav>
-    <div class="py-[150px] px-[50px]">
+    <div class="py-[150px] px-[50px]" x-data="page = 'test'">
         @livewire('dashboard.' . $url, ['url', $url], key($url . now()))
     </div>
 </div>

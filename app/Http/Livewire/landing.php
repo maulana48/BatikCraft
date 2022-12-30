@@ -8,7 +8,7 @@ class Landing extends Component
 {
     public $title;
     public $icon;
-    public $url = 'profile';
+    public $url = 'shop';
     public $urlT;
     public function login(){
         $this->url = 'auth.login';

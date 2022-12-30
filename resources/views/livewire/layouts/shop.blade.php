@@ -13,7 +13,7 @@
     <!-- ./breadcrumb -->
     
     <!-- shop wrapper -->
-    <div class="container grid grid-cols-4 gap-6 pt-4 pb-16 items-start">
+    <div class="container grid grid-cols-4 gap-6 pt-4 pb-16 items-start" x-data="kategori = []; merk = []; min = 0; max = 0">
         <!-- sidebar -->
         <div class="col-span-1 bg-white px-4 pb-6 shadow rounded overflow-hidden">
             <div class="divide-y divide-gray-200 space-y-5">
@@ -22,35 +22,38 @@
                     <div class="space-y-2">
                         @foreach ($kategori as $k)
                             <div class="flex items-center">
-                                <input wire:click="filters" wire:model="filter.{{ $k->id }}" value="{{ $k->id }}" type="checkbox" name="cat-1" id="cat-{{ $k->id }}"
+                                <input @click="const index = kategori.indexOf({{ $k->id }}) ; kategori.includes({{ $k->id }}) ? kategori.splice(index, 1) : kategori.push({{ $k->id }}) ; $wire.filtering(kategori, merk)" type="checkbox" name="cat-1" id="cat-{{ $k->id }}"
                                     class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer">
                                 <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">{{ $k->nama }}</label>
                                 <div class="ml-auto text-gray-600 text-sm">({{ count($k->productbatik) }})</div>
                             </div>
                         @endforeach
+                        <button @click="alert(filters)">test</button>
                     </div>
                 </div>
     
                 <div class="pt-4">
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Brands</h3>
                     <div class="space-y-2">
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-1" id="brand-1"
-                                class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-1" class="text-gray-600 ml-3 cusror-pointer">Cooking Color</label>
-                            <div class="ml-auto text-gray-600 text-sm">(15)</div>
-                        </div>
+                        @foreach ($batik as $b)
+                            <div class="flex items-center">
+                                <input @click="const index1 = merk.indexOf({{ $b->merk }}) ; merk.includes({{ $b->merk }}) ? merk.splice(index1, 1) : merk.push({{ $b->merk }}) ; $wire.filtering(kategori, merk)" type="checkbox" name="brand-1" id="brand-{{ $b->id }}"
+                                    class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer">
+                                <label for="brand-1" class="text-gray-600 ml-3 cusror-pointer">Cooking Color</label>
+                                <div class="ml-auto text-gray-600 text-sm">(15)</div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
     
                 <div class="pt-4">
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Price</h3>
                     <div class="mt-4 flex items-center">
-                        <input type="text" name="min" id="min"
+                        <input x-model="min" type="text" name="min" id="min"
                             class="w-full border-gray-300 focus:border-[#6100c1] rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
                             placeholder="min">
                         <span class="mx-3 text-gray-500">-</span>
-                        <input type="text" name="max" id="max"
+                        <input x-model="max" type="text" name="max" id="max"
                             class="w-full border-gray-300 focus:border-[#6100c1] rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
                             placeholder="max">
                     </div>

@@ -25,7 +25,12 @@ class ProductBatik extends Model
         return $this->hasMany(ProductKeranjang::class, 'product_id', 'id');
     }
     
-    public function media(): HasOne
+    public function productpesanan()
+    {
+        return $this->hasMany(ProductPesanan::class, 'product_id', 'id');
+    }
+    
+    public function media()
     {
         return $this->hasOne(Media::class, ['entitas_id', 'nama_entitas'], ['id', 'entity_name']);
     }

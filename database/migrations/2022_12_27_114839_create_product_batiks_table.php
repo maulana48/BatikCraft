@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('entity_name')->default('product_batik');
             $table->bigInteger('kategori_product_id');
             $table->string('nama');
+            $table->string('merk');
             $table->decimal('harga');
             $table->text('deskripsi');
             $table->string('tipe_warna');

@@ -19,6 +19,7 @@ class ProductBatikFactory extends Factory
         return [
             'kategori_product_id' => $this->faker->numberBetween($min = 1, $max = 3),
             'nama' => $this->faker->sentence(mt_rand(1, 4)),
+            'merk' => $this->faker->randomElement(['test', 'test1', 'test2']),
             'harga' => $this->faker->randomElement([10000, 20000, 25000, 40000, 12000]),
             'deskripsi' => $this->faker->sentence(mt_rand(1, 4)),
             'tipe_warna' =>  $this->faker->randomElement(['terang', 'gelap', 'biasa']),

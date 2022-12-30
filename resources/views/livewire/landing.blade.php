@@ -1,5 +1,5 @@
-<div> 
-    <template x-if("status")>
-        @livewire('layouts.' . $url)
-    </template>
+<div>
+    {{-- <template x-if("status")>
+    </template> --}}
+    @livewire('layouts.' . $url)
 </div>

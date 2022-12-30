@@ -16,11 +16,15 @@ class Dashboard extends Component
     }
 
     public function test(){
-        $this->url = 'index';
+        $this->url = $this->url;
     }
 
     public function product(){
         $this->url = 'product';
+    }
+
+    public function transaksi(){
+        $this->url = 'transaksi';
     }
 
     public function footer(){

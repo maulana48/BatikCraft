@@ -1,7 +1,22 @@
 <!-- component -->
 <!-- This is an example component -->
-<div class="max-w-full bg-gray-100">
-    <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+<div class="max-w-full bg-white">
+    <div class="min-w-full p-5">
+        <div class="text-center">
+            <div class="d-flex my-4">
+                <h1 class="text-center text-green-300 text-[30px] font-bold">Daftar Produk</h1>
+            </div>
+        </div>
+        <div class="">
+            <button wire:click="create" class="py-[10px] px-[15px] rounded-lg bg-green-500 text-white">Tambahkan product baru</button>
+        </div>
+    @if (session()->has('success'))
+        <div class="bg-green-500 w-full p-2 m-2">
+            <script>alert({{ session('success') }});</script>
+        </div>
+    @endif
+    </div>
+    <table class="max-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
         <thead class="bg-gray-100 dark:bg-gray-700">
             <tr>
                 <th scope="col" class="p-4">
@@ -35,7 +50,7 @@
                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                     Rating
                 </th>
-                <th scope="col" class="p-4">Edit
+                <th scope="col" class="p-4">Aksi
                 </th>
             </tr>
         </thead>
@@ -69,7 +84,7 @@
                         <div class="flex flex-col gap-2 items-center justify-center">
                             <button wire:click="edit({{ $b->id }})"
                                 class="text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
-                            <button wire:click=""
+                            <button wire:click="delete({{ $b->id }})"
                                 class="text-red-600 dark:text-red-500 hover:underline">Delete</button>
                         </div>
                     </td>

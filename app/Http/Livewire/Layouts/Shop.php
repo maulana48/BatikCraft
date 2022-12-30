@@ -26,7 +26,7 @@ class Shop extends Component
 	public $terbaru;
 	public $kategori;
     
-	public $filter;
+	public $filter = [];
 	public $filters = [];
 	public $sort;
 
@@ -39,13 +39,25 @@ class Shop extends Component
 	    $this->kategori = $kategori;
         $this->url = 'product';
 
+        dd(ProductBatik::select('merk')->distinct()->get());
     }
 
-    public function filters(){
-        array_push($this->filter, $this->filter);
-        dd($this->filter);
-    }
+    public function filtering($filter){
+        $this->filter = $filter;
+		$this->batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
 
+        if(count($this->filter) != 0){
+            $filtered = $this->batik->filter(function ($value, $key) {
+                return in_array($value->kategori_product_id,$this->filter);
+            });
+        }
+        else{
+            $filtered = $this->batik;
+        }
+
+        $this->batik = $filtered;
+    }
+    
     public function sort($sort){
         if($sort == 'default'){
             $this->batik = $this->batik->sort();

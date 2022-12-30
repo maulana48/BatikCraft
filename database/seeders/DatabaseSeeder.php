@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Keranjang::factory(5)->create();
         \App\Models\Pembayaran::factory(6)->create();
         \App\Models\Pemesanan::factory(6)->create();
+        \App\Models\ProductPesanan::factory(20)->create();
         \App\Models\PemesananKeranjang::factory(6)->create();
         \App\Models\ProductBatik::factory(20)->create();
         \App\Models\ProductKeranjang::factory(10)->create();
