@@ -3,6 +3,10 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Laravel\Sanctum\PersonalAccessToken as PAT;
+use App\Models\{ 
+    KategoriProduct
+};
 
 class Dashboard extends Component
 {
@@ -10,15 +14,31 @@ class Dashboard extends Component
     public $icon;
     public $url;
     public $urlT;
-    public $listeners = ['home'];
+    public $admin;
+    public Location $location;
+    public $listeners = ['home' => 'mount'];
 
-    public function mount(){
-        $this->url = 'index';
+    public function boot(){
+        // $this->url = 'auth.login';
+        // session()->invalidate();
+        // session()->regenerateToken();
+        $token = session()->get('token'. '');
+        if($token == '' && !session()->has('admin')){
+            $this->url = 'auth.login';
+            $this->login();
+            session()->flash('success', 'Silahkan login terlebih dahulu');
+        }
+        else{
+            $token = PAT::findToken($token->plainTextToken);
+            $this->admin = $token->tokenable;
+            $this->url = 'index';
+            // $this->location->refresh();
+        }
     }
 
     public function home(){
         return view('livewire.dashboard.index');
-        die;
+        return;
     }
 
     public function product(){
@@ -38,11 +58,18 @@ class Dashboard extends Component
     }
 
     public function login(){
+        if($this->admin){
+            return;
+        }
         $this->url = 'auth.login';
+        $this->title = 'Login Page';
+        $this->icon = 'batik(1).png';
     }
 
     public function logout(){
-        $this->url = 'auth.logout';
+        $this->url = 'auth.login';
+        session()->invalidate();
+        session()->regenerateToken();
     }
 
     public function registration(){
@@ -57,7 +84,7 @@ class Dashboard extends Component
         return view('livewire.dashboard')->layout('layouts.app', [
             'title' => $this->title,
             'icon' => $this->icon,
-            'admin' => true
+            'admin' => $this->admin
         ]);
     }
 }

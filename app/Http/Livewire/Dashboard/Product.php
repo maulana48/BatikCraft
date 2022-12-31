@@ -27,6 +27,7 @@ class Product extends Component
     public $formUrl;
     public $batik;
 	public $kategori;
+    //protected $listeners = ['delete' => 'mount'];
 
 	public $nama;
 	public $kategori_product_id;
@@ -160,11 +161,10 @@ class Product extends Component
 
     public function delete($id)
     {
-        $batik = ProductBatik::find($id);
+        $batik = $this->batik->find($id);
         File::delete(public_path($batik->media));
         $batik->delete();
         session()->flash('success', 'Data product berhasil dihapus');
-        dd(session());
     }
 
     public function render()

@@ -16,19 +16,21 @@ class Landing extends Component
     public $url;
     public $productId;
     public $kategori;
+    public $cartProduct;
 
-    public $listeners = ['shop', 'logout'];
+    public $listeners = ['shop', 'logout', 'registration', 'login'];
 
     public function boot(){
     }
     public function mount(){
-        $this->url = 'index';
+        $this->url = 'cart';
         $this->kategori = KategoriProduct::all();
 
         $token = session()->get('token'. '');
         if(!$token == ''){
             $token = PAT::findToken($token->plainTextToken);
             $this->user = $token->tokenable;
+            $this->cartProduct = $this->user->keranjang->productkeranjang->count();
         }
 
         // if($token != ''){
@@ -42,6 +44,31 @@ class Landing extends Component
 
     public function shop(){
         $this->url = 'shop';
+    }
+
+    public function detailProduct($id){
+        $this->url = 'product';
+        $this->productId = 1;
+    }
+
+    public function cart(){
+        if($this->user == null){
+            $this->url = 'auth.login';
+            session()->flash('success', 'Silahkan login terlebih dahulu');
+        }
+        else{
+            $this->url = 'cart';
+        }
+    }
+
+    public function checkOut(){
+        if($this->user == null){
+            $this->url = 'auth.login';
+            session()->flash('success', 'Silahkan login terlebih dahulu');
+        }
+        else{
+            $this->url = 'check-out';
+        }
     }
 
     public function profile(){
@@ -61,8 +88,6 @@ class Landing extends Component
         $this->url = 'auth.login';
         $this->title = 'Login Page';
         $this->icon = 'batik(1).png';
-        return $this->url;
-        $this->render();
     }
 
     public function logout(){

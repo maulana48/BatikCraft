@@ -1,4 +1,4 @@
-<div class="container p-12 mx-auto bg-white">
+<div class="container p-12 mx-auto bg-[#111827]">
     <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
         <div class="flex flex-col md:w-full">
             <h2 class="mb-4 font-bold md:text-xl text-heading ">Shipping Address

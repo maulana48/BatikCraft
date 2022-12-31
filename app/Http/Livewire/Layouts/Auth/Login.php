@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\{ Hash, Validator};
 
 class Login extends Component
 {
+    public $url; 
     public $email;
     public $password;
 
+    public function mount(){
+        $this->url = 'auth.login';
+    }
     public function login(){
         $messages = [
         'required' => 'Input :attribute tidak boleh kosong.',
@@ -40,8 +44,13 @@ class Login extends Component
         return redirect('/');
     }
 
+    public function registration(){
+        // $this->url = 'auth.registration';
+        $this->emitUp('registration');
+    }
+
     public function render()
     {
-        return view('livewire.layouts.auth.login');
+        return view('livewire.layouts.' . $this->url);
     }
 }

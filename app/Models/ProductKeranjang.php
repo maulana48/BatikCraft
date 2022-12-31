@@ -10,13 +10,13 @@ class ProductKeranjang extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function product()
+    public function productbatik()
     {
-        return $this->belongsTo(ProductBatik::class, 'product_id');
+        return $this->belongsTo(ProductBatik::class);
     }
 
     public function keranjang()
     {
-        return $this->belongsTo(Keranjang::class, 'keranjang_id');
+        return $this->belongsTo(Keranjang::class);
     }
 }

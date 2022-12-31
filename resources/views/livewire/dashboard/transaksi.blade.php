@@ -1,6 +1,6 @@
 <!-- component -->
 <!-- This is an example component -->
-<div class="max-w-full bg-white">
+<div class="max-w-full bg-[#111827]">
     <div class="min-w-full p-5">
         <div class="text-center">
             <div class="d-flex my-4">

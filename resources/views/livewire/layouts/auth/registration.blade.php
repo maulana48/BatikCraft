@@ -4,9 +4,9 @@
     <div class="contain py-16">
         <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
             <div class="text-center">
-                <h2 class="text-2xl uppercase font-medium mb-1">Create an account</h2>
+                <h2 class="text-2xl uppercase font-medium mb-1">Pendaftaran Customer</h2>
                 <p class="text-gray-600 mb-6 text-sm">
-                    Register for new cosutumer
+                    Daftarkan diri anda
                 </p>
             </div>
             @if($errors->any())
@@ -93,8 +93,8 @@
                 </div>
             </form>
     
-            <p class="mt-4 text-center text-gray-600">Already have account? <a href="/login"
-                    class="text-[#6100c1]">Login now</a></p>
+            <p class="mt-4 text-center text-gray-600">Sudah punya akun? <button wire:click="login"
+                    class="text-[#6100c1]">Login sekarang</button></p>
         </div>
     </div>
     <!-- ./login -->

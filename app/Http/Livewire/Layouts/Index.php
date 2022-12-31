@@ -49,6 +49,7 @@ class Index extends Component
 
     public function detailProduct($id){
         $this->url = 'product';
+        $this->emitUp('detailProduct', $id); 
         $this->productId = $id;
     }
 

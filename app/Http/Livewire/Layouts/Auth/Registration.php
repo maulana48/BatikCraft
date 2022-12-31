@@ -11,6 +11,7 @@ class Registration extends Component
 {
     use WithFileUploads;
 
+    public $url;
     public $nama;
     public $gender;
     public $email;
@@ -20,6 +21,10 @@ class Registration extends Component
     public $password;
     public $password_confirmation;
     public $media;
+
+    public function mount(){
+        $this->url = 'auth.registration';
+    }
     public function registration(){
         $messages = [
         'required' => 'Input :attribute tidak boleh kosong.',
@@ -54,8 +59,14 @@ class Registration extends Component
 
         return session()->flash('success', 'Pendaftaran berhasil');
     }
+
+    public function login(){
+        // $this->url = 'auth.registration';
+        $this->emitUp('login');
+    }
+
     public function render()
     {
-        return view('livewire.layouts.auth.registration');
+        return view('livewire.layouts.' . $this->url);
     }
 }

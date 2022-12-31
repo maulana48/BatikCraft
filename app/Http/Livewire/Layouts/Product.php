@@ -18,6 +18,7 @@ use App\Models\{
 
 class Product extends Component
 {
+    public $user;
     public $title;
     public $icon;
     public $url;
@@ -28,6 +29,7 @@ class Product extends Component
     public $tipe_warna;
 
     public function mount($user, $productId){
+        $this->user = $user;
 		$batik = ProductBatik::find($productId);
         $rating = $batik->reviewproduct;
         foreach($rating as $r){
@@ -43,6 +45,34 @@ class Product extends Component
 	    $this->kategoriBatik = $kategori;
         $this->url = 'product';
     }
+
+    public function addCart($jumlah){
+        if($this->user == null){
+            $this->url = 'auth.login';
+            session()->flash('success', 'Silahkan login terlebih dahulu');
+            $this->emitUp('login');
+            return 'Gagal';
+        }
+
+        if($this->batik->stok == 0){
+            return 'Product Habis';
+        }
+        $keranjang = $this->user->keranjang;
+        $jumlah = ($jumlah > $this->batik->stok) ? $batik->stok : $jumlah;
+        $payload = [
+            'product_id' => $this->batik->id,
+            'keranjang_id' => $keranjang->id,
+            'jumlah' => $jumlah,
+            'status' => 1,
+        ];
+
+        $this->batik->stok  = $this->batik->stok - $jumlah;
+        $this->batik->update(['stok' => $this->batik->stok]);
+        $keranjang->productkeranjang()->create($payload);
+
+        return 'Product ditambahkan';
+    }
+
     public function render()
     {
         return view('livewire.layouts.product');

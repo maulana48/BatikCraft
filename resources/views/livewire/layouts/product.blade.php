@@ -1,4 +1,9 @@
-<div>
+<div x-data="{
+                jumlah: 1,
+                increment(){this.jumlah == {{ $batik->stok }} ? this.jumlah : this.jumlah++ },
+                decrement(){this.jumlah == 0 ? this.jumlah : this.jumlah-- },
+                btnK: ''
+            }">
     {{-- Because she competes with no one, no one can compete with her. --}}
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
@@ -8,7 +13,7 @@
         <span class="text-sm text-gray-400">
             <i class="fa-solid fa-chevron-right"></i>
         </span>
-        <p class="text-gray-600 font-medium">Product</p>
+        <p class="text-gray-600 font-medium">Detail Batik</p>
     </div>
     <!-- ./breadcrumb -->
 
@@ -44,7 +49,7 @@
                         @endif
                     @endfor
                 </div>
-                <div class="text-xs text-gray-500 ml-3">({{ $batik->reviewproduct ? count($batik->reviewproduct) : '0' }} Reviews)</div>
+                <div class="text-xs text-gray-500 ml-3">({{ $batik->reviewproduct ? count($batik->reviewproduct) : '0' }} Review)</div>
             </div>
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
@@ -57,7 +62,7 @@
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Merk: </span>
-                    <span class="text-gray-600">{{ 'test' }}</span>
+                    <span class="text-gray-600">{{ $batik->merk }}</span>
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Kategori: </span>
@@ -67,19 +72,6 @@
             <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
                 <p class="text-xl text-[#6100c1] font-semibold">{{ $batik->harga }}</p>
                 {{-- <p class="text-base text-gray-400 line-through">$55.00</p> --}}
-            </div>
-
-            <p class="mt-4 text-gray-600">{{ $batik->deskripsi }}</p>
-
-            <div class="pt-4">
-                <h3 class="text-sm text-gray-800 uppercase mb-1">Ukuran</h3>
-                <div class="flex items-center gap-2">
-                    <div class="size-selector">
-                        <input type="radio" name="size" id="size-xs" class="hidden">
-                        <label for="size-xs"
-                            class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600">XS</label>
-                    </div>
-                </div>
             </div>
 
             <div class="pt-4">
@@ -98,17 +90,17 @@
             <div class="mt-4">
                 <h3 class="text-sm text-gray-800 uppercase mb-1">Jumlah</h3>
                 <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</div>
-                    <div class="h-8 w-8 text-base flex items-center justify-center">4</div>
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</div>
+                    <button x-on:click="decrement()" class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</button>
+                    <div x-text="jumlah" class="h-8 w-8 text-base flex items-center justify-center"></div>
+                    <button x-on:click="increment()" class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</button>
                 </div>
             </div>
 
             <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                <a href="#"
+                <button x-on:click="btnK = await $wire.addCart(jumlah)"
                     class="bg-[#6100c1] border border-[#6100c1] text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-[#6100c1] transition">
-                    <i class="fa-solid fa-bag-shopping"></i> Add to cart
-                </a>
+                    <i x-bind:class="btnK == '' ? 'fa-solid fa-bag-shopping' : 'fa-solid fa-circle-check'"></i><p x-text="(btnK == '') ? 'Tambah ke Keranjang' : btnK"></p>
+                </button>
             </div>
 
         </div>

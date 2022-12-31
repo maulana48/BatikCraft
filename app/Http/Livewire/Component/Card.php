@@ -26,6 +26,9 @@ class Card extends Component
         $this->product = [$product];
     }
 
+    public function productDetail($id){
+        $this->emitUp('detailProduct', $id);
+    }
 
     public function render()
     {

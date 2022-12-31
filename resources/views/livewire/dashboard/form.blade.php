@@ -1,4 +1,4 @@
-<div class="p-[50px] bg-white">
+<div class="p-[50px] bg-[#111827]">
     {{-- Because she competes with no one, no one can compete with her. --}}
     <div class="text-center">
         <div class="d-flex my-4">

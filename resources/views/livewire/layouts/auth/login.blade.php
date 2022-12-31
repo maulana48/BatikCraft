@@ -6,7 +6,7 @@
                 <div class="text-center">
                     <h2 class="text-2xl uppercase font-medium mb-1">Login</h2>
                     <p class="text-gray-600 mb-6 text-sm">
-                        welcome back customer
+                        Selamat datang, silakan login
                     </p>
                 </div>
                 <form wire:submit.prevent="login" method="post">
@@ -27,7 +27,7 @@
                 @endif
                     <div class="space-y-2">
                         <div>
-                            <label for="email" class="text-gray-600 mb-2 block">Email address</label>
+                            <label for="email" class="text-gray-600 mb-2 block">Email</label>
                             <input wire:model="email" type="email" name="email" id="email"
                                 class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6100c1] placeholder-gray-400"
                                 placeholder="Masukkan Email Anda">
@@ -45,7 +45,7 @@
                                 class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer">
                             <label for="remember" class="text-gray-600 ml-3 cursor-pointer">Remember me</label>
                         </div>
-                        <a href="#" class="text-[#6100c1]">Forgot password</a>
+                        <a href="#" class="text-[#6100c1]">Lupa password</a>
                     </div>
                     <div class="mt-4">
                         <button type="submit"
@@ -53,9 +53,8 @@
                     </div>
                 </form>
         
-                <p class="mt-4 text-center text-gray-600">Don't have account? <a href="{{ route('auth.registration')}}"
-                        class="text-[#6100c1]">Register
-                        now</a></p>
+                <p class="mt-4 text-center text-gray-600">Belum punya akun? <button wire:click="registration"
+                        class="text-[#6100c1]">Daftarkan</button> diri anda sekarang</p>
             </div>
             <!-- ./login -->
     </div>

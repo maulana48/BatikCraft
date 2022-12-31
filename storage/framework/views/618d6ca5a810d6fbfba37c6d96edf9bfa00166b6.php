@@ -1,30 +1,32 @@
-<div class="bg-white">
+<div>
     <div class="contain py-16">
-        {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
+        
         <!-- login -->
             <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
                 <div class="text-center">
-                    <h2 class="text-2xl uppercase font-medium mb-1">Login Admin</h2>
+                    <h2 class="text-2xl uppercase font-medium mb-1">Login</h2>
                     <p class="text-gray-600 mb-6 text-sm">
-                        Login dengan email admin anda
+                        Selamat datang, silakan login
                     </p>
                 </div>
                 <form wire:submit.prevent="login" method="post">
-                @if($errors->any())
-                    @foreach ($errors->all() as $e)
-                        <div class="bg-red-500 w-full p-2 m-2">{{ $e }}</div>
-                    @endforeach
-                @endif
-                @if (session()->has('success'))
+                <?php if($errors->any()): ?>
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $e): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="bg-red-500 w-full p-2 m-2"><?php echo e($e); ?></div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
+                <?php if(session()->has('success')): ?>
                     <div class="bg-green-500 w-full p-2 m-2">
-                        {{ session('success') }}
+                        <?php echo e(session('success')); ?>
+
                     </div>
-                @endif
-                @if (session()->has('loginError'))
+                <?php endif; ?>
+                <?php if(session()->has('loginError')): ?>
                     <div class="bg-red-500 w-full p-2 m-2">
-                        {{ session('loginError') }}
+                        <?php echo e(session('loginError')); ?>
+
                     </div>
-                @endif
+                <?php endif; ?>
                     <div class="space-y-2">
                         <div>
                             <label for="email" class="text-gray-600 mb-2 block">Email</label>
@@ -52,8 +54,11 @@
                             class="block w-full py-2 text-center bg-[#6100c1] border border-[#6100c1] rounded hover:bg-transparent hover:text-[#6100c1] transition uppercase font-roboto font-medium">Login</button>
                     </div>
                 </form>
-
+        
+                <p class="mt-4 text-center text-gray-600">Belum punya akun? <button wire:click="registration"
+                        class="text-[#6100c1]">Daftarkan</button> diri anda sekarang</p>
             </div>
             <!-- ./login -->
     </div>
 </div>
+<?php /**PATH E:\New folder\Alkademi\Tugas-Akhir_Tall-Stack\Tugas-Akhir_Tall-Stack1\resources\views/livewire/layouts/auth/login.blade.php ENDPATH**/ ?>

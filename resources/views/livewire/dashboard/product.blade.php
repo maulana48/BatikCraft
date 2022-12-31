@@ -1,6 +1,6 @@
 <!-- component -->
 <!-- This is an example component -->
-<div class="max-w-full bg-white">
+<div class="max-w-full bg-[#111827]">
     <div class="min-w-full p-5">
         <div class="text-center">
             <div class="d-flex my-4">
@@ -16,7 +16,7 @@
         </div>
     @endif
     </div>
-    <table class="max-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+    <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
         <thead class="bg-gray-100 dark:bg-gray-700">
             <tr>
                 <th scope="col" class="p-4">
