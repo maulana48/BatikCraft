@@ -30,6 +30,7 @@ class Product extends Component
     //protected $listeners = ['delete' => 'mount'];
 
 	public $nama;
+	public $merk;
 	public $kategori_product_id;
 	public $harga;
 	public $deskripsi;
@@ -79,6 +80,7 @@ class Product extends Component
 
         $rules = [
             'nama' => 'required',
+            'merk' => 'required',
             'kategori_product_id' => 'required',
             'harga' => 'required',
             'deskripsi' => 'required|min:5',
@@ -111,6 +113,7 @@ class Product extends Component
 
         $batikEdit = $this->batik->find($id);
         $this->nama = $batikEdit->nama;
+        $this->merk = $batikEdit->merk;
         $this->kategori_product_id = $batikEdit->kategori_product_id;
         $this->harga = $batikEdit->harga;
         $this->deskripsi = $batikEdit->deskripsi;
@@ -134,6 +137,7 @@ class Product extends Component
 
         $rules = [
             'nama' => 'required',
+            'merk' => 'required',
             'kategori_product_id' => 'required',
             'harga' => 'required',
             'deskripsi' => 'required|min:5',
@@ -141,10 +145,10 @@ class Product extends Component
             'stok' => 'required',
             'asal_kota' => 'required',
             'motif_batik' => 'required',
-            'media' => 'image|max:2048',
+            'media' => 'nullable|max:2048',
         ];
         $payload = $this->validate($rules, $messages);
-        if($this->media){
+        if(!$this->media){
             $payload['media'] = $this->media->store('img/Product', ['disk' => 'public_uploads']);
         }
         
@@ -165,6 +169,7 @@ class Product extends Component
         File::delete(public_path($batik->media));
         $batik->delete();
         session()->flash('success', 'Data product berhasil dihapus');
+        return 'deleted';
     }
 
     public function render()

@@ -64,14 +64,11 @@
 
 <body @if (isset($admin)) class="bg-black-alt font-sans leading-normal tracking-normal" @endif>
     @if (isset($admin))
-        @livewire('dashboard.layouts.header')
             {{ $slot }}
-            {{-- yield('content') --}}
         @livewire('dashboard.layouts.footer')
     @else
         @livewire('component.navbar')
             {{ $slot }}
-            {{-- yield('content') --}}
         @livewire('component.footer')
     @endif
 

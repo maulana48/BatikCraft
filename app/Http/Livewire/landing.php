@@ -24,7 +24,7 @@ class Landing extends Component
         // dd(session()->all());
         $this->kategori = KategoriProduct::all();
         $token = session()->get('token'. '');
-        if(!$token == ''){
+        if(!$token == '' && !session()->has('admin')){
             $token = PAT::findToken($token->plainTextToken);
             if($token){
                 $this->user = $token->tokenable;

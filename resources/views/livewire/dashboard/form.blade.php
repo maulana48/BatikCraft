@@ -19,9 +19,10 @@
     <form wire:submit.prevent="{{ $urlForm }}" class="mt-8 space-y-3" method="POST" enctype="multipart/form-data">
         <div class="grid grid-cols-1 space-y-2">
             <label for="nama" class="text-sm font-bold text-gray-500 tracking-wide">Nama</label>
-            <input wire:model="nama"
-                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                type="text" placeholder="Insert book nama" @error('nama') is-invalid @enderror" name="nama"
+            <input wire:model.defer="nama"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('nama') border-red-500 @enderror"
+                type="text" placeholder="Masukkan nama batik" name="nama"
                 id="nama" autofocus>
 
             @error('nama')
@@ -31,18 +32,27 @@
             @enderror
         </div>
         <div class="grid grid-cols-1 space-y-2">
+            <label for="merk" class="text-sm font-bold text-gray-500 tracking-wide">Merk</label>
+            <input wire:model.defer="merk"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('merk') border-red-500 @enderror"
+                type="text" placeholder="Masukkan merk batik" name="merk" id="merk" autofocus>
+
+            @error('merk')
+                <div class="text-sm text-red-500">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+        <div class="grid grid-cols-1 space-y-2">
             <label for="kategori_product_id" class="text-sm font-bold text-gray-500 tracking-wide">Pilih kategori
                 produk</label>
-            <select wire:model="kategori_product_id" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+            <select wire:model.defer="kategori_product_id" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+            @error('kategori_product_id') border-red-500 @enderror"
                 name="kategori_product_id" id="kategori_product_id">
-                <option disabled @if ($kategori_product_id == null) selected @endif> -- select an option
-                    -- </option>
+                <option value="" @if(!$kategori_product_id) selected @endif> -- select an option -- </option>
                 @foreach ($kategori as $k)
-                    @if ($kategori_product_id == $k->id)
-                        <option value="{{ $k->id }}" selected>{{ $k->nama }}</option>
-                    @else
                         <option value="{{ $k->id }}">{{ $k->nama }}</option>
-                    @endif
                 @endforeach
             </select>
 
@@ -54,9 +64,10 @@
         </div>
         <div class="grid grid-cols-1 space-y-2">
             <label for="harga" class="text-sm font-bold text-gray-500 tracking-wide">Harga</label>
-            <input wire:model="harga"
-                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                type="number" placeholder="Masukkan harga batik" @error('harga') is-invalid @enderror name="harga"
+            <input wire:model.defer="harga"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('harga') border-red-500 @enderror"
+                type="number" placeholder="Masukkan harga batik"
                 id="harga" autofocus>
 
             @error('harga')
@@ -67,9 +78,10 @@
         </div>
         <div class="grid grid-cols-1 space-y-2">
             <label for="stok" class="text-sm font-bold text-gray-500 tracking-wide">Stok</label>
-            <input wire:model="stok"
-                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                type="number" placeholder="Masukkan stok batik" @error('stok') is-invalid @enderror name="stok"
+            <input wire:model.defer="stok"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('stok') border-red-500 @enderror"
+                type="number" placeholder="Masukkan stok batik"
                 id="stok" autofocus>
 
             @error('stok')
@@ -80,10 +92,10 @@
         </div>
         <div class="grid grid-cols-1 space-y-2">
             <label for="tipe_warna" class="text-sm font-bold text-gray-500 tracking-wide">Tipe Warna</label>
-            <input wire:model="tipe_warna"
-                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                type="text" placeholder="Masukkan tipe warna batik" @error('tipe_warna') is-invalid @enderror
-                name="tipe_warna" id="tipe_warna" autofocus>
+            <input wire:model.defer="tipe_warna"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('tipe_warna') border-red-500 @enderror"
+                type="text" placeholder="Masukkan tipe warna batik" name="tipe_warna" id="tipe_warna" autofocus>
 
             @error('tipe_warna')
                 <div class="text-sm text-red-500">
@@ -93,10 +105,10 @@
         </div>
         <div class="grid grid-cols-1 space-y-2">
             <label for="asal_kota" class="text-sm font-bold text-gray-500 tracking-wide">Asal Kota</label>
-            <input wire:model="asal_kota"
-                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                type="text" placeholder="Masukkan asal kota batik" @error('asal_kota') is-invalid @enderror
-                name="asal_kota" id="asal_kota" autofocus>
+            <input wire:model.defer="asal_kota"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('asal_kota') border-red-500 @enderror"
+                type="text" placeholder="Masukkan asal kota batik" name="asal_kota" id="asal_kota" autofocus>
 
             @error('asal_kota')
                 <div class="text-sm text-red-500">
@@ -106,10 +118,10 @@
         </div>
         <div class="grid grid-cols-1 space-y-2">
             <label for="motif_batik" class="text-sm font-bold text-gray-500 tracking-wide">Motif Batik</label>
-            <input wire:model="motif_batik"
-                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                type="text" placeholder="Masukkan motif batik" @error('motif_batik') is-invalid @enderror
-                name="motif_batik" id="motif_batik" autofocus>
+            <input wire:model.defer="motif_batik"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('motif_batik') border-red-500 @enderror"
+                type="text" placeholder="Masukkan motif batik" name="motif_batik" id="motif_batik" autofocus>
 
             @error('motif_batik')
                 <div class="text-sm text-red-500">
@@ -119,9 +131,10 @@
         </div>
         <div class="grid grid-cols-1 space-y-2">
             <label for="deskripsi" class="text-sm font-bold text-gray-500 tracking-wide">Deskripsi</label>
-            <textarea wire:model="deskripsi"
-                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" type="text"
-                placeholder="Masukkan deskripsi batik" @error('deskripsi') is-invalid @enderror name="deskripsi" id="deskripsi"
+            <textarea wire:model.defer="deskripsi"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+                @error('deskripsi') border-red-500 @enderror" type="text"
+                placeholder="Masukkan deskripsi batik" name="deskripsi" id="deskripsi"
                 autofocus></textarea>
 
             @error('deskripsi')

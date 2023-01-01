@@ -39,14 +39,6 @@
                                 placeholder="Masukkan Password Anda">
                         </div>
                     </div>
-                    <div class="flex items-center justify-between mt-6">
-                        <div class="flex items-center">
-                            <input type="checkbox" name="remember" id="remember"
-                                class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="remember" class="text-gray-600 ml-3 cursor-pointer">Remember me</label>
-                        </div>
-                        <a href="#" class="text-[#6B4226]">Lupa password</a>
-                    </div>
                     <div class="mt-4">
                         <button type="submit"
                             class="block w-full py-2 text-center bg-[#6B4226] border border-[#6B4226] rounded hover:bg-transparent hover:text-[#6B4226] transition uppercase font-roboto font-medium">Login</button>

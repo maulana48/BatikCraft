@@ -109,8 +109,8 @@
     
         </div>
     </nav>
-    <div class="py-[150px] px-[50px]" x-data="page = 'test'">
-        @livewire('dashboard.' . $url, ['test'], key($url . now()))
+    <div class="py-[150px] px-[50px]" x-data="">
+        @livewire('dashboard.' . $url, [], key($url . now()))
     </div>
 
 
