@@ -32,7 +32,7 @@ class Landing extends Component
                 }
             }
         }
-        $this->pembayaran();
+        $this->transaksi();
     }
     
     public function home(){
@@ -68,6 +68,16 @@ class Landing extends Component
         }
         else{
             $this->url = 'check-out';
+        }
+    }
+
+    public function transaksi(){
+        if($this->user == null){
+            $this->url = 'auth.login';
+            session()->flash('success', 'Silahkan login terlebih dahulu');
+        }
+        else{
+            $this->url = 'transaksi';
         }
     }
 

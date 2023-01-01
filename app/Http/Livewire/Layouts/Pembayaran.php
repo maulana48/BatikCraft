@@ -13,16 +13,13 @@ use App\Models\{
 
 class Pembayaran extends Component
 {
-    public function mount($user){
+    public $listeners = ['pembayaran' => 'mount'];
+    public function mount($user, $pemesananId){
         $this->user = $user;
 
-        $this->pemesanan = PemesananKeranjang::query()
-            ->where('keranjang_id', $this->user->keranjang->id)
-            ->limit(1)
-            ->get();
-        
         $this->pemesanan = Pemesanan::query()
-            ->where('id', $this->pemesanan[0]->pemesanan_id)
+            ->with(['pembayaran'])
+            ->where('id', $pemesananId)
             ->get();
         
         $this->product_pesanan = ProductPesanan::query()
@@ -33,8 +30,10 @@ class Pembayaran extends Component
     }
 
     public function bayar(){
-        $this->pemesanan[0]->status = 2;
+        $this->pemesanan[0]->status = 3;
         $this->pemesanan[0]->update();
+        $this->pemesanan[0]->pembayaran->status = 2;
+        $this->pemesanan[0]->pembayaran->update();
         return 'pembayaran berhasil';
     }
 
