@@ -13,6 +13,7 @@ class Cart extends Component
     public $user;
     public $batik;
     public $batik_keranjang;
+    public $checked;
     public $title;
     public $icon;
     public $url;
@@ -33,7 +34,7 @@ class Cart extends Component
         $this->batik = $batik;
     }
 
-    public function checked($id){
+    public function checking($id){
         $checked = $this->batik_keranjang->firstWhere('product_id', $id);
         if($checked->status == 1){
             $checked->update(['status' => 2]);
@@ -43,7 +44,7 @@ class Cart extends Component
             return 'Pilih untuk Check-out';
         }
 
-        return 'checked';
+        return 'Checked';
     }
 
     public function delete($id){
@@ -52,10 +53,38 @@ class Cart extends Component
         return 'deleted';
     }
 
-    public function checkOut(){
+    public function checkOut($konfirmasi = false){
         $this->url = 'check-out';
-        $this->emitUp('checkout');
-        return ;
+        $this->checked = $this->batik_keranjang->where('status', 2)->sortBy('product_id');
+        $this->batik = ProductBatik::query()
+            ->whereIn('id', $this->checked->map->only(['product_id']))
+            ->orderBy('id')
+            ->orderBy('updated_at')->get();
+        // $this->emitUp('checkOut');
+        
+        if($konfirmasi){
+            foreach($this->checked as $keys => $check){
+                $total = $check->jumlah * $this->batik->find($check->product_id)->harga;
+            }
+
+            $payload = [
+                'total_harga' => $total,
+                'alamat_pengiriman' => $this->user->alamat,
+                'metode_pengiriman' => 'Cargo mungkin?',
+                'estimasi_waktu' => now()->addDays(7)->get(),
+                'status' => 3,
+            ];
+            
+            dd($payload);
+
+            $payload = [
+                'product_id' => $this->checked,
+                'jumlah' => $this->checked,
+                'pemesanan_id' => ''
+            ];
+        }
+        
+        return '';
     }
 
     public function render()

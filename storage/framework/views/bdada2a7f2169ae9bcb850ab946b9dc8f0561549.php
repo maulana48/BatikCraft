@@ -14,206 +14,93 @@
     <!-- ./breadcrumb -->
     
     <!-- wrapper -->
-    <div class="container grid grid-cols-12 items-start pb-16 pt-4 gap-6">
+    <div x-data="{
+        checked: <?php echo e(json_encode($checked)); ?>,
+        batikDibeli: <?php echo e(json_encode($batik)); ?>,
+        user: <?php echo e(json_encode($user)); ?>,
+        total: 0,
+        count(harga, jumlah){
+            this.total += harga * jumlah;
+        },
+    }" class="container grid grid-cols-12 items-start pb-16 pt-4 gap-6">
     
         <div class="col-span-8 border border-gray-200 p-4 rounded">
             <h3 class="text-lg font-medium capitalize mb-4">Checkout</h3>
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="first-name" class="text-gray-600">First Name <span
+                        <label for="nama" class="text-gray-600">Nama Lengkap<span
                                 class="text-[#6100c1]">*</span></label>
-                        <input type="text" name="first-name" id="first-name" class="input-box">
+                        <input x-bind:value="user.nama" type="text" name="nama" id="nama" class="input-box" disabled>
                     </div>
                     <div>
-                        <label for="last-name" class="text-gray-600">Last Name <span class="text-[#6100c1]">*</span></label>
-                        <input type="text" name="last-name" id="last-name" class="input-box">
+                        <label for="username" class="text-gray-600">Username<span class="text-[#6100c1]">*</span></label>
+                        <input x-bind:value="user.nama" type="text" name="username" id="username" class="input-box" disabled>
                     </div>
                 </div>
                 <div>
-                    <label for="company" class="text-gray-600">Company</label>
-                    <input type="text" name="company" id="company" class="input-box">
+                    <label for="email" class="text-gray-600">Email</label>
+                    <input x-bind:value="user.email" type="email" name="email" id="email" class="input-box" disabled>
                 </div>
                 <div>
-                    <label for="region" class="text-gray-600">Country/Region</label>
-                    <input type="text" name="region" id="region" class="input-box">
+                    <label for="gender" class="text-gray-600">Jenis Kelamin</label>
+                    <input x-bind:value="(user.gender == 'M') ? 'Laki-laki' : 'Perempuan'" type="text" name="gender" id="gender" class="input-box" disabled>
                 </div>
                 <div>
-                    <label for="address" class="text-gray-600">Street address</label>
-                    <input type="text" name="address" id="address" class="input-box">
+                    <label for="alamat" class="text-gray-600">Alamat</label>
+                    <input x-bind:value="user.alamat" type="text" name="alamat" id="alamat" class="input-box" disabled>
                 </div>
                 <div>
-                    <label for="city" class="text-gray-600">City</label>
-                    <input type="text" name="city" id="city" class="input-box">
+                    <label for="no_telepon" class="text-gray-600">Nomor Telepon</label>
+                    <input x-bind:value="user.no_telepon" type="text" name="no_telepon" id="no_telepon" class="input-box" disabled>
                 </div>
                 <div>
-                    <label for="phone" class="text-gray-600">Phone number</label>
-                    <input type="text" name="phone" id="phone" class="input-box">
-                </div>
-                <div>
-                    <label for="email" class="text-gray-600">Email address</label>
-                    <input type="email" name="email" id="email" class="input-box">
-                </div>
-                <div>
-                    <label for="company" class="text-gray-600">Company</label>
-                    <input type="text" name="company" id="company" class="input-box">
+                    <label for="tanggal_lahir" class="text-gray-600">Tanggal Lahir</label>
+                    <input x-bind:value="user.tanggal_lahir" type="date" name="tanggal_lahir" id="tanggal_lahir" class="input-box" disabled>
                 </div>
             </div>
     
         </div>
-    
+
         <div class="col-span-4 border border-gray-200 p-4 rounded">
-            <h4 class="text-gray-800 text-lg mb-4 font-medium uppercase">order summary</h4>
+            <h4 class="text-gray-800 text-lg mb-4 font-medium uppercase">Rincian Pemesanan</h4>
             <div class="space-y-2">
-                <div class="flex justify-between">
-                    <div>
-                        <h5 class="text-gray-800 font-medium">Italian shape sofa</h5>
-                        <p class="text-sm text-gray-600">Size: M</p>
+                <template x-for="(b, index) in batikDibeli">
+                    <div class="flex justify-between">
+                        <div>
+                            <h5 x-text="b.nama" class="text-gray-800 font-medium"></h5>
+                            <p x-text="'Merk : ' + b.merk" class="text-sm text-gray-600"></p>
+                        </div>
+                        <p x-text="checked[index].jumlah" class="text-gray-600"></p>
+                        <p x-text="parseInt(b.harga)" class="text-gray-800 font-medium"></p>
+                        <span x-init="count(b.harga, checked[index].jumlah)"></span>
                     </div>
-                    <p class="text-gray-600">
-                        x3
-                    </p>
-                    <p class="text-gray-800 font-medium">$320</p>
-                </div>
-                <div class="flex justify-between">
-                    <div>
-                        <h5 class="text-gray-800 font-medium">Italian shape sofa</h5>
-                        <p class="text-sm text-gray-600">Size: M</p>
-                    </div>
-                    <p class="text-gray-600">
-                        x3
-                    </p>
-                    <p class="text-gray-800 font-medium">$320</p>
-                </div>
-                <div class="flex justify-between">
-                    <div>
-                        <h5 class="text-gray-800 font-medium">Italian shape sofa</h5>
-                        <p class="text-sm text-gray-600">Size: M</p>
-                    </div>
-                    <p class="text-gray-600">
-                        x3
-                    </p>
-                    <p class="text-gray-800 font-medium">$320</p>
-                </div>
-                <div class="flex justify-between">
-                    <div>
-                        <h5 class="text-gray-800 font-medium">Italian shape sofa</h5>
-                        <p class="text-sm text-gray-600">Size: M</p>
-                    </div>
-                    <p class="text-gray-600">
-                        x3
-                    </p>
-                    <p class="text-gray-800 font-medium">$320</p>
-                </div>
+                </template>
+            </div>
+    
+            <hr>
+            <div class="flex justify-between border-b border-gray-200 mt-1 text-gray-800 font-medium py-3 uppercas">
+                <p>total harga</p>
+                <p x-text="'Rp. ' + total"></p>
             </div>
     
             <div class="flex justify-between border-b border-gray-200 mt-1 text-gray-800 font-medium py-3 uppercas">
-                <p>subtotal</p>
-                <p>$1280</p>
-            </div>
-    
-            <div class="flex justify-between border-b border-gray-200 mt-1 text-gray-800 font-medium py-3 uppercas">
-                <p>shipping</p>
-                <p>Free</p>
+                <p>biaya pengiriman</p>
+                <p>gratis</p>
             </div>
     
             <div class="flex justify-between text-gray-800 font-medium py-3 uppercas">
                 <p class="font-semibold">Total</p>
-                <p>$1280</p>
+                <p x-text="'Rp. ' + total"></p>
             </div>
     
-            <div class="flex items-center mb-4 mt-2">
-                <input type="checkbox" name="aggrement" id="aggrement"
-                    class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer w-3 h-3">
-                <label for="aggrement" class="text-gray-600 ml-3 cursor-pointer text-sm">I agree to the <a href="#"
-                        class="text-[#6100c1]">terms & conditions</a></label>
-            </div>
+            
     
-            <a href="#"
-                class="block w-full py-3 px-4 text-center text-white bg-[#6100c1] border border-[#6100c1] rounded-md hover:bg-transparent hover:text-[#6100c1] transition font-medium">Place
-                order</a>
+            <button x-on:click="$wire.checkOut(true)"
+                class="block w-full py-3 px-4 text-center text-white bg-[#6100c1] border border-[#6100c1] rounded-md hover:bg-transparent hover:text-[#6100c1] transition font-medium">Buat Pesanan</button>
         </div>
     
     </div>
     <!-- ./wrapper -->
-    
-    <!-- footer -->
-    <footer class="bg-white pt-16 pb-12 border-t border-gray-100">
-        <div class="container grid grid-cols-3">
-            <div class="col-span-1 space-y-8 mr-2">
-                <img src="../assets/images/logo.svg" alt="logo" class="w-30">
-                <div class="mr-2">
-                    <p class="text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, hic?
-                    </p>
-                </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-gray-500"><i class="fa-brands fa-facebook-square"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-gray-500"><i class="fa-brands fa-instagram-square"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-gray-500"><i class="fa-brands fa-twitter-square"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-gray-500">
-                        <i class="fa-brands fa-github-square"></i>
-                    </a>
-                </div>
-            </div>
-    
-            <div class="col-span-2 grid grid-cols-2 gap-8">
-                <div class="grid grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Solutions</h3>
-                        <div class="mt-4 space-y-4">
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Marketing</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Analitycs</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Commerce</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Insights</a>
-                        </div>
-                    </div>
-    
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
-                        <div class="mt-4 space-y-4">
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Pricing</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Documentation</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Guides</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">API Status</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Solutions</h3>
-                        <div class="mt-4 space-y-4">
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Marketing</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Analitycs</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Commerce</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Insights</a>
-                        </div>
-                    </div>
-    
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
-                        <div class="mt-4 space-y-4">
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Pricing</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Documentation</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Guides</a>
-                            <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">API Status</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- ./footer -->
-    
-    <!-- copyright -->
-    <div class="bg-gray-800 py-4">
-        <div class="container flex items-center justify-between">
-            <p class="text-white">&copy; TailCommerce - All Right Reserved</p>
-            <div>
-                <img src="../assets/images/methods.png" alt="methods" class="h-5">
-            </div>
-        </div>
-    </div>
-    <!-- ./copyright -->
 </div>
 <?php /**PATH E:\New folder\Alkademi\Tugas-Akhir_Tall-Stack\Tugas-Akhir_Tall-Stack1\resources\views/livewire/layouts/check-out.blade.php ENDPATH**/ ?>

@@ -18,6 +18,7 @@ class ProductPesananFactory extends Factory
     {
         return [
             'product_id' => $this->faker->numberBetween($min = 1, $max = 20),
+            'jumlah' => $this->faker->numberBetween($min = 1, $max = 20),
             'pemesanan_id' => $this->faker->numberBetween($min = 1, $max = 6)
         ];
     }

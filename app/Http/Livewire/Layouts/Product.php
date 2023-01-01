@@ -68,7 +68,13 @@ class Product extends Component
 
         $this->batik->stok  = $this->batik->stok - $jumlah;
         $this->batik->update(['stok' => $this->batik->stok]);
-        $keranjang->productkeranjang()->create($payload);
+        $pk = $keranjang->productkeranjang()->firstWhere('product_id', $payload['product_id']);
+        if($pk){
+            $pk->update($payload);
+        }
+        else{
+            $keranjang->productkeranjang()->create($payload);
+        }
 
         return 'Product ditambahkan';
     }

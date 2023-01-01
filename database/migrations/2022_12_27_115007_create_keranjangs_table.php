@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('entity_name')->default('keranjang');
             $table->bigInteger('user_id');
-            $table->decimal('total_harga');
             $table->timestamps();
         });
     }

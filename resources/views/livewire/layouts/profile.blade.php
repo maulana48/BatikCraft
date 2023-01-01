@@ -40,8 +40,8 @@
                         <label for="gender">Gender</label>
                         <select x-model="user.gender" name="gender" id="gender" class="input-box">
                             <option value="" selected disabled>--jenis kelamin--</option>
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
+                            <option value="M">Laki-laki</option>
+                            <option value="F">Perempuan</option>
                         </select>
                     </div>
                 </div>

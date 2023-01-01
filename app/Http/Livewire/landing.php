@@ -18,19 +18,22 @@ class Landing extends Component
     public $kategori;
     public $cartProduct;
 
-    public $listeners = ['shop', 'logout', 'registration', 'login'];
+    public $listeners = ['shop', 'logout', 'registration', 'login', 'checkOut' => '$refresh'];
 
     public function boot(){
     }
+
     public function mount(){
+        // dd(session()->all());
         $this->url = 'cart';
         $this->kategori = KategoriProduct::all();
-
         $token = session()->get('token'. '');
         if(!$token == ''){
             $token = PAT::findToken($token->plainTextToken);
-            $this->user = $token->tokenable;
-            $this->cartProduct = $this->user->keranjang->productkeranjang->count();
+            if($token){
+                $this->user = $token->tokenable;
+                $this->cartProduct = $this->user->keranjang->productkeranjang->count();
+            }
         }
 
         // if($token != ''){
@@ -94,6 +97,7 @@ class Landing extends Component
         $this->url = 'auth.login';
         session()->invalidate();
         session()->regenerateToken();
+        return redirect('/');
     }
 
     public function registration(){
@@ -103,6 +107,9 @@ class Landing extends Component
     
     public function render()
     {
+        if($this->user){
+            $this->cartProduct = $this->user->keranjang->productkeranjang->count();
+        }  
         $this->title = 'BatikCraft';
         $this->icon = 'batik(1).png';
 

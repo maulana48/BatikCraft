@@ -57,7 +57,8 @@ class Registration extends Component
             return session()->flash('regError', 'Pendaftaran gagal, coba ulangi');
         }
 
-        return session()->flash('success', 'Pendaftaran berhasil');
+        session()->flash('success', 'Pendaftaran berhasil');
+        return $this->login();
     }
 
     public function login(){

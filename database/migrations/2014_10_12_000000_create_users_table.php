@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('entity_name')->default('user');
             $table->string('nama');
-            $table->char('gender', 2);
+            $table->char('gender', 1);
             $table->string('email')->unique();
             $table->string('password');
             $table->string('alamat');
