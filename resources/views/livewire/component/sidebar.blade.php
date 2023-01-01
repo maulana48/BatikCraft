@@ -7,24 +7,18 @@
                     class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
             </div>
             <div class="flex-grow">
-                <p class="text-gray-600">Halo,</p>
-                <h4 x-text="user.nama" class="text-gray-800 font-medium">Test</h4>
+                <p class="text-gray-600">Selamat datang,</p>
+                <h4 x-text="user.nama" class="text-gray-800 font-medium"></h4>
             </div>
         </div>
     
         <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
             <div class="space-y-1 pl-8">
-                <a href="#" class="block font-medium capitalize transition">
+                <a x-on:click="$wire.profile()" style="cursor: pointer;" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                     <span class="absolute -left-8 top-0 text-base">
-                        <i class="fa-regular fa-address-card"></i>
+                        <i class="fa-solid fa-user"></i>
                     </span>
                     Management Akun
-                </a>
-                <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
-                    Lihat detail profile
-                </a>
-                <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
-                    Ubah password
                 </a>
             </div>
     
@@ -35,8 +29,8 @@
                     </span>
                     Riwayat Pemesanan
                 </a>
-                <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
-                    List
+                <a x-on:click="$wire.pembayaran({{ $user->id }})" style="cursor: pointer;" class="relative hover:text-[#6B4226] block capitalize transition">
+                    Pembayaran
                 </a>
                 <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                     Review ku

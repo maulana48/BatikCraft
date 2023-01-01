@@ -17,7 +17,7 @@
 
     <!-- wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
-        @livewire('component.sidebar')
+        @livewire('component.sidebar', [$user])
 
         <!-- wishlist -->
         <div class="col-span-9 space-y-4">

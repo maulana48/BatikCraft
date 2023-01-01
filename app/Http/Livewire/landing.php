@@ -18,23 +18,21 @@ class Landing extends Component
     public $kategori;
     public $cartProduct;
 
-    public $listeners = ['shops' => 'shop', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
+    public $listeners = ['shops' => 'shop', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
 
     public function mount(){
-        // dd(session()->all());
         $this->kategori = KategoriProduct::all();
         $token = session()->get('token'. '');
-        if(!$token == '' && !session()->has('admin')){
+        if(!$token == ''){
             $token = PAT::findToken($token->plainTextToken);
             if($token){
-                $this->user = $token->tokenable;
-                $this->cartProduct = $this->user->keranjang->productkeranjang->count();
+                if($token->tokenable->role == 2){
+                    $this->user = $token->tokenable;
+                    $this->cartProduct = $this->user->keranjang->productkeranjang->count();
+                }
             }
         }
-
-        // if($token != ''){
-        //     $headers['authorization'] = "Bearer $token";
-        // }
+        $this->pembayaran();
     }
     
     public function home(){
@@ -70,6 +68,16 @@ class Landing extends Component
         }
         else{
             $this->url = 'check-out';
+        }
+    }
+
+    public function pembayaran(){
+        if($this->user == null){
+            $this->url = 'auth.login';
+            session()->flash('success', 'Silahkan login terlebih dahulu');
+        }
+        else{
+            $this->url = 'pembayaran';
         }
     }
 

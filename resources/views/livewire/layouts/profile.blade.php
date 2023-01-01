@@ -14,7 +14,7 @@
     
     <!-- wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
-        @livewire('component.sidebar')
+        @livewire('component.sidebar', [$user])
         <!-- info -->
         <div class="col-span-9 shadow rounded px-6 pt-5 pb-7">
             <h4 class="text-lg font-medium capitalize mb-4">

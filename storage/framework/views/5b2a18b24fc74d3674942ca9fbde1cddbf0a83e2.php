@@ -20,14 +20,14 @@
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
         <?php
 if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('component.sidebar')->html();
+    $html = \Livewire\Livewire::mount('component.sidebar', [$user])->html();
 } elseif ($_instance->childHasBeenRendered('l75288167-0')) {
     $componentId = $_instance->getRenderedChildComponentId('l75288167-0');
     $componentTag = $_instance->getRenderedChildComponentTagName('l75288167-0');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
     $_instance->preserveRenderedChild('l75288167-0');
 } else {
-    $response = \Livewire\Livewire::mount('component.sidebar');
+    $response = \Livewire\Livewire::mount('component.sidebar', [$user]);
     $html = $response->html();
     $_instance->logRenderedChild('l75288167-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
