@@ -18,12 +18,13 @@ class Dashboard extends Component
     public Location $location;
     public $listeners = ['home' => 'mount'];
 
-    public function boot(){
+    public function mount(){
         // $this->url = 'auth.login';
         // session()->invalidate();
         // session()->regenerateToken();
         $token = session()->get('token'. '');
-        if($token == '' && !session()->has('admin')){
+        
+        if($token == '' || !session()->has('admin')){
             $this->url = 'auth.login';
             $this->login();
             session()->flash('success', 'Silahkan login terlebih dahulu');
@@ -70,6 +71,7 @@ class Dashboard extends Component
         $this->url = 'auth.login';
         session()->invalidate();
         session()->regenerateToken();
+        return redirect('/dashboard');
     }
 
     public function registration(){

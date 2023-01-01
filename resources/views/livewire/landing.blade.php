@@ -11,31 +11,32 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
                 <input type="text" name="search" id="search"
-                    class="w-full border border-[#6100c1] border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
+                    class="w-full border border-[#6B4226] border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
                     placeholder="search">
                 <button
-                    class="bg-[#6100c1] border border-[#6100c1] text-white px-8 rounded-r-md hover:bg-transparent hover:text-[#6100c1] transition">Search</button>
+                    class="bg-[#6B4226] border border-[#6B4226] text-white px-8 rounded-r-md hover:bg-transparent hover:text-[#6B4226] transition">Search</button>
             </div>
     
             <div class="flex items-center space-x-4">
-                {{-- <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
+                {{-- <a href="#" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-heart"></i>
                     </div>
                     <div class="text-xs leading-3">Wishlist</div>
                     <div
-                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">
+                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                         8</div>
                 </a> --}}
-                <button wire:click="cart" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
+                <button wire:click="cart" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
                     <div class="text-xs leading-3">Cart</div>
-                    <div
-                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">{{ $cartProduct }}</div>
+                    <template x-if="$wire.cartProduct != null">
+                        <div x-text="$wire.cartProduct" class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs"></div>
+                    </template>
                 </button>
-                <button wire:click="profile" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
+                <button wire:click="profile" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-user"></i>
                     </div>
@@ -48,7 +49,7 @@
     <!-- navbar -->
     <nav class="bg-gray-800">
         <div class="container flex">
-            <div class="px-8 py-4 bg-[#6100c1] flex items-center cursor-pointer relative group">
+            <div class="px-8 py-4 bg-[#6B4226] flex items-center cursor-pointer relative group">
                 <span class="text-white">
                     <i class="fa-solid fa-bars"></i>
                 </span>

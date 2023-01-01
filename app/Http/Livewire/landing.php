@@ -18,14 +18,10 @@ class Landing extends Component
     public $kategori;
     public $cartProduct;
 
-    public $listeners = ['shop', 'logout', 'registration', 'login', 'checkOut' => '$refresh'];
-
-    public function boot(){
-    }
+    public $listeners = ['shops' => 'shop', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
 
     public function mount(){
         // dd(session()->all());
-        $this->url = 'cart';
         $this->kategori = KategoriProduct::all();
         $token = session()->get('token'. '');
         if(!$token == ''){
@@ -43,15 +39,18 @@ class Landing extends Component
     
     public function home(){
         $this->url = 'index';
+        $this->render();
     }
 
     public function shop(){
         $this->url = 'shop';
+        $this->render();
     }
 
     public function detailProduct($id){
         $this->url = 'product';
-        $this->productId = 1;
+        $this->productId = $id;
+        $this->render();
     }
 
     public function cart(){
@@ -112,6 +111,7 @@ class Landing extends Component
         }  
         $this->title = 'BatikCraft';
         $this->icon = 'batik(1).png';
+        $this->url = ($this->url == '') ? 'index' : $this->url;
 
         return view('livewire.landing')->layout('layouts.app', [
             'title' => $this->title,

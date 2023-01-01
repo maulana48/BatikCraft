@@ -2,7 +2,7 @@
     {{-- The Master doesn't talk, he acts. --}}
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-[#6100c1] text-base">
+        <a href="../index.html" class="text-[#6B4226] text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -28,7 +28,7 @@
                         @foreach ($kategori as $k)
                             <div class="flex items-center">
                                 <input @click="const index = kategori.indexOf({{ $k->id }}) ; kategori.includes({{ $k->id }}) ? kategori.splice(index, 1) : kategori.push({{ $k->id }}) ; $wire.filtering(kategori, merk)" type="checkbox" name="cat-1" id="cat-{{ $k->id }}"
-                                    class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer">
+                                    class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
                                 <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">{{ $k->nama }}</label>
                                 <div class="ml-auto text-gray-600 text-sm">({{ count($k->productbatik) }})</div>
                             </div>
@@ -43,7 +43,7 @@
                         @foreach ($merks as $keys => $m)
                             <div class="flex items-center">
                                 <input @click="const index1 = merk.indexOf('{{ $keys }}') ; merk.includes('{{ $keys }}') ? merk.splice(index1, 1) : merk.push('{{ $keys }}') ;   $wire.filtering(kategori, merk)" type="checkbox" name="brand-1" id="brand-{{ $keys }}"
-                                    class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer">
+                                    class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
                                 <label for="brand-1" class="text-gray-600 ml-3 cusror-pointer">{{ $keys }}</label>
                                 <div class="ml-auto text-gray-600 text-sm">({{ count($merks[$keys]) }})</div>
                             </div>
@@ -56,11 +56,11 @@
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Harga</h3>
                     <div class="mt-4 flex items-center">
                         <input x-model="min" type="text" name="min" id="min"
-                            class="w-full border-gray-300 focus:border-[#6100c1] rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
+                            class="w-full border-gray-300 focus:border-[#6B4226] rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
                             placeholder="min">
                         <span class="mx-3 text-gray-500">-</span>
                         <input x-model="max" type="text" name="max" id="max"
-                            class="w-full border-gray-300 focus:border-[#6100c1] rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
+                            class="w-full border-gray-300 focus:border-[#6B4226] rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
                             placeholder="max">
                     </div>
                 </div>
@@ -86,7 +86,7 @@
         <div class="col-span-3">
             <div class="flex items-center mb-4">
                 <select wire:model="sort" name="sort" id="sort"
-                    class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-[#6100c1] focus:border-[#6100c1]">
+                    class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-[#6B4226] focus:border-[#6B4226]">
                     <option value="default">Urutan default</option>
                     <option value="price-low-to-high">Dari harga terendah</option>
                     <option value="price-high-to-low">Dari harga tertinggi</option>
@@ -95,7 +95,7 @@
     
                 <div class="flex gap-2 ml-auto">
                     <div
-                        class="border border-[#6100c1] w-10 h-9 flex items-center justify-center text-white bg-[#6100c1] rounded cursor-pointer">
+                        class="border border-[#6B4226] w-10 h-9 flex items-center justify-center text-white bg-[#6B4226] rounded cursor-pointer">
                         <i class="fa-solid fa-grip-vertical"></i>
                     </div>
                     <div
@@ -106,12 +106,15 @@
             </div>
     
             <div class="grid grid-cols-3 gap-6">
-                @foreach ($batik as $t)
+                @foreach ($batiks as $t)
                     @livewire('component.card', ['product' => $t], key($t->id))
                 @endforeach
                 {{-- <template x-for="(b, index) in batik">
                     <livewire:component.card :product="b">
                 </template> --}}
+            </div>
+            <div class=" mt-6 flex justify-end gap-4">
+                {{ $batiks->links() }}
             </div>
         </div>
         <!-- ./products -->

@@ -29,11 +29,15 @@ class Login extends Component
 
         $payload = $this->validate($rules, $messages);
         
-        $user = User::query()->where('email', $payload['email'])->first();
+        $user = User::query()->where([
+            ['email', '=', $payload['email']], 
+            ['role', '=', 2],
+        ])->first();
+        
         if(!$user){
             return session()->flash('loginError', 'Email atau Password salah');
         }
-
+        
         if(!Hash::check($payload['password'], $user->password)){
             return session()->flash('loginError', 'Email atau Password salah');
         }

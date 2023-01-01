@@ -3,27 +3,18 @@
 namespace App\Http\Livewire\Layouts;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\{ DB };
+use Livewire\WithPagination;
 use App\Models\{ 
     ProductBatik,
     KategoriProduct,
-    Keranjang,
-    Pembayaran,
-    Pemesanan,
-    PemesananKeranjang,
-    ProductKeranjang,
-    ReviewProduct,
-    User 
 };
 
 class Shop extends Component
 {
-    public $title;
-    public $icon;
+    use WithPagination;
+
     public $url;
-    public $urlT;
     public $batik;
-	public $terbaru;
 	public $kategori;
 	public $kategoriF;
 	public $merks = [];
@@ -37,11 +28,11 @@ class Shop extends Component
 
     public function mount(){
 		$batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
-        
         $kategori = KategoriProduct::all();
 
 	    $this->batik = $batik;
 	    $this->kategori = $kategori;
+
         $merk = $batik->groupBy('merk')->map(function ($value) {
             return $value;
         });
@@ -94,6 +85,8 @@ class Shop extends Component
         if($this->sort != ''){
             $this->sort($this->sort);
         }
-        return view('livewire.layouts.shop');
+        return view('livewire.layouts.shop', [
+            'batiks' => $this->batik->paginate(9)
+        ]);
     }
 }

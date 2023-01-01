@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Layouts\Auth;
 
 use Livewire\Component;
-use App\Models\User;
+use App\Models\{ User, Keranjang };
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
 
@@ -48,10 +48,16 @@ class Registration extends Component
         $payload = $this->validate($rules, $messages);
         $payload['media'] = $this->media->store('img/User', ['disk' => 'public_uploads']);
 
-        $payload['password'] = Hash::make($payload['password']);
         $payload['role'] = 2;
         
+        $user = User::query()->where('email', $payload['email'])->first();
+        
+        if($user){
+            return session()->flash('regError', 'Email ini sudah terpakai');
+        }
+
         $user = User::create($payload);
+        $keranjang = Keranjang::create(['user_id' => $user->id]);
 
         if(!$user){
             return session()->flash('regError', 'Pendaftaran gagal, coba ulangi');

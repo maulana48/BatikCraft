@@ -20,31 +20,31 @@
                     </span>
                     Management Akun
                 </a>
-                <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                     Lihat detail profile
                 </a>
-                <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                     Ubah password
                 </a>
             </div>
     
             <div class="space-y-1 pl-8 pt-4">
-                <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
+                <a href="#" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                     <span class="absolute -left-8 top-0 text-base">
                         <i class="fa-solid fa-box-archive"></i>
                     </span>
                     Riwayat Pemesanan
                 </a>
-                <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                     List
                 </a>
-                <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                     Review ku
                 </a>
             </div>
     
             <div class="space-y-1 pl-8 pt-4">
-                <a href="#" class="relative text-[#6100c1] block font-medium capitalize transition">
+                <a href="#" class="relative text-[#6B4226] block font-medium capitalize transition">
                     <span class="absolute -left-8 top-0 text-base">
                         <i class="fa-regular fa-heart"></i>
                     </span>
@@ -53,7 +53,7 @@
             </div>
     
             <div class="space-y-1 pl-8 pt-4">
-                <button wire:click="logout" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
+                <button wire:click="logout" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                     <span class="absolute -left-8 top-0 text-base">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </span>

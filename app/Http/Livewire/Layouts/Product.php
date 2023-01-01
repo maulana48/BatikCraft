@@ -3,24 +3,13 @@
 namespace App\Http\Livewire\Layouts;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\{ DB };
 use App\Models\{ 
     ProductBatik,
-    KategoriProduct,
-    Keranjang,
-    Pembayaran,
-    Pemesanan,
-    PemesananKeranjang,
-    ProductKeranjang,
-    ReviewProduct,
-    User 
 };
 
 class Product extends Component
 {
     public $user;
-    public $title;
-    public $icon;
     public $url;
     public $urlT;
     public $kategoriBatik;
@@ -35,11 +24,9 @@ class Product extends Component
         foreach($rating as $r){
             $this->rating += $r->rating;
         }
-        $this->rating = $this->rating / count($rating);
-        $kategori = ProductBatik::where('id', $batik->kategori_product_id)->get();
+        $this->rating = (count($rating) != 0 ) ? $this->rating / count($rating) : count($rating);
+        $kategori = ProductBatik::where('kategori_product_id', $batik->kategori_product_id)->limit(4)->get();
         $tipe_warna = ProductBatik::where([['tipe_warna', $batik->tipe_warna], ['kategori_product_id', $batik->kategori_product_id]])->get();
-        $this->title = 'BatikCraft';
-	    $this->icon = 'batik(1).png';
 	    $this->batik = $batik;
 	    $this->tipe_warna = $tipe_warna;
 	    $this->kategoriBatik = $kategori;

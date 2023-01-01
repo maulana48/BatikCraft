@@ -11,8 +11,8 @@
                 accusantium perspiciatis, sapiente
                 magni eos dolorum ex quos dolores odio</p>
             <div class="mt-12">
-                <button wire:click="shop" class="bg-[#6100c1] border border-[#6100c1] text-white px-8 py-3 font-medium 
-                        rounded-md hover:bg-transparent hover:text-[#6100c1]">Shop Now</button>
+                <button wire:click="shop" class="bg-[#6B4226] border border-[#6B4226] text-white px-8 py-3 font-medium 
+                        rounded-md hover:bg-transparent hover:text-[#6B4226]">Lihat Toko</button>
             </div>
         </div>
     </div>
@@ -21,23 +21,23 @@
     <!-- features -->
     <div class="container py-16">
         <div class="w-10/12 grid grid-cols-3 gap-6 mx-auto justify-center">
-            <div class="border border-[#6100c1] rounded-sm px-3 py-6 flex justify-center items-center gap-5">
+            <div class="border border-[#6B4226] rounded-sm px-3 py-6 flex justify-center items-center gap-5">
                 <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/icons/delivery-van.svg"
                     alt="Delivery" class="w-12 h-12 object-contain">
                 <div>
                     <h4 class="font-medium capitalize text-lg">Free Shipping</h4>
-                    <p class="text-gray-500 text-sm">Order over $200</p>
+                    <p class="text-gray-500 text-sm">Pengiriman gratis</p>
                 </div>
             </div>
-            <div class="border border-[#6100c1] rounded-sm px-3 py-6 flex justify-center items-center gap-5">
+            <div class="border border-[#6B4226] rounded-sm px-3 py-6 flex justify-center items-center gap-5">
                 <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/icons/money-back.svg"
                     alt="Delivery" class="w-12 h-12 object-contain">
                 <div>
-                    <h4 class="font-medium capitalize text-lg">Money Rturns</h4>
-                    <p class="text-gray-500 text-sm">30 days money returs</p>
+                    <h4 class="font-medium capitalize text-lg">Refund</h4>
+                    <p class="text-gray-500 text-sm">30 Hari garansi</p>
                 </div>
             </div>
-            <div class="border border-[#6100c1] rounded-sm px-3 py-6 flex justify-center items-center gap-5">
+            <div class="border border-[#6B4226] rounded-sm px-3 py-6 flex justify-center items-center gap-5">
                 <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/icons/service-hours.svg"
                     alt="Delivery" class="w-12 h-12 object-contain">
                 <div>
@@ -51,7 +51,7 @@
     
     <!-- categories -->
     <div class="container py-16">
-        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">shop by category</h2>
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Kategori yang tersedia</h2>
         <div class="grid grid-cols-3 gap-3">
             @foreach ($kategori as $k)
             <div class="relative rounded-sm overflow-hidden group">
@@ -71,7 +71,7 @@
     
     <!-- new arrival -->
     <div class="container pb-16">
-        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">top new arrival</h2>
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Produk Terbaru</h2>
         <div class="grid grid-cols-4 gap-6">
             @foreach ($terbaru as $t)
                 @livewire('component.card', ['product' => $t], key($t->id))
@@ -94,7 +94,7 @@
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">recomended for you</h2>
         <div class="grid grid-cols-4 gap-6">
             @foreach ($batik as $b)
-            @livewire('component.card', ['product' => $b], key($b->id))
+                @livewire('component.card', ['product' => $b], key($b->id))
             @endforeach
         </div>
     </div>

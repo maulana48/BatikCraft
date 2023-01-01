@@ -25,6 +25,22 @@ class User extends Authenticatable
     //     'password',
     // ];
 
+
+    protected static function boot(){
+        parent::boot();     // override boot() di authenticable -> jika dihapus maka semua method auth boot() digan ti dg kode dibawah
+        static::creating(function ($user){
+            $hash = Hash::make($user->password);
+            $user->password = $hash;
+        });
+
+        self::updating(function ($user){
+            if($user->isDirty(["password"])){   // check if user password updated
+                $hash = Hash::make($user->password);
+                $user->password = $hash;
+            }
+        });
+    }
+
     public function keranjang()
     {
         return $this->hasOne(Keranjang::class, 'user_id', 'id');

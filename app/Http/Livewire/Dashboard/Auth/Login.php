@@ -32,7 +32,7 @@ class Login extends Component
         
         $user = User::query()->where([
             ['email', '=', $payload['email']],
-            ['role', '=', '1'],
+            ['role', '=', 1],
         ])->first();
         
         if(!$user){

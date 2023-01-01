@@ -3,37 +3,26 @@
 namespace App\Http\Livewire\Layouts;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\{ DB };
 use App\Models\{ 
     ProductBatik,
-    KategoriProduct,
-    Keranjang,
-    Pembayaran,
-    Pemesanan,
-    PemesananKeranjang,
-    ProductKeranjang,
-    ReviewProduct,
-    User 
+    KategoriProduct
 };
 
 class Index extends Component
 {
-    public $title;
-    public $icon;
+
     public $url;
-    public $urlT;
     public $batik;
     public $productId;
 	public $terbaru;
 	public $kategori;
 
     public function mount(){
-		$batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])
-            ->latest()
-            ->get();
         
-        $kategori = KategoriProduct::all();
-        $terbaru = $batik->take(4);
+        $batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->limit(8)->get();
+        $terbaru = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->latest()->limit(4)->get();
+        
+        $kategori = KategoriProduct::query()->limit(6)->get();
 
 	    $this->batik = $batik;
 	    $this->terbaru = $terbaru;
@@ -43,15 +32,15 @@ class Index extends Component
     }
 
     public function shop(){
-        $this->url = 'shop';
-        $this->emitUp('shop');
+        $this->emitUp('shops');
+        dd($this);
     }
 
-    public function detailProduct($id){
-        $this->url = 'product';
-        $this->emitUp('detailProduct', $id); 
-        $this->productId = $id;
-    }
+    // public function detailProduct($id){
+    //     $this->url = 'product';
+    //     $this->emitUp('detailProduct'); 
+    //     $this->productId = $id;
+    // }
 
     public function kategoriProduct($id){
         $this->url = 'auth.kategori';

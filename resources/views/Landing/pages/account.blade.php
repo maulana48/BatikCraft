@@ -13,32 +13,32 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
                 <input type="text" name="search" id="search"
-                    class="w-full border border-[#6100c1] border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
+                    class="w-full border border-[#6B4226] border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
                     placeholder="search">
                 <button
-                    class="bg-[#6100c1] border border-[#6100c1] text-white px-8 rounded-r-md hover:bg-transparent hover:text-[#6100c1] transition">Search</button>
+                    class="bg-[#6B4226] border border-[#6B4226] text-white px-8 rounded-r-md hover:bg-transparent hover:text-[#6B4226] transition">Search</button>
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-heart"></i>
                     </div>
                     <div class="text-xs leading-3">Wishlist</div>
                     <div
-                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">
+                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                         8</div>
                 </a>
-                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
                     <div class="text-xs leading-3">Cart</div>
                     <div
-                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6100c1] text-white text-xs">
+                        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                         2</div>
                 </a>
-                <a href="#" class="text-center text-gray-700 hover:text-[#6100c1] transition relative">
+                <a href="#" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-user"></i>
                     </div>
@@ -52,7 +52,7 @@
     <!-- navbar -->
     <nav class="bg-gray-800">
         <div class="container flex">
-            <div class="px-8 py-4 bg-[#6100c1] flex items-center cursor-pointer relative group">
+            <div class="px-8 py-4 bg-[#6B4226] flex items-center cursor-pointer relative group">
                 <span class="text-white">
                     <i class="fa-solid fa-bars"></i>
                 </span>
@@ -103,7 +103,7 @@
 
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-[#6100c1] text-base">
+        <a href="../index.html" class="text-[#6B4226] text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -131,55 +131,55 @@
 
             <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
                 <div class="space-y-1 pl-8">
-                    <a href="#" class="relative text-[#6100c1] block font-medium capitalize transition">
+                    <a href="#" class="relative text-[#6B4226] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-address-card"></i>
                         </span>
                         Manage account
                     </a>
-                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                         Profile information
                     </a>
-                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                         Manage addresses
                     </a>
-                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                         Change password
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-solid fa-box-archive"></i>
                         </span>
                         My order history
                     </a>
-                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                         My returns
                     </a>
-                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                         My Cancellations
                     </a>
-                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                         My reviews
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-credit-card"></i>
                         </span>
                         Payment methods
                     </a>
-                    <a href="#" class="relative hover:text-[#6100c1] block capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
                         voucher
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-heart"></i>
                         </span>
@@ -188,7 +188,7 @@
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-[#6100c1] block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-arrow-right-from-bracket"></i>
                         </span>
@@ -206,7 +206,7 @@
             <div class="shadow rounded bg-white px-4 pt-6 pb-8">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-gray-800 text-lg">Personal Profile</h3>
-                    <a href="#" class="text-[#6100c1]">Edit</a>
+                    <a href="#" class="text-[#6B4226]">Edit</a>
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-gray-700 font-medium">John Doe</h4>
@@ -218,7 +218,7 @@
             <div class="shadow rounded bg-white px-4 pt-6 pb-8">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-gray-800 text-lg">Shipping address</h3>
-                    <a href="#" class="text-[#6100c1]">Edit</a>
+                    <a href="#" class="text-[#6B4226]">Edit</a>
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-gray-700 font-medium">John Doe</h4>
@@ -231,7 +231,7 @@
             <div class="shadow rounded bg-white px-4 pt-6 pb-8">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-gray-800 text-lg">Billing address</h3>
-                    <a href="#" class="text-[#6100c1]">Edit</a>
+                    <a href="#" class="text-[#6B4226]">Edit</a>
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-gray-700 font-medium">John Doe</h4>

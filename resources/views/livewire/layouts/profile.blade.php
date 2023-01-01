@@ -2,7 +2,7 @@
     {{-- Success is as dangerous as failure. --}}
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-[#6100c1] text-base">
+        <a href="../index.html" class="text-[#6B4226] text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -59,7 +59,7 @@
     
             <div class="mt-4">
                 <button type="submit"
-                    class="py-3 px-4 text-center bg-[#6100c1] border border-[#6100c1] rounded-md hover:bg-transparent hover:text-[#6100c1] transition font-medium">simpan perubahan</button>
+                    class="py-3 px-4 text-center bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium">simpan perubahan</button>
             </div>
         </div>
         <!-- ./info -->

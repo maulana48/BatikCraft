@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ProductPesanan extends Model
 {
     use HasFactory;
+
+    protected $guarded =  ['id'];
     
     public function pemesanan()
     {

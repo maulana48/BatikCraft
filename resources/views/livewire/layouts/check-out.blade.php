@@ -1,9 +1,11 @@
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
-    
+    @if (session()->has('success'))
+        <script>alert('{{ session('success') }}');</script>
+    @endif
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-[#6100c1] text-base">
+        <a href="../index.html" class="text-[#6B4226] text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -30,11 +32,11 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="nama" class="text-gray-600">Nama Lengkap<span
-                                class="text-[#6100c1]">*</span></label>
+                                class="text-[#6B4226]">*</span></label>
                         <input x-bind:value="user.nama" type="text" name="nama" id="nama" class="input-box" disabled>
                     </div>
                     <div>
-                        <label for="username" class="text-gray-600">Username<span class="text-[#6100c1]">*</span></label>
+                        <label for="username" class="text-gray-600">Username<span class="text-[#6B4226]">*</span></label>
                         <input x-bind:value="user.nama" type="text" name="username" id="username" class="input-box" disabled>
                     </div>
                 </div>
@@ -64,21 +66,21 @@
 
         <div class="col-span-4 border border-gray-200 p-4 rounded">
             <h4 class="text-gray-800 text-lg mb-4 font-medium uppercase">Rincian Pemesanan</h4>
-            <div class="space-y-2">
+            <div class="space-y-2 mb-4">
                 <template x-for="(b, index) in batikDibeli">
                     <div class="flex justify-between">
                         <div>
                             <h5 x-text="b.nama" class="text-gray-800 font-medium"></h5>
                             <p x-text="'Merk : ' + b.merk" class="text-sm text-gray-600"></p>
                         </div>
-                        <p x-text="checked[index].jumlah" class="text-gray-600"></p>
+                        <p x-text="'x' + checked[index].jumlah" class="text-gray-600"></p>
                         <p x-text="parseInt(b.harga)" class="text-gray-800 font-medium"></p>
-                        <span x-init="count(b.harga, checked[index].jumlah)"></span>
+                        <span x-init="count(b.harga, checked[index].jumlah)" class="hidden"></span>
                     </div>
                 </template>
             </div>
     
-            <hr>
+
             <div class="flex justify-between border-b border-gray-200 mt-1 text-gray-800 font-medium py-3 uppercas">
                 <p>total harga</p>
                 <p x-text="'Rp. ' + total"></p>
@@ -96,13 +98,13 @@
     
             {{-- <div class="flex items-center mb-4 mt-2">
                 <input type="checkbox" name="aggrement" id="aggrement"
-                    class="text-[#6100c1] focus:ring-0 rounded-sm cursor-pointer w-3 h-3">
+                    class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer w-3 h-3">
                 <label for="aggrement" class="text-gray-600 ml-3 cursor-pointer text-sm">test<a href="#"
-                        class="text-[#6100c1]">test</a></label>
+                        class="text-[#6B4226]">test</a></label>
             </div> --}}
     
             <button x-on:click="$wire.checkOut(true)"
-                class="block w-full py-3 px-4 text-center text-white bg-[#6100c1] border border-[#6100c1] rounded-md hover:bg-transparent hover:text-[#6100c1] transition font-medium">Buat Pesanan</button>
+                class="block w-full py-3 px-4 text-center text-white bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium">Buat Pesanan</button>
         </div>
     
     </div>

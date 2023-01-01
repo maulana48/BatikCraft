@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Layouts;
 use Livewire\Component;
 use Illuminate\Support\Facades\{ DB };
 use App\Models\{ 
-    ProductBatik
+    ProductBatik,
+    Pemesanan,
+    ProductPesanan,
 };
 
 class Cart extends Component
@@ -18,7 +20,7 @@ class Cart extends Component
     public $icon;
     public $url;
 
-    public function mount($user, $productId){
+    public function mount($user = null){
         if($user == null){
             $this->url = 'auth.login';
             session()->flash('success', 'Silahkan login terlebih dahulu');
@@ -63,25 +65,33 @@ class Cart extends Component
         // $this->emitUp('checkOut');
         
         if($konfirmasi){
+            $total = 0;
             foreach($this->checked as $keys => $check){
-                $total = $check->jumlah * $this->batik->find($check->product_id)->harga;
+                $total += $check->jumlah * $this->batik->find($check->product_id)->harga;
             }
-
+            
             $payload = [
                 'total_harga' => $total,
                 'alamat_pengiriman' => $this->user->alamat,
-                'metode_pengiriman' => 'Cargo mungkin?',
-                'estimasi_waktu' => now()->addDays(7)->get(),
+                'metode_pengiriman' => 'J&T mungkin?',
+                'estimasi_waktu' => now()->addDays(7),
                 'status' => 3,
             ];
             
-            dd($payload);
+            $pemesanan = Pemesanan::create($payload);
+            
+            foreach($this->checked as $keys => $check){
+                $payload = [
+                    'product_id' => $check->product_id,
+                    'jumlah' => $check->jumlah,
+                    'pemesanan_id' => $pemesanan->id
+                ];
 
-            $payload = [
-                'product_id' => $this->checked,
-                'jumlah' => $this->checked,
-                'pemesanan_id' => ''
-            ];
+                ProductPesanan::create($payload);
+                $check->delete();
+            }
+
+            session()->flash('success', 'Pemesanan berhasil!');
         }
         
         return '';
@@ -89,6 +99,8 @@ class Cart extends Component
 
     public function render()
     {
-        return view('livewire.layouts.' . $this->url);
+        return view('livewire.layouts.' . $this->url, [
+            'batik' => $this->batik,
+        ]);
     }
 }
