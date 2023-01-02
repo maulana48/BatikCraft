@@ -27,7 +27,7 @@ class Dashboard extends Component
         if($token == '' || !session()->has('admin')){
             $this->url = 'auth.login';
             $this->login();
-            session()->flash('success', 'Silahkan login terlebih dahulu');
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
         }
         else{
             $token = PAT::findToken($token->plainTextToken);

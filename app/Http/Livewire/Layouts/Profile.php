@@ -11,7 +11,7 @@ class Profile extends Component
     public function mount($user, $productId){
         if($user == null){
             $this->url = 'auth.login';
-            session()->flash('success', 'Silahkan login terlebih dahulu');
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
             $this->emitUp('login');
             return;
         }

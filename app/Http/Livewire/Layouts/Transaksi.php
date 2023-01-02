@@ -36,7 +36,7 @@ class Transaksi extends Component
     public function detailP($id){
         if($this->user == null){
             $this->url = 'auth.login';
-            session()->flash('success', 'Silahkan login terlebih dahulu');
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
         }
         $this->url = 'pembayaran';
         

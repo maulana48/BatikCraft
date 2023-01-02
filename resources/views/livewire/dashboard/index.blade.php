@@ -127,7 +127,7 @@
                 terpopuler: {{ json_encode($terpopuler) }}
             }" class="flex flex-row flex-wrap flex-grow mt-2">
     
-                <div class="w-full md:w-1/2 p-3">
+                <div class="w-full flex p-3 gap-4">
                     <!--Graph Card-->
 
                     <template x-for="(populer, index) in terpopuler">
@@ -151,7 +151,7 @@
                                             {{-- <p class="text-sm text-gray-400 line-through">{{ $batik['']harga }}</p> --}}
                                         </div>
                                         <div class="flex items-center">
-                                            <div x-text="populer.total" class="text-xs text-gray-500 ml-3"></div>
+                                            <div x-text="'Total pembelian: ' + populer.total" class="text-xs text-gray-500 ml-3"></div>
                                         </div>
                                     </div>
                                     <button x-text="populer.productbatik.nama"

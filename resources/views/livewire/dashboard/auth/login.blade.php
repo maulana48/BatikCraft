@@ -1,6 +1,6 @@
 <div class="bg-white">
-    <div class="contain py-16">
-        {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
+    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
+    <div class="contain">
         <!-- login -->
             <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
                 <div class="text-center">
@@ -19,10 +19,13 @@
                     <div class="bg-green-500 w-full p-2 m-2">
                         {{ session('success') }}
                     </div>
-                @endif
-                @if (session()->has('loginError'))
+                @elseif (session()->has('loginError'))
                     <div class="bg-red-500 w-full p-2 m-2">
                         {{ session('loginError') }}
+                    </div>
+                @elseif(session()->has('warning'))
+                    <div class="bg-yellow-500 w-full p-2 m-2">
+                        {{ session('warning') }}
                     </div>
                 @endif
                     <div class="space-y-2">

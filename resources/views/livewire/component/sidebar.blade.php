@@ -3,12 +3,12 @@
     <!-- sidebar -->
         <div class="px-4 py-3 shadow flex items-center gap-4">
             <div class="flex-shrink-0">
-                <img x-bind:src="'/' + user.media" src="" alt="profile"
+                <img x-bind:src="'/' + '{{ $user->media }}'" src="" alt="profile"
                     class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
             </div>
             <div class="flex-grow">
                 <p class="text-gray-600">Selamat datang,</p>
-                <h4 x-text="user.nama" class="text-gray-800 font-medium"></h4>
+                <h4 x-text="'{{ $user->nama }}'" class="text-gray-800 font-medium"></h4>
             </div>
         </div>
     

@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'nama' => $this->faker->name(),
             'gender' => $this->faker->randomElement(['M', 'F']),
             'email' => fake()->unique()->safeEmail(),
-            'password' => Hash::make('test'),
+            'password' => 'test',
             'alamat' => $this->faker->address(),
             'no_telepon' => $this->faker->phoneNumber(),
             'tanggal_lahir' => $this->faker->date(),

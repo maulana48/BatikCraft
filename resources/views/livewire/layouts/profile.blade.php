@@ -24,21 +24,21 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="nama">Nama lengkap</label>
-                        <input x-model="user.nama" type="text" name="nama" id="nama" class="input-box">
+                        <input x-bind:value="'{{ $user->nama }}'" type="text" name="nama" id="nama" class="input-box">
                     </div>
                     <div>
                         <label for="username">Username</label>
-                        <input x-model="user.nama" type="text" name="username" id="username" class="input-box">
+                        <input x-bind:value="'{{ $user->nama }}'" type="text" name="username" id="username" class="input-box">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="tanggal_lahir">Tanggal lahir</label>
-                        <input x-model="user.tanggal_lahir" type="date" name="tanggal_lahir" id="tanggal_lahir" class="input-box">
+                        <input x-bind:value="'{{ $user->tanggal_lahir }}'" type="date" name="tanggal_lahir" id="tanggal_lahir" class="input-box">
                     </div>
                     <div>
                         <label for="gender">Gender</label>
-                        <select x-model="user.gender" name="gender" id="gender" class="input-box">
+                        <select x-bind:value="'{{ $user->gender }}'" name="gender" id="gender" class="input-box">
                             <option value="" selected disabled>--jenis kelamin--</option>
                             <option value="M">Laki-laki</option>
                             <option value="F">Perempuan</option>
@@ -48,18 +48,19 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="email">Email Address</label>
-                        <input x-model="user.email" type="email" name="email" id="email" class="input-box">
+                        <input x-bind:value="'{{ $user->email }}'" type="email" name="email" id="email" class="input-box">
                     </div>
                     <div>
                         <label for="phone">Phone number</label>
-                        <input x-model="user.no_telepon" type="text" name="phone" id="phone" class="input-box">
+                        <input x-bind:value="'{{ $user->no_telepon }}'" type="text" name="phone" id="phone" class="input-box">
                     </div>
                 </div>
             </div>
     
             <div class="mt-4">
                 <button type="submit"
-                    class="py-3 px-4 text-center bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium">simpan perubahan</button>
+                    class="py-3 px-4 text-center bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium">simpa
+                    n perubahan</button>
             </div>
         </div>
         <!-- ./info -->

@@ -33,7 +33,7 @@ class Landing extends Component
                     $this->transaksi = $this->user->keranjang->pemesananKeranjang->count();
                 }
             }
-    }
+        }
     }
     
     public function home(){
@@ -55,7 +55,7 @@ class Landing extends Component
     public function cart(){
         if($this->user == null){
             $this->url = 'auth.login';
-            session()->flash('success', 'Silahkan login terlebih dahulu');
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
         }
         else{
             $this->url = 'cart';
@@ -65,7 +65,7 @@ class Landing extends Component
     public function checkOut(){
         if($this->user == null){
             $this->url = 'auth.login';
-            session()->flash('success', 'Silahkan login terlebih dahulu');
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
         }
         else{
             $this->url = 'check-out';
@@ -75,7 +75,7 @@ class Landing extends Component
     public function transaksi(){
         if($this->user == null){
             $this->url = 'auth.login';
-            session()->flash('success', 'Silahkan login terlebih dahulu');
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
         }
         else{
             $this->url = 'transaksi';
@@ -85,7 +85,7 @@ class Landing extends Component
     public function profile(){
         if($this->user == null){
             $this->url = 'auth.login';
-            session()->flash('success', 'Silahkan login terlebih dahulu');
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
         }
         else{
             $this->url = 'profile';

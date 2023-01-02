@@ -26,7 +26,7 @@ class ProductBatikFactory extends Factory
             'stok' => mt_rand(5, 100),
             'asal_kota' => $this->faker->city(),
             'motif_batik' => $this->faker->words(3, true),
-            'media' => $this->faker->randomElement(['/img/product/batik1.jpg', '/img/product/test (1).jpg', '/img/product/test (2)', '/img/product/test (3)', '/img/product/test (4)', '/img/product/test (5)', '/img/product/test (6)'])
+            'media' => $this->faker->randomElement(['/img/product/batik1.jpg', '/img/product/test (1).jpeg', '/img/product/test (2).jpeg', '/img/product/test (3).jpeg', '/img/product/test (4).jpeg', '/img/product/test (5).jpeg', '/img/product/test (6).jpeg'])
         ];
     }
 }

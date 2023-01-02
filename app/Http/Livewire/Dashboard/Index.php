@@ -26,12 +26,11 @@ class Index extends Component
         $this->terpopuler = ProductPesanan::query()
             ->with(['productbatik'])
             ->select('product_id', DB::raw('SUM(jumlah) as total'))
-            ->groupBy('product_id', 'id')
+            ->groupBy('product_id')
             ->distinct()
             ->orderBy('total', 'desc')
             ->limit(3)
             ->get();
-            
         $this->pembayaran = Pembayaran::all();
     }
 

@@ -78,6 +78,12 @@
                             <i class="fa fa-clipboard-list fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Pemesanan</span>
                         </button>
                     </li>
+                    <li class="mr-6 my-2 md:my-0">
+                        <button  wire:click="registration"
+                            class="block py-1 md:py-3 pl-1 align-middle @if($url == 'auth.registration') text-purple-400 border-purple-400 @else text-gray-500 border-gray-900  @endif no-underline hover:text-gray-100 border-b-2  hover:border-purple-400">
+                            <i class="fa fa-user fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Pendaftaran Admin</span>
+                        </button>
+                    </li>
                 </ul>
     
                 <div class="relative pull-right pl-4 pr-4 md:pr-0">

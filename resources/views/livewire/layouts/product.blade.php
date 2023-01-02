@@ -74,19 +74,6 @@
                 {{-- <p class="text-base text-gray-400 line-through">$55.00</p> --}}
             </div>
 
-            <div class="pt-4">
-                <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Warna</h3>
-                <div class="flex items-center gap-2">
-                    <div class="color-selector">
-                        <input type="radio" name="color" id="red" class="hidden">
-                        <label for="red"
-                            class="border border-gray-200 rounded-sm h-6 w-6  cursor-pointer shadow-sm block"
-                            style="background-color: #fc3d57;"></label>
-                    </div>
-
-                </div>
-            </div>
-
             <div class="mt-4">
                 <h3 class="text-sm text-gray-800 uppercase mb-1">Jumlah</h3>
                 <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">

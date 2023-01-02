@@ -16,12 +16,13 @@ class Shop extends Component
     public $url;
     public $batik;
 	public $kategori;
+
 	public $kategoriF;
 	public $merks = [];
 	public $merkF;
+	public $warna;
+	public $warnaF;
     
-	public $filter = [];
-	public $filters = [];
 	public $sort;
 
     // public $listeners = ['toShop' => 'mount'];
@@ -37,14 +38,21 @@ class Shop extends Component
             return $value;
         });
         $this->merks = $merk;
+        
+        $warna = $batik->groupBy('tipe_warna')->map(function ($value) {
+            return $value;
+        });
+
+        $this->warna = $warna;
         $this->url = 'product';
     }
 
-    public function filtering($kategori = [], $merk = [], $min = 0, $max = 10000000){
+    public function filtering($kategori = [], $merk = [], $min = null, $max = null, $warna = []){
         $this->kategoriF = $kategori;
         $this->merkF = $merk;
         $this->minF = $min;
         $this->maxF = $max;
+        $this->warnaF = $warna;
 		$this->batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
         
         if($min != null || $max != null){
@@ -62,14 +70,18 @@ class Shop extends Component
                 return in_array($value->kategori_product_id,$this->kategoriF);
             });
         }
-        else{
-            $filtered = $this->batik;
-        }
 
         // filter merk
         if(count($this->merkF) != 0){
             $filtered = $filtered->filter(function ($value, $key) {
                 return in_array($value->merk,$this->merkF);
+            });
+        }
+
+        // filter warna
+        if(count($this->warnaF) != 0){
+            $filtered = $filtered->filter(function ($value, $key) {
+                return in_array($value->tipe_warna,$this->warnaF);
             });
         }
 
