@@ -51,7 +51,7 @@
                         @endif
                     </div>
                 </div>
-    
+{{--     
                 <div class="pt-4">
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Harga</h3>
                     <div class="mt-4 flex items-center">
@@ -76,7 +76,7 @@
                         </div>
     
                     </div>
-                </div>
+                </div> --}}
     
             </div>
         </div>
