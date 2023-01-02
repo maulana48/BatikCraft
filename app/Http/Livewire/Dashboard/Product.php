@@ -4,17 +4,10 @@ namespace App\Http\Livewire\Dashboard;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\{ Hash, File, DB };
+use Illuminate\Support\Facades\{ File, DB };
 use App\Models\{ 
     ProductBatik,
-    KategoriProduct,
-    Keranjang,
-    Pembayaran,
-    Pemesanan,
-    PemesananKeranjang,
-    ProductKeranjang,
-    ReviewProduct,
-    User 
+    KategoriProduct
 };
 
 class Product extends Component

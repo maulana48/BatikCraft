@@ -1,11 +1,4 @@
-<div x-data="{
-    product_pesanan: {{ json_encode($product_pesanan) }},
-    total: 0,
-    bayared: false,
-    count(harga, jumlah) {
-        this.total += harga * jumlah;
-    },
-}">
+<div>
     {{-- Success is as dangerous as failure. --}}
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
@@ -20,7 +13,14 @@
     <!-- ./breadcrumb -->
 
     <!-- wrapper -->
-    <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
+    <div x-data="{
+        product_pesanan: {{ json_encode($product_pesanan) }},
+        total: 0,
+        bayared: @if($pemesanan[0]->status == 3) 'Transaksi Selesai' @else false @endif,
+        count(harga, jumlah) {
+            this.total += harga * jumlah;
+        },
+    }" class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
         @livewire('component.sidebar', [$user])
         <!-- info -->
         <div class="col-span-9 shadow rounded px-6 pt-5 pb-7">
@@ -66,7 +66,7 @@
             </div>
 
             <div class="mt-4">
-                <button x-on:click="bayared = await $wire.bayar(true)"
+                <button x-on:click="bayared = bayared ? true : await $wire.bayar(true)"
                     class="w-full py-3 px-4 text-center text-white bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium flex justify-center items-baseline gap-3">
                     <i x-bind:class="bayared ? 'fa-solid fa-circle-check' : ''"></i>
                     <p x-text="bayared ? bayared : 'Lakukan Pembayaran'"></p>

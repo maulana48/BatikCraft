@@ -43,7 +43,7 @@
                             </p>
                         </div>
                         <div x-text="'Rp.'  + parseInt(p.total_harga)" class="text-[#6B4226] text-lg font-semibold"></div>
-                        <button x-on:click="$wire.detailPemesanan(p.id)"
+                        <button x-on:click="$wire.detailP(p.id)"
                             class="px-6 py-2 text-center text-sm text-white bg-[#6B4226] border border-[#120a1b] rounded hover:bg-transparent hover:text-[#6B4226] transition uppercase font-roboto font-medium">Lihat detail</button>
                         </div>
                     </div>

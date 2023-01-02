@@ -64,7 +64,7 @@
                     </td> --}}
                     <td class="mt-5 py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                         <div class="flex flex-col gap-2 items-center justify-center">
-                            <button wire:click="detail(t.id)"
+                            <button x-on:click="$wire.detail(t.id)"
                                 class="text-blue-600 dark:text-blue-500 hover:underline">Detail</button>
                         </div>
                     </td>

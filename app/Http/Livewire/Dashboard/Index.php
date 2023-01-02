@@ -24,16 +24,19 @@ class Index extends Component
         $this->user = User::query()->where('role', 2)->get();
         $this->batik = ProductBatik::all();
         $this->terpopuler = ProductPesanan::query()
-            ->select(DB::raw('SUM(jumlah) as total'))
+            ->with(['productbatik'])
+            ->select('product_id', DB::raw('SUM(jumlah) as total'))
             ->groupBy('product_id', 'id')
-            ->orderBy('jumlah')
+            ->distinct()
+            ->orderBy('total', 'desc')
+            ->limit(3)
             ->get();
-        dd($this->terpopuler);
+            
         $this->pembayaran = Pembayaran::all();
     }
 
     public function render()
     {
-        return view('livewire.dashboard.index');
+    return view('livewire.dashboard.index');
     }
 }

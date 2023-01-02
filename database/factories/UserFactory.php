@@ -26,6 +26,7 @@ class UserFactory extends Factory
             'alamat' => $this->faker->address(),
             'no_telepon' => $this->faker->phoneNumber(),
             'tanggal_lahir' => $this->faker->date(),
+            'role' => 2,
             'remember_token' => Str::random(10),
             'media' => 'img/error.png'
         ];

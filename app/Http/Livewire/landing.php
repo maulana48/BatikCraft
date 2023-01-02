@@ -17,6 +17,7 @@ class Landing extends Component
     public $productId;
     public $kategori;
     public $cartProduct;
+    public $transaksi;
 
     public $listeners = ['shops' => 'shop', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
 
@@ -29,10 +30,10 @@ class Landing extends Component
                 if($token->tokenable->role == 2){
                     $this->user = $token->tokenable;
                     $this->cartProduct = $this->user->keranjang->productkeranjang->count();
+                    $this->transaksi = $this->user->keranjang->pemesananKeranjang->count();
                 }
             }
-        }
-        $this->transaksi();
+    }
     }
     
     public function home(){
@@ -78,16 +79,6 @@ class Landing extends Component
         }
         else{
             $this->url = 'transaksi';
-        }
-    }
-
-    public function pembayaran(){
-        if($this->user == null){
-            $this->url = 'auth.login';
-            session()->flash('success', 'Silahkan login terlebih dahulu');
-        }
-        else{
-            $this->url = 'pembayaran';
         }
     }
 

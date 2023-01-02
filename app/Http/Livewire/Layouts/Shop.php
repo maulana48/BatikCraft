@@ -40,14 +40,25 @@ class Shop extends Component
         $this->url = 'product';
     }
 
-    public function filtering($kategori = [], $merk = []){
+    public function filtering($kategori = [], $merk = [], $min = 0, $max = 10000000){
         $this->kategoriF = $kategori;
         $this->merkF = $merk;
+        $this->minF = $min;
+        $this->maxF = $max;
 		$this->batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
+        
+        if($min != null || $max != null){
+            $filtered = $this->batik->filter(function ($value, $key) {
+                return $value->harga >= $this->minF && $value->harga <= $this->maxF;
+            });
+        }
+        else{
+            $filtered = $this->batik;
+        }
 
         // filter kategori
         if(count($this->kategoriF) != 0){
-            $filtered = $this->batik->filter(function ($value, $key) {
+            $filtered = $filtered->filter(function ($value, $key) {
                 return in_array($value->kategori_product_id,$this->kategoriF);
             });
         }

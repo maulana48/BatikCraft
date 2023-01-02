@@ -27,11 +27,11 @@
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
                             placeholder="masukkan nama anda">
                     </div>
-                    <div>
+                <div>
                         <label for="gender" class="text-gray-600 mb-2 block">Gender</label>
                         <select wire:model.defer="gender" name="gender" id="gender"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400">
-                            <option disabled selected> -- Pilh gender anda -- </option>
+                            <option selected> -- Pilh gender anda -- </option>
                             <option value="M">Laki-Laki</option>
                             <option value="F">Perempuan</option>
                         </select>

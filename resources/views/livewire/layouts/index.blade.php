@@ -2,14 +2,13 @@
     {{-- The best athlete wants his opponent at his best. --}}
     <!-- banner -->
     <div class="bg-cover bg-no-repeat bg-center py-36"
-        style="background-image: url('{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/banner-bg.jpg');">
+        style="background-image: url('{{ asset('/img') }}/bg-batik.jpg');">
         <div class="container">
-            <h1 class="text-6xl text-gray-800 font-medium mb-4 capitalize">
-                best collection for <br> home decoration
+            <h1 class="text-6xl text-gray-500 font-medium mb-4 capitalize">
+                Dapatkan koleksi batik terbaik <br> Disini
             </h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam <br>
-                accusantium perspiciatis, sapiente
-                magni eos dolorum ex quos dolores odio</p>
+            <p class="text-white drop-shadow-2xl">Kami menyediakan sistem pemesanan yang mudah dan cepat, sehingga Anda dapat dengan mudah membeli batik yang Anda sukai
+            tanpa perlu keluar rumah.</p>
             <div class="mt-12">
                 <button wire:click="shop" class="bg-[#6B4226] border border-[#6B4226] text-white px-8 py-3 font-medium 
                         rounded-md hover:bg-transparent hover:text-[#6B4226]">Lihat Toko</button>
@@ -83,7 +82,7 @@
     <!-- ads -->
     <div class="container pb-16">
         <a href="#">
-            <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/offer.jpg" alt="ads"
+            <img src="{{ asset('/img') }}/test.gif" alt="ads"
                 class="w-full">
         </a>
     </div>

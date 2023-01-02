@@ -27,11 +27,20 @@
                         class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                         8</div>
                 </a> --}}
+                <button wire:click="transaksi" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
+                    <div class="text-2xl">
+                        <i class="fa-solid fa-rectangle-list"></i>
+                    </div>
+                    <div class="text-xs leading-3">Transaksi</div>
+                    <template x-if="$wire.transaksi != null">
+                        <div x-text="$wire.transaksi" class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs"></div>
+                    </template>
+                </button>
                 <button wire:click="cart" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
-                    <div class="text-xs leading-3">Cart</div>
+                    <div class="text-xs leading-3">Keranjang</div>
                     <template x-if="$wire.cartProduct != null">
                         <div x-text="$wire.cartProduct" class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs"></div>
                     </template>
@@ -40,7 +49,7 @@
                     <div class="text-2xl">
                         <i class="fa-regular fa-user"></i>
                     </div>
-                    <div class="text-xs leading-3">Account</div>
+                    <div class="text-xs leading-3">Akun</div>
                 </button>
             </div>
         </div>
@@ -71,8 +80,6 @@
                 <div class="flex items-center space-x-6 capitalize">
                     <button x-on:click="$wire.home()" class="text-gray-200 hover:text-white transition">Home</button>
                     <button x-on:click="$wire.shop()" class="text-gray-200 hover:text-white transition">Toko</button>
-                    <button x-on:click="true" href="#" class="text-gray-200 hover:text-white transition">About us</button>
-                    <button x-on:click="true" href="#" class="text-gray-200 hover:text-white transition">Contact us</button>
                 </div>
                 @if(!$user)
                     <div class="flex items-center space-x-6 capitalize">

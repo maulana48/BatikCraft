@@ -1,7 +1,6 @@
 <div>
     {{-- Success is as dangerous as failure. --}}
     <nav id="header" class="bg-gray-900 z-10 fixed w-full z-10 top-0 shadow">
-        <div><input type="text" wire:model="url"></div>
         {{-- Care about people's approval and you will be their prisoner. --}}
         <div class="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3 md:pb-0">
     
@@ -17,8 +16,8 @@
     
                     <div class="relative text-sm text-gray-100">
                         <button id="userButton" class="flex items-center focus:outline-none mr-3">
-                            <img class="w-8 h-8 rounded-full mr-4" src="http://i.pravatar.cc/300" alt="Avatar of User">
-                            <span class="hidden md:inline-block text-gray-100">Hi, User</span>
+                            <img class="w-8 h-8 rounded-full mr-4" src="{{ $admin->media }}" alt="Avatar of User">
+                            <span class="hidden md:inline-block text-gray-100">{{ $admin->nama }}</span>
                             <svg class="pl-2 h-2 fill-current text-gray-100" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
@@ -31,7 +30,7 @@
                         <div id="userMenu"
                             class="bg-gray-900 rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
                             <ul class="list-reset text-center">
-                                <li><button wire:click="login"
+                                <li><button
                                         class="mx-auto py-2 block text-gray-100 hover:bg-gray-800 no-underline hover:no-underline">My profile</button>
                                 <li>
                                     <hr class="border-t mx-2 border-gray-400">
@@ -79,12 +78,6 @@
                             <i class="fa fa-clipboard-list fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Pemesanan</span>
                         </button>
                     </li>
-                    <li class="mr-6 my-2 md:my-0">
-                        <button  wire:click="footer"
-                            class="block py-1 md:py-3 pl-1 align-middle @if($url == 'layouts.footer') text-blue-400 border-blue-400 @else text-gray-500 border-gray-900  @endif no-underline hover:text-gray-100 border-b-2  hover:border-purple-400">
-                            <i class="fa fa-envelope fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Messages</span>
-                        </button>
-                    </li>
                 </ul>
     
                 <div class="relative pull-right pl-4 pr-4 md:pr-0">
@@ -101,10 +94,6 @@
                 </div>
     
             </div>
-            @else
-                <div class="w-1/2 pr-0 flex justify-end items-center space-x-6 capitalize">
-                    <button wire:click="" class=" text-gray-200 hover:text-white transition">Test</button>
-                </div>
             @endif
     
         </div>

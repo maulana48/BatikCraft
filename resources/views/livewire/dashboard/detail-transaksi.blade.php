@@ -1,4 +1,4 @@
-<div class="container p-12 mx-auto bg-[#111827]">
+<div class="container p-12 mx-auto bg-white">
     <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
         <div class="flex flex-col md:w-full">
             <h2 class="mb-4 font-bold md:text-xl text-heading ">Shipping Address
@@ -76,19 +76,19 @@
                 </h2>
                 <div class="mt-8">
                     <div class="flex flex-col space-y-4">
-                        @dd($detailTransaksi->productpesanan->productbatik)
-                        @foreach ($detailTransaksi->productpesanan->productbatik as $p)
+                        @foreach ($detailTransaksi->productpesanan as $p)
                             <div class="flex space-x-4">
                                 <div>
-                                    <img src="{{ $p->media }}" alt="image" class="w-60">
+                                    <img src="{{ $p->productbatik->media }}" alt="image" class="w-60">
                                 </div>
                                 <div>
-                                    <h2 class="text-xl font-bold">{{ $p->nama }}</h2>
-                                    <p class="text-sm">Merk : {{ $p->merk }}</p>
-                                    <span class="text-red-600">Harga : </span> Rp.{{ $p->harga }}
+                                    <h2 class="text-xl font-bold">{{ $p->productbatik->nama }}</h2>
+                                    <p class="text-sm">Merk : {{ $p->productbatik->merk }}</p>
+                                    <p class="text-sm">Jumlah : {{ $p->jumlah }}</p>
+                                    <span class="text-sm">Harga : </span> Rp.{{ (int)$p->productbatik->harga }}
                                 </div>
                                 <div>
-                                    <svg xmlns="{{ $p->media }}" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    <svg xmlns="{{ $p->productbatik->media }}" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M6 18L18 6M6 6l12 12" />
@@ -103,13 +103,16 @@
                 </div>
                 <div
                     class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                    Total Harga<span class="ml-2">$40.00</span></div>
+                    Total Harga<span class="ml-2">Rp. {{ (int)$detailTransaksi->total_harga }}</span></div>
                 <div
                     class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                    Biaya pengiriman<span class="ml-2">$10</span></div>
+                    Biaya pengiriman<span class="ml-2">gratis</span></div>
                 <div
                     class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                    Total<span class="ml-2">$50.00</span></div>
+                Total<span class="ml-2">Rp. {{ (int)$detailTransaksi->total_harga }}</span></div>
+                <div
+                    class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
+                Status Pembayaran : <span class="ml-2">{{ $detailTransaksi->pembayaran->status == 2 ? 'Lunas' : 'Belum Lunas' }}</span></div>
             </div>
         </div>
     </div>
