@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\{ DB };
 use App\Models\{ 
     ProductBatik,
     Pemesanan,
+    Pembayaran,
     ProductPesanan,
     PemesananKeranjang,
 };
@@ -76,7 +77,7 @@ class Cart extends Component
                 'alamat_pengiriman' => $this->user->alamat,
                 'metode_pengiriman' => 'J&T mungkin?',
                 'estimasi_waktu' => now()->addDays(7),
-                'status' => 3,
+                'status' => 1,
             ];
             
             $pemesanan = Pemesanan::create($payload);
@@ -95,6 +96,15 @@ class Cart extends Component
             $pemesananKeranjang = PemesananKeranjang::create([
                 'keranjang_id' => $this->user->keranjang->id,
                 'pemesanan_id' => $pemesanan->id
+            ]);
+
+            $pembayaran = Pembayaran::create([
+                'pemesanan_id' => $pemesanan->id,
+                'no_pembayaran' => $this->user->id . (int)(time() / (60*60*24)),
+                'total_biaya' => $pemesanan->total_harga,
+                'jumlah_yang_dibayar' => $pemesanan->total_harga,
+                'metode' => 'COD',
+                'status' => 1
             ]);
 
             session()->flash('success', 'Pemesanan berhasil!');

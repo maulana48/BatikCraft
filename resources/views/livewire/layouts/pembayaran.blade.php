@@ -66,10 +66,10 @@
             </div>
 
             <div class="mt-4">
-                <button x-on:click="bayared = bayared ? true : await $wire.bayar(true)"
+                <button x-on:click="bayared ? true : await $wire.bayar(true)"
                     class="w-full py-3 px-4 text-center text-white bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium flex justify-center items-baseline gap-3">
                     <i x-bind:class="bayared ? 'fa-solid fa-circle-check' : ''"></i>
-                    <p x-text="bayared ? bayared : 'Lakukan Pembayaran'"></p>
+                    <p x-text="bayared ? 'Transaksi Selesai' : 'Lakukan Pembayaran'"></p>
                 </button>
             </div>
         </div>

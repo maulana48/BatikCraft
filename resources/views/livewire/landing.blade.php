@@ -4,7 +4,7 @@
     <header class="py-4 shadow-sm bg-white">
         <div class="container flex items-center justify-between">
             <a href="index.html">
-                <img src="/img/logo3.png".svg" alt="Logo"
+                <img src="/img/logo3.png" alt="Logo"
                     class="w-24">
             </a>
     

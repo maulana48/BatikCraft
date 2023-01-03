@@ -6,7 +6,7 @@
     
             <div class="w-1/2 pl-2 md:pl-0">
                 <a class="text-gray-100 text-base xl:text-xl no-underline hover:no-underline font-bold" href="#">
-                    <i class="fas fa-moon text-blue-400 pr-3"></i> Admin Dark Mode
+                    <img src="/img/logo3.png" alt="">
                 </a>
             </div>
 
