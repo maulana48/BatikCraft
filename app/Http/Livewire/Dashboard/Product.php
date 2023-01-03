@@ -7,7 +7,8 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\{ File, DB };
 use App\Models\{ 
     ProductBatik,
-    KategoriProduct
+    KategoriProduct,
+    Media
 };
 
 class Product extends Component
@@ -31,7 +32,7 @@ class Product extends Component
 	public $stok;
 	public $asal_kota;
 	public $motif_batik;
-	public $media;
+	public $media = [];
     
     public function mount(){
         $batik = ProductBatik::with(['reviewproduct:rating', 'kategoriproduct'])
@@ -81,15 +82,24 @@ class Product extends Component
             'stok' => 'required',
             'asal_kota' => 'required',
             'motif_batik' => 'required',
-            'media' => 'required|image|max:2048',
+            'media' => 'required',  // |image|max:2048
         ];
 
         $payload = $this->validate($rules, $messages);
-        if($this->media){
-            $payload['media'] = $this->media->store('img/Product', ['disk' => 'public_uploads']);
-        }
-        
+        $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);
         $batik = ProductBatik::create($payload);
+        
+        if($this->media){
+            foreach ($this->media as $media) {
+                $payload = [
+                    'entitas_id' => $batik->id,
+                    'nama_entitas' => 'product_batik',
+                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'ekstensi' => substr($media, strrpos($media, '.')+1)
+                ];
+                Media::create($payload);
+            }
+        }
 
         if(!$batik){
             return session()->flash('Error', 'Gagal menambahkan data product, coba lagi');
@@ -114,7 +124,7 @@ class Product extends Component
         $this->stok = $batikEdit->stok;
         $this->asal_kota = $batikEdit->asal_kota;
         $this->motif_batik = $batikEdit->motif_batik;
-        $this->media = $batikEdit->media;
+        $this->media = [$batikEdit->media];
     
         // $this->emitUp('editProduct', $id);
     }
@@ -141,12 +151,26 @@ class Product extends Component
             'media' => 'nullable|max:2048',
         ];
         $payload = $this->validate($rules, $messages);
-        if(!$this->media){
-            $payload['media'] = $this->media->store('img/Product', ['disk' => 'public_uploads']);
-        }
         
         $batik = ProductBatik::find($id);
+        
+        if(!$this->media){
+            $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);
+        }
+
+        // foreach ($this->media as $media) {
+        //     $payload = [
+        //         'entitas_id' => $batik->id,
+        //         'nama_entitas' => 'product_batik',
+        //         'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+        //         'ekstensi' => substr($media, strrpos($media, '.')+1)
+        //     ];
+        //     Media::create($payload);
+        // }
+
         $batik = $batik->update($payload);
+        
+        
 
         if(!$batik){
             return session()->flash('Error', 'Gagal update data product, coba lagi');

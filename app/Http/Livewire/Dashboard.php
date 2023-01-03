@@ -35,6 +35,7 @@ class Dashboard extends Component
             $this->url = 'index';
             // $this->location->refresh();
         }
+        $this->product();
     }
 
     public function home(){

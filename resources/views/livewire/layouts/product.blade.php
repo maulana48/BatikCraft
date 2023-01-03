@@ -21,7 +21,7 @@
     <div class="container grid grid-cols-2 gap-6">
         <div>
             @if ($batik['media'])
-                <img src="{{ asset($batik['media']) }}" alt="product" class="w-full">
+                <img src="{{ asset($batik['media']) }}" alt="product" class="w-full max-h-[550px]">
              @else
                 <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/../assets/images/products/product1.jpg" alt="product" class="w-full">
             @endif
@@ -70,7 +70,7 @@
                 </p>
             </div>
             <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                <p class="text-xl text-[#6B4226] font-semibold">{{ $batik['harga'] }}</p>
+                <p class="text-xl text-[#6B4226] font-semibold">Rp.{{ (int)$batik['harga'] }}</p>
                 {{-- <p class="text-base text-gray-400 line-through">$55.00</p> --}}
             </div>
 

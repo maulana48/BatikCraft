@@ -8,6 +8,7 @@ use App\Models\{
     ProductBatik,
     Pemesanan,
     ProductPesanan,
+    PemesananKeranjang,
 };
 
 class Cart extends Component
@@ -79,7 +80,7 @@ class Cart extends Component
             ];
             
             $pemesanan = Pemesanan::create($payload);
-            
+
             foreach($this->checked as $keys => $check){
                 $payload = [
                     'product_id' => $check->product_id,
@@ -90,6 +91,11 @@ class Cart extends Component
                 ProductPesanan::create($payload);
                 $check->delete();
             }
+
+            $pemesananKeranjang = PemesananKeranjang::create([
+                'keranjang_id' => $this->user->keranjang->id,
+                'pemesanan_id' => $pemesanan->id
+            ]);
 
             session()->flash('success', 'Pemesanan berhasil!');
         }

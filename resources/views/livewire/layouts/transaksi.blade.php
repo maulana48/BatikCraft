@@ -20,10 +20,6 @@
 
         <!-- wishlist -->
         <div class="col-span-9 space-y-4">
-            <div class="flex justify-end">
-                <button wire:click="checkOut" class="py-[10px] px-[20px] rounded-lg bg-blue-600 text-white">Check
-                    out</button>
-            </div>
             <template x-for="(p, index) in pemesanan">
                 <template x-if="p">
                     <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">

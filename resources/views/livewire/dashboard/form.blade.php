@@ -150,9 +150,25 @@
                 <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                     <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
                         <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10 justify-center">
+                            @if(!$media)
                             <img class="has-mask h-36 object-center"
                                 src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
                                 alt="freepik image">
+                            
+                            @elseif(is_string($media[0]))
+                                @foreach($media as $m)
+                                <img class="has-mask h-36 object-center"
+                                    src="{{ $m }}"
+                                    alt="freepik image">
+                                @endforeach
+                            @else
+                                @foreach($media as $m)
+                                <img class="has-mask h-36 object-center"
+                                    src="{{ $m->temporaryUrl() }}"
+                                    alt="freepik image">
+                                @endforeach
+                            @endif
+                            <div wire:loading wire:target="media" class="text-lg p-2 absolute bg-gray-300">Uploading...</div>
                         </div>
                         <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span> files here
                             <br /> or
@@ -160,7 +176,7 @@
                             computer
                         </p>
                     </div>
-                    <input wire:model="media" type="file" name="media" id="media" class="hidden">
+                    <input wire:model="media" multiple type="file" name="medias" id="medias" class="hidden">
                 </label>
             </div>
         </div>

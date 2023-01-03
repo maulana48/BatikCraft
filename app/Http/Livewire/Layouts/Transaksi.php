@@ -19,7 +19,6 @@ class Transaksi extends Component
     
     public function mount($user){
         $this->user = $user;
-
         $this->pemesanan = PemesananKeranjang::query()
             ->where('keranjang_id', $this->user->keranjang->id)
             ->get();
@@ -28,8 +27,6 @@ class Transaksi extends Component
             ->with(['pembayaran', 'productpesanan'])
             ->whereIn('id', $this->pemesanan->map->only(['pemesanan_id']))
             ->get();
-            
-
         $this->url = 'transaksi';
     }
 

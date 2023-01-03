@@ -55,6 +55,7 @@
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+
             <template x-for="(b, index) in batik">
                 <template x-if="b">
                     <tr class="hover:bg-gray-200 dark:hover:bg-gray-700">
@@ -68,7 +69,7 @@
                         <td x-text="b.nama" class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
                         <td x-text="'Rp.' + b.harga" class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
                         <td class="py-6 px-8 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
-                            <img x-bind:src="'{{ asset('/') }}' + b.media" src="" alt="kosong">
+                            <img x-bind:src="b.media" class="min-w-[140px] max-h-[200px]" alt="kosong">
                         </td>
                         <td x-text="b.stok" class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
                         <td x-text="b.kategoriproduct.nama" class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
@@ -86,6 +87,7 @@
                     </tr>
                 </template>
             </template>
+            
         </tbody>
     </table>
 </div>

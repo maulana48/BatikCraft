@@ -2,7 +2,7 @@
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
     <div class="relative">
         @if ($batik['media'])
-            <img src="{{ asset($batik['media']) }}" alt="product 1" class="w-full">
+            <img src="{{ asset($batik['media']) }}" alt="product 1" class="w-full min-h-80 max-h-80">
         @else
             <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/products/product1.jpg" alt="product 1" class="w-full">
         @endif

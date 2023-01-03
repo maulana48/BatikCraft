@@ -5,7 +5,7 @@
         <div class="container flex items-center justify-between">
             <p class="text-white">&copy; TailCommerce - All Right Reserved</p>
             <div>
-                <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/logo.svg" alt="logo" class="w-30">
+                <img src="/img/logo3.png".svg" alt="logo" class="w-24">
             </div>
         </div>
     </div>
