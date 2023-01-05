@@ -15,8 +15,14 @@ class ProductPesanan extends Model
     {
         return $this->belongsTo(Pemesanan::class, 'pemesanan_id');
     }
+    
     public function productbatik()
     {
         return $this->belongsTo(ProductBatik::class, 'product_id');
+    }
+    
+    public function reviewproduct()
+    {
+        return $this->hasMany(ReviewProduct::class, 'product_id', 'product_id');
     }
 }

@@ -26,7 +26,7 @@
             </h4>
         </a>
         <div class="flex items-baseline mb-1 space-x-2">
-            <p class="text-xl text-[#6B4226] font-semibold">Rp. {{ $batik['harga'] }}</p>
+            <p class="text-xl text-[#6B4226] font-semibold">Rp. {{ (int)$batik['harga'] }}</p>
             {{-- <p class="text-sm text-gray-400 line-through">{{ $batik['']harga }}</p> --}}
         </div>
         <div class="flex items-center">

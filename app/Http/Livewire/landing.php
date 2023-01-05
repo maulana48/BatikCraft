@@ -34,6 +34,7 @@ class Landing extends Component
                 }
             }
         }
+        $this->transaksi();
     }
     
     public function home(){

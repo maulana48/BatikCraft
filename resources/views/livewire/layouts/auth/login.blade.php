@@ -19,10 +19,13 @@
                     <div class="bg-green-500 w-full p-2 m-2">
                         {{ session('success') }}
                     </div>
-                @endif
-                @if (session()->has('loginError'))
+                @elseif (session()->has('loginError'))
                     <div class="bg-red-500 w-full p-2 m-2">
                         {{ session('loginError') }}
+                    </div>
+                @elseif(session()->has('warning'))
+                    <div class="bg-yellow-500 w-full p-2 m-2">
+                        {{ session('warning') }}
                     </div>
                 @endif
                     <div class="space-y-2">
