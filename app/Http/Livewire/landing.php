@@ -22,7 +22,7 @@ class Landing extends Component
     public $listeners = ['shops' => 'shop', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
 
     public function mount(){
-        $this->kategori = KategoriProduct::all();
+        $this->kategori = KategoriProduct::query()->limit(6)->get();
         $token = session()->get('token'. '');
         if(!$token == ''){
             $token = PAT::findToken($token->plainTextToken);
@@ -34,7 +34,6 @@ class Landing extends Component
                 }
             }
         }
-        $this->transaksi();
     }
     
     public function home(){

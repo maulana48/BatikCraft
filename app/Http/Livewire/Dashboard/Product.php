@@ -21,6 +21,7 @@ class Product extends Component
     public $formUrl;
     public $batik;
 	public $kategori;
+	public $listCat = false;
     //protected $listeners = ['delete' => 'mount'];
 
 	public $nama;
@@ -56,20 +57,73 @@ class Product extends Component
     //     $this->emitUp('transaksi');
     // }
     
+    public function list(){
+        $this->listCat = false;
+        $this->render();
+    }
+
+    public function listCat(){
+        $this->listCat = true;
+        $this->render();
+    }
+
+    public function createCat(){
+        $this->url = 'cat-form';
+        $this->urlForm = 'createCategory';
+        $this->title = 'Tambah Category Baru';
+        $this->message = 'Masukkan data untuk categori ini.';
+    }
+
+    public function createCategory(){
+        $messages = [
+            'required' => 'Input :attribute tidak boleh kosong.',
+            'min' => 'Input :attribute harus lebih dari :min karakter',
+            'image' => 'gambar tidak valid',
+        ];
+
+        $rules = [
+            'nama' => 'required|min:3',
+            'deskripsi' => 'required|min:5',
+            'media' => 'required',  // |image|max:2048
+        ];
+
+        $payload = $this->validate($rules, $messages);
+        $payload['media'] = $this->media[0]->store('img/Kategori', ['disk' => 'public_uploads']);
+        $category = KategoriProduct::create($payload);
+        
+        if(!$category){
+            return session()->flash('Error', 'Gagal menambahkan data kategori, coba lagi');
+        }
+        
+        if($this->media){
+            foreach ($this->media as $media) {
+                $payload = [
+                    'entitas_id' => $category->id,
+                    'nama_entitas' => 'kategori_product',
+                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
+                    'ekstensi' => substr($media, strrpos($media, '.')+1)
+                ];
+                Media::create($payload);
+            }
+        }
+        $this->media = null;
+
+        return session()->flash('success', 'Data kategori berhasil ditambahkan');
+    }
+    
     public function create(){
         $this->url = 'form';
         $this->urlForm = 'createProduct';
         $this->title = 'Tambah Produk Baru';
         $this->message = 'Masukkan data untuk produk ini.';
     }
+    
 
     public function createProduct(){
         $messages = [
             'required' => 'Input :attribute tidak boleh kosong.',
-            'min' => 'Input :attribute harus lebih dari 5 karakter',
-            'email' => ':attribute tidak valid',
-            'image' => 'gambar tidak valid',
-            'confirmed' => 'konfirmasi password tidak valid'
+            'min' => 'Input :attribute harus lebih dari :min karakter',
+            'image' => 'gambar tidak valid'
         ];
 
         $rules = [
@@ -82,12 +136,16 @@ class Product extends Component
             'stok' => 'required',
             'asal_kota' => 'required',
             'motif_batik' => 'required',
-            'media' => 'required',  // |image|max:2048
+            'media' => 'required|image|max:2048',  // 
         ];
-
+        
         $payload = $this->validate($rules, $messages);
         $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);
         $batik = ProductBatik::create($payload);
+        
+        if(!$batik){
+            return session()->flash('Error', 'Gagal menambahkan data product, coba lagi');
+        }
         
         if($this->media){
             foreach ($this->media as $media) {
@@ -100,10 +158,8 @@ class Product extends Component
                 Media::create($payload);
             }
         }
-
-        if(!$batik){
-            return session()->flash('Error', 'Gagal menambahkan data product, coba lagi');
-        }
+        
+        $this->media = null;
 
         return session()->flash('success', 'Data product berhasil ditambahkan');
     }
@@ -132,10 +188,9 @@ class Product extends Component
     public function editProduct($id){
         $messages = [
             'required' => 'Input :attribute tidak boleh kosong.',
-            'min' => 'Input :attribute harus lebih dari 5 karakter',
+            'min' => 'Input :attribute harus lebih dari :min karakter',
             'email' => ':attribute tidak valid',
             'image' => 'gambar tidak valid',
-            'confirmed' => 'konfirmasi password tidak valid'
         ];
 
         $rules = [
@@ -157,6 +212,8 @@ class Product extends Component
         if(!$this->media){
             $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);
         }
+
+        $this->media = null;
 
         // foreach ($this->media as $media) {
         //     $payload = [
