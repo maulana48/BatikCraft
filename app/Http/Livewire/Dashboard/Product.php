@@ -66,50 +66,6 @@ class Product extends Component
         $this->listCat = true;
         $this->render();
     }
-
-    public function createCat(){
-        $this->url = 'cat-form';
-        $this->urlForm = 'createCategory';
-        $this->title = 'Tambah Category Baru';
-        $this->message = 'Masukkan data untuk categori ini.';
-    }
-
-    public function createCategory(){
-        $messages = [
-            'required' => 'Input :attribute tidak boleh kosong.',
-            'min' => 'Input :attribute harus lebih dari :min karakter',
-            'image' => 'gambar tidak valid',
-        ];
-
-        $rules = [
-            'nama' => 'required|min:3',
-            'deskripsi' => 'required|min:5',
-            'media' => 'required',  // |image|max:2048
-        ];
-
-        $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Kategori', ['disk' => 'public_uploads']);
-        $category = KategoriProduct::create($payload);
-        
-        if(!$category){
-            return session()->flash('Error', 'Gagal menambahkan data kategori, coba lagi');
-        }
-        
-        if($this->media){
-            foreach ($this->media as $media) {
-                $payload = [
-                    'entitas_id' => $category->id,
-                    'nama_entitas' => 'kategori_product',
-                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
-                    'ekstensi' => substr($media, strrpos($media, '.')+1)
-                ];
-                Media::create($payload);
-            }
-        }
-        $this->media = null;
-
-        return session()->flash('success', 'Data kategori berhasil ditambahkan');
-    }
     
     public function create(){
         $this->url = 'form';
@@ -243,6 +199,127 @@ class Product extends Component
         File::delete(public_path($batik->media));
         $batik->delete();
         session()->flash('success', 'Data product berhasil dihapus');
+        return 'deleted';
+    }
+
+    public function createCat(){
+        $this->url = 'cat-form';
+        $this->urlForm = 'createCategory';
+        $this->title = 'Tambah Category Baru';
+        $this->message = 'Masukkan data untuk categori ini.';
+    }
+
+    public function createCategory(){
+        $messages = [
+            'required' => 'Input :attribute tidak boleh kosong.',
+            'min' => 'Input :attribute harus lebih dari :min karakter',
+            'image' => 'gambar tidak valid',
+        ];
+
+        $rules = [
+            'nama' => 'required|min:3',
+            'deskripsi' => 'required|min:5',
+            'media' => 'required',  // |image|max:2048
+        ];
+
+        $payload = $this->validate($rules, $messages);
+        $payload['media'] = $this->media[0]->store('img/Kategori', ['disk' => 'public_uploads']);
+        $kategori = KategoriProduct::create($payload);
+        
+        if(!$kategori){
+            return session()->flash('Error', 'Gagal menambahkan data kategori, coba lagi');
+        }
+        
+        if($this->media){
+            foreach ($this->media as $media) {
+                $payload = [
+                    'entitas_id' => $kategori->id,
+                    'nama_entitas' => 'kategori_product',
+                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
+                    'ekstensi' => substr($media, strrpos($media, '.')+1)
+                ];
+                Media::create($payload);
+            }
+        }
+        $this->media = null;
+
+        return session()->flash('success', 'Data kategori berhasil ditambahkan');
+    }
+
+    public function editCat($id){
+        $this->url = 'cat-form';
+        $this->urlForm = 'editCategory(' .$id. ')';
+        $this->title = 'Edit Data Kategori';
+        $this->message = 'Masukkan data terbaru untuk kategori ini.';
+
+        $kategoriEdit = $this->kategori->find($id);
+        $this->nama = $kategoriEdit->nama;
+        $this->deskripsi = $kategoriEdit->deskripsi;
+    
+        // $this->emitUp('editProduct', $id);
+    }
+
+    public function editCategory($id){
+        $messages = [
+            'required' => 'Input :attribute tidak boleh kosong.',
+            'min' => 'Input :attribute harus lebih dari :min karakter',
+            'image' => 'gambar tidak valid',
+        ];
+
+        $rules = [
+            'nama' => 'required|min:3',
+            'deskripsi' => 'required|min:5',
+        ];
+        $payload = $this->validate($rules, $messages);
+
+        $kategori = KategoriProduct::find($id);
+        
+        if($this->media){
+            $kategori->medias()->each->delete();
+            foreach ($this->media as $media) {
+                $payload = [
+                    'entitas_id' => $kategori->id,
+                    'nama_entitas' => 'kategori_product',
+                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
+                    'ekstensi' => substr($media, strrpos($media, '.')+1)
+                ];
+                Media::create($payload);
+            }
+        }
+
+        $this->media = null;
+
+        // foreach ($this->media as $media) {
+        //     $payload = [
+        //         'entitas_id' => $batik->id,
+        //         'nama_entitas' => 'product_batik',
+        //         'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+        //         'ekstensi' => substr($media, strrpos($media, '.')+1)
+        //     ];
+        //     Media::create($payload);
+        // }
+
+        $kategori = $kategori->update($payload);
+        
+        
+
+        if(!$kategori){
+            return session()->flash('Error', 'Gagal update data kategori, coba lagi');
+        }
+
+        return session()->flash('success', 'Update data kategori berhasil');
+
+    }
+
+    public function deleteCat($id)
+    {
+        $kategori = $this->kategori->find($id);
+        foreach($kategori->medias() as $media){
+            File::delete(public_path($media->file));
+            $media->delete();
+        }
+        $kategori->delete();
+        session()->flash('success', 'Data kategori berhasil dihapus');
         return 'deleted';
     }
 

@@ -24,7 +24,8 @@
             @endif
         </div>
     </div>
-    <template x-if="!$wire.listCat">
+    @if (!$listCat)
+    {{-- <template x-if="!$wire.listCat"> --}}
         <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
             <thead class="bg-gray-100 dark:bg-gray-700">
                 <tr>
@@ -99,9 +100,9 @@
                 
             </tbody>
         </table>
-    </template>
-    
-    <template x-if="$wire.listCat">
+    {{-- </template>     --}}
+    @else
+    {{-- <template x-if="$wire.listCat"> --}}
         <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
             <thead class="bg-gray-100 dark:bg-gray-700">
                 <tr>
@@ -152,6 +153,7 @@
                 
             </tbody>
         </table>
-    </template>
+    {{-- </template> --}}
+    @endif
     
 </div>

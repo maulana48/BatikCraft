@@ -14,8 +14,8 @@ class KategoriProduct extends Model
     {
         return $this->hasMany(ProductBatik::class, 'kategori_product_id', 'id');
     }
-    public function media(): HasOne
+    public function medias()
     {
-        return $this->hasOne(Media::class, ['entitas_id', 'nama_entitas'], ['id', 'entity_name']);
+        return Media::query()->where([['entitas_id', '=', $this->id], ['nama_entitas', '=', $this->entity_name]])->get();
     }
 }
