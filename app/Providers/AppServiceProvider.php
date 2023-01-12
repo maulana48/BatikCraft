@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,7 +25,9 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {/**
+    {
+        URL::forceScheme('https');
+        /**
          * Paginate a standard Laravel Collection.
          *
          * @param int $perPage
