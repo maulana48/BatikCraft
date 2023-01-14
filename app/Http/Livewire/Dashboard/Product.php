@@ -175,6 +175,7 @@ class Product extends Component
                 ];
                 Media::create($data);
                 $payload['media'] = $data['file'];
+                dd($data['file'], $payload['media']);
             }
         }
 
