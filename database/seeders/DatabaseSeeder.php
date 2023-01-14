@@ -28,8 +28,20 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
             'media' => 'img/error.png'
         ]);
+        \App\Models\User::factory()->create([
+            'nama' => 'test1',
+            'gender' => 'M',
+            'email' => 'test1@gmail.com',
+            'password' => 'test1',
+            'alamat' => 'test1',
+            'no_telepon' => '111111111111',
+            'tanggal_lahir' => '2000-01-01',
+            'role' => 2,
+            'remember_token' => Str::random(10),
+            'media' => 'img/error.png'
+        ]);
 
-        \App\Models\User::factory(5)->create();
+        \App\Models\User::factory(4)->create();
         \App\Models\KategoriProduct::factory(3)->create();
         \App\Models\Keranjang::factory(5)->create();
         \App\Models\Pembayaran::factory(6)->create();
