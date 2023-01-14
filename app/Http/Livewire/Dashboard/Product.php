@@ -92,7 +92,7 @@ class Product extends Component
             'stok' => 'required',
             'asal_kota' => 'required',
             'motif_batik' => 'required',
-            'media' => 'required|image|max:2048',  // 
+            'media.*' => 'required|image|max:2048',  // 
         ];
         
         $payload = $this->validate($rules, $messages);
@@ -159,7 +159,7 @@ class Product extends Component
             'stok' => 'required',
             'asal_kota' => 'required',
             'motif_batik' => 'required',
-            'media' => 'nullable|max:2048',
+            'media.*' => 'nullable|max:2048',
         ];
         $payload = $this->validate($rules, $messages);
         
@@ -219,7 +219,7 @@ class Product extends Component
         $rules = [
             'nama' => 'required|min:3',
             'deskripsi' => 'required|min:5',
-            'media' => 'required',  // |image|max:2048
+            'media.*' => 'required',  // |image|max:2048
         ];
 
         $payload = $this->validate($rules, $messages);

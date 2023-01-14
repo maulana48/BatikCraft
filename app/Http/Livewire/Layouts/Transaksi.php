@@ -73,7 +73,7 @@ class Transaksi extends Component
             'judul' => $reviewData[0],
             'komentar' => $reviewData[1],
             'rating' => $reviewData[2],
-            'media' => 'test'
+            'media.*' => 'test'
         ];
 
         $messages = [
@@ -88,7 +88,7 @@ class Transaksi extends Component
             'judul' => 'required|min:5',
             'komentar' => 'required|min:5',
             'rating' => 'required|min:1|max:5',
-            'media' => 'required'
+            'media.*' => 'required'
         ];
 
         
