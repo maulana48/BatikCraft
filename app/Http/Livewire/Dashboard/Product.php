@@ -96,7 +96,7 @@ class Product extends Component
         ];
         
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);
+        $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);    // dalam proses testing
         $batik = ProductBatik::create($payload);
         
         if(!$batik){
@@ -105,13 +105,13 @@ class Product extends Component
         
         if($this->media){
             foreach ($this->media as $media) {
-                $payload = [
+                $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
                     'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
-                Media::create($payload);
+                Media::create($data);
             }
         }
         
@@ -165,21 +165,20 @@ class Product extends Component
         
         $batik = ProductBatik::find($id);
         
-        if(!$this->media){
-            $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);
+        if($this->media){
+            foreach ($this->media as $media) {
+                $data = [
+                    'entitas_id' => $batik->id,
+                    'nama_entitas' => 'product_batik',
+                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'ekstensi' => substr($media, strrpos($media, '.')+1)
+                ];
+                Media::create($data);
+                $payload['media'] = $data['file'];
+            }
         }
 
         $this->media = null;
-
-        // foreach ($this->media as $media) {
-        //     $payload = [
-        //         'entitas_id' => $batik->id,
-        //         'nama_entitas' => 'product_batik',
-        //         'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
-        //         'ekstensi' => substr($media, strrpos($media, '.')+1)
-        //     ];
-        //     Media::create($payload);
-        // }
 
         $batik = $batik->update($payload);
         
