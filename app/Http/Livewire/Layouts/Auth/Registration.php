@@ -46,7 +46,7 @@ class Registration extends Component
         ];
         
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media->store('img/User', ['disk' => 'redis']);
+        $payload['media'] = $this->media->store('img/User', ['disk' => 'public_uploads']);
 
         $payload['role'] = 2;
         

@@ -96,7 +96,7 @@ class Product extends Component
         ];
         
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'redis']);    // dalam proses testing
+        $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);    // dalam proses testing
         $batik = ProductBatik::create($payload);
         
         if(!$batik){
@@ -108,7 +108,7 @@ class Product extends Component
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'redis']),
+                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($data);
@@ -170,12 +170,12 @@ class Product extends Component
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'redis']),
+                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($data);
                 $payload['media'] = $data['file'];
-                $files = Storage::disk('redis')->allFiles();
+                $files = Storage::disk('public_uploads')->allFiles();
                 dd($this->media, $data['file'], $files);
             }
         }
@@ -224,7 +224,7 @@ class Product extends Component
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Kategori', ['disk' => 'redis']);
+        $payload['media'] = $this->media[0]->store('img/Kategori', ['disk' => 'public_uploads']);
         $kategori = KategoriProduct::create($payload);
         
         if(!$kategori){
@@ -236,7 +236,7 @@ class Product extends Component
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
-                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'redis']),
+                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
@@ -281,7 +281,7 @@ class Product extends Component
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
-                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'redis']),
+                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
@@ -294,7 +294,7 @@ class Product extends Component
         //     $payload = [
         //         'entitas_id' => $batik->id,
         //         'nama_entitas' => 'product_batik',
-        //         'file' => $media = '/' . $media->store('img/Product', ['disk' => 'redis']),
+        //         'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
         //         'ekstensi' => substr($media, strrpos($media, '.')+1)
         //     ];
         //     Media::create($payload);
