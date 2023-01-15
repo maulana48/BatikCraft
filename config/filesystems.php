@@ -61,6 +61,17 @@ return [
             'root' => public_path() . '',
         ],
 
+        'redis' => [
+            'client' => 'predis',
+            'default' => [
+                'host' => env('REDIS_HOST', 'containers-us-west-74.railway.app'),
+                'password' => env('REDIS_PASSWORD', 'epxu4BnaHAwaEiz9PoDx'),
+                'port' => env('REDIS_PORT', 5904),
+                'database' => env('REDIS_DB', 0),
+            ],
+        ],
+
+
     ],
 
     /*
