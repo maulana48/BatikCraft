@@ -284,6 +284,8 @@ class Product extends Component
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
+                $files = Storage::disk('public_uploads')->allFiles($directory);
+                dd($media, $files);
             }
         }
 
