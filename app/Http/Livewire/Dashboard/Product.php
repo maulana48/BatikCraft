@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Dashboard;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\{ File, DB };
+use Illuminate\Support\Facades\{ File, DB, Storage };
 use App\Models\{ 
     ProductBatik,
     KategoriProduct,
@@ -175,7 +175,8 @@ class Product extends Component
                 ];
                 Media::create($data);
                 $payload['media'] = $data['file'];
-                dd($data['file'], $payload['media']);
+                $files = Storage::disk('public_uploads')->allFiles($directory);
+                dd($this->media, $data['media'], $files);
             }
         }
 
@@ -284,8 +285,6 @@ class Product extends Component
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
-                $files = Storage::disk('public_uploads')->allFiles($directory);
-                dd($media, $files);
             }
         }
 
