@@ -62,6 +62,7 @@ return [
         ],
 
         'redis' => [
+            'driver' => 'predis',
             'client' => 'predis',
             'default' => [
                 'host' => env('REDIS_HOST', 'containers-us-west-74.railway.app'),
