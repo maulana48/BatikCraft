@@ -176,7 +176,7 @@ class Product extends Component
                 Media::create($data);
                 $payload['media'] = $data['file'];
                 $files = Storage::disk('public_uploads')->allFiles();
-                dd($this->media, $data['media'], $files);
+                dd($this->media, $data['file'], $files);
             }
         }
 
