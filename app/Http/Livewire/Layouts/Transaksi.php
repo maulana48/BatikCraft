@@ -100,7 +100,7 @@ class Transaksi extends Component
                 $payload = [
                     'entitas_id' => $review->id,
                     'nama_entitas' => 'review_product',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'file' =>  '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);

@@ -108,7 +108,7 @@ class Product extends Component
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'file' =>  '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($data);
@@ -170,7 +170,7 @@ class Product extends Component
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
-                    'file' => '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'file' =>  '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($data);
@@ -236,7 +236,7 @@ class Product extends Component
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
-                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
+                    'file' =>  '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
@@ -281,7 +281,7 @@ class Product extends Component
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
-                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
+                    'file' =>  '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
@@ -294,7 +294,7 @@ class Product extends Component
         //     $payload = [
         //         'entitas_id' => $batik->id,
         //         'nama_entitas' => 'product_batik',
-        //         'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+        //         'file' =>  '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
         //         'ekstensi' => substr($media, strrpos($media, '.')+1)
         //     ];
         //     Media::create($payload);
