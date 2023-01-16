@@ -170,7 +170,7 @@ class Product extends Component
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'file' => '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($data);
