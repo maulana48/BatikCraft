@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->id();
             $table->string('entity_name')->default('pemesanan');
-            $table->decimal('total_harga', 9, 2);
+            $table->decimal('total_harga', 15, 2);
             $table->string('alamat_pengiriman');
             $table->string('metode_pengiriman');
             $table->dateTime('estimasi_waktu');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('kategori_product_id');
             $table->string('nama');
             $table->string('merk');
-            $table->decimal('harga');
+            $table->decimal('harga', 9, 2);
             $table->text('deskripsi');
             $table->string('tipe_warna');
             $table->integer('stok');

@@ -73,13 +73,14 @@ class Transaksi extends Component
             'judul' => $reviewData[0],
             'komentar' => $reviewData[1],
             'rating' => $reviewData[2],
-            'media.*' => 'test'
+            'media' => $this->media
         ];
-
+        
         $messages = [
             'required' => 'Input :attribute tidak boleh kosong.',
             'min' => 'Input :attribute harus lebih dari 5 karakter',
-            'max' => 'Input :attribute harus lebih dari 8 karakter'
+            'array' => 'Input :attribute tidak valid',
+            'media.max' => 'File :attribute tidak boleh lebih dari 1 megabytes',
         ];
 
         $rules = [
@@ -88,24 +89,30 @@ class Transaksi extends Component
             'judul' => 'required|min:5',
             'komentar' => 'required|min:5',
             'rating' => 'required|min:1|max:5',
-            'media.*' => 'required'
+            'media' => 'array',
+            'media.*' => 'required|image|max:1024|mimes:jpg,png,jpeg,gif,svg'
         ];
 
-        
+        dd(Validator::validate($reviewData, $rules, $messages));
+        dd('test', $reviewData);
         $reviewData = Validator::validate($reviewData, $rules, $messages);
         $review = $batik->reviewproduct()->create($reviewData);
 
         if($this->media){
             foreach ($this->media as $media) {
+                $media = '/' . $media->store('img/Review', ['disk' => 'public_uploads']);
                 $payload = [
                     'entitas_id' => $review->id,
                     'nama_entitas' => 'review_product',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'file' => $media,
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
+                $reviewData['media'] = $media;
             }
         }
+        $review->update($reviewData);
+        return true;
     }
 
     public function render()

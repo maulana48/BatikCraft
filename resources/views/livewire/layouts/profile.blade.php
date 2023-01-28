@@ -59,8 +59,7 @@
     
             <div class="mt-4">
                 <button type="submit"
-                    class="py-3 px-4 text-center bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium">simpa
-                    n perubahan</button>
+                    class="py-3 px-4 text-center bg-[#6B4226] border border-[#6B4226] rounded-md hover:bg-transparent hover:text-[#6B4226] transition font-medium">simpan perubahan</button>
             </div>
         </div>
         <!-- ./info -->

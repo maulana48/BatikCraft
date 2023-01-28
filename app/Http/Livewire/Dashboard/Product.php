@@ -105,10 +105,11 @@ class Product extends Component
         
         if($this->media){
             foreach ($this->media as $media) {
+                $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'file' => $media,
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($data);
@@ -167,10 +168,11 @@ class Product extends Component
         
         if($this->media){
             foreach ($this->media as $media) {
+                $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
-                    'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+                    'file' => $media,
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($data);
@@ -232,10 +234,11 @@ class Product extends Component
         
         if($this->media){
             foreach ($this->media as $media) {
+                $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']);
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
-                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
+                    'file' => $media,
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
@@ -277,10 +280,11 @@ class Product extends Component
         if($this->media){
             $kategori->medias()->each->delete();
             foreach ($this->media as $media) {
+                $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']);
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
-                    'file' => $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']),
+                    'file' => $media,
                     'ekstensi' => substr($media, strrpos($media, '.')+1)
                 ];
                 Media::create($payload);
@@ -290,10 +294,11 @@ class Product extends Component
         $this->media = null;
 
         // foreach ($this->media as $media) {
+        //     $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
         //     $payload = [
         //         'entitas_id' => $batik->id,
         //         'nama_entitas' => 'product_batik',
-        //         'file' => $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']),
+        //         'file' => $media,
         //         'ekstensi' => substr($media, strrpos($media, '.')+1)
         //     ];
         //     Media::create($payload);

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('entity_name')->default('pembayaran');
             $table->bigInteger('pemesanan_id');
             $table->integer('no_pembayaran');
-            $table->decimal('total_biaya');
-            $table->decimal('jumlah_yang_dibayar');
+            $table->decimal('total_biaya', 15, 2);
+            $table->decimal('jumlah_yang_dibayar', 15, 2);
             $table->string('metode');
             $table->string('status');
             $table->timestamps();

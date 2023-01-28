@@ -43,10 +43,10 @@
                             </p>
                         </div>
                         <div x-text="'Rp.'  + parseInt(b.harga)" class="text-[#6B4226] text-lg font-semibold"></div>
-                        <button x-on:click="b.status = await $wire.checking(b.id)" x-text="(b.status == null) ? 'Pilih untuk Check-out' : b.status"
+                        <button x-on:click="b.status = await $wire.checking(b.id)" x-text="!b.status ? 'Tekan untuk Check-out' : b.status"
                             class="px-6 py-2 text-center text-sm text-white bg-[#6B4226] border border-[#120a1b] rounded hover:bg-transparent hover:text-[#6B4226] transition uppercase font-roboto font-medium"></button>
             
-                        <div x-on:click="deleted = confirm('Pindahkan produk dari keranjang?') ? await $wire.delete(b.id) : 'test'; if(deleted) b = null;" class="text-gray-600 cursor-pointer hover:text-[#6B4226]">
+                        <div x-on:click="deleted = confirm('Pindahkan produk dari keranjang?') ? await $wire.delete(b.id) : false; if(deleted) b = null;" class="text-gray-600 cursor-pointer hover:text-[#6B4226]">
                             <i class="fa-solid fa-trash"></i>
                         </div>
                     </div>

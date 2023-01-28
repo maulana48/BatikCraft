@@ -43,7 +43,7 @@
                             <p x-text="'x' + p.jumlah" class="text-gray-600"></p>
                             <p x-text="parseInt(p.productbatik.harga)" class="text-gray-800 font-medium"></p>
                             <span x-init="count(p.productbatik.harga, p.jumlah)" class="hidden"></span>
-                            <button @click="showModal[index]=true" class="px-6 py-2 text-gray-600 bg-blue-600 rounded shadow-xl" type="button">Beri review</button>
+                            <button @click="!reviewed ? showModal[index]=true : ''" class="px-6 py-2 text-gray-600 bg-blue-600 rounded shadow-xl" type="button" x-text="!reviewed ? 'Beri review': 'Sudah direview'"></button>
                             
                             <!--Overlay-->
                             <div class="overflow-auto" style="background-color: rgba(0,0,0,0.5)" x-show="showModal[index]"
@@ -70,11 +70,11 @@
                                     </div>
                             
                                     <!-- content -->
-                                    <form class="space-y-6" x-on:submit.prevent="console.log(media); $wire.review(p.product_id, media, reviewData)" action="#">
+                                    <form class="space-y-6" x-on:submit.prevent="reviewed = await $wire.review(p.product_id, media, reviewData); if(reviewed) alert('review berhasil')" action="#">
                                         <div>
-                                            <label for="judul" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan judul review</label>
+                                            <label for="judul" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Masukkan judul review</label>
                                             <input required x-model="reviewData[0]" type="text" name="judul" id="judul"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-600 dark:text-black"
                                                 placeholder="judul review">
                                         </div>
                                         @error('judul')
@@ -83,9 +83,9 @@
                                             </span>
                                         @enderror
                                         <div>
-                                            <label for="komentar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan komentar anda</label>
+                                            <label for="komentar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Masukkan komentar anda</label>
                                             <textarea required x-model="reviewData[1]" type="text" name="komentar" id="komentar"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50ror block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50ror block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-600 dark:text-black"
                                                 placeholder="isi komentar"></textarea>
                                         </div>
                                         @error('komentar')
@@ -94,9 +94,9 @@
                                             </span>
                                         @enderror
                                         <div>
-                                            <label for="rating" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Berikan rating untuk produk ini</label>
+                                            <label for="rating" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Berikan rating untuk produk ini</label>
                                             <input required x-model="reviewData[2]" type="number" name="rating" id="rating"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50r block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50r block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-600 dark:text-black"
                                                 placeholder="berikan rating anda" min="1" max="5">
                                         </div>
                                         @error('rating')
@@ -105,12 +105,12 @@
                                             </span>
                                         @enderror
                                         <div>
-                                            <label for="media" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sertakan foto produk</label>
+                                            <label for="media" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Sertakan foto produk</label>
                                             <input required x-on:change="files = Object.values($event.target.files);
                                             @this.uploadMultiple('media', files,
                                                 (uploadedFilename) => {}, () => {}, (event) => {}
                                             )" 
-                                            type="file" name="media" id="media" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            type="file" name="media" id="media" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-50 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-600 dark:text-black"
                                                 placeholder="" multiple>
                                         </div>
                                         @error('media')
