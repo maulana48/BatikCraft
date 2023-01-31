@@ -26,5 +26,5 @@
   'layouts.profile' => 'App\\Http\\Livewire\\Layouts\\Profile',
   'layouts.shop' => 'App\\Http\\Livewire\\Layouts\\Shop',
   'layouts.transaksi' => 'App\\Http\\Livewire\\Layouts\\Transaksi',
-  'landing' => 'App\\Http\\Livewire\\landing',
+  'landing' => 'App\\Http\\Livewire\\Landing',
 );

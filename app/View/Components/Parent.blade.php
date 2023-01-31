@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class parent.blade.php extends Component
+class parent.blade extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class parent.blade.php extends Component
      */
     public function render()
     {
-        return view('components.parent.blade.php');
+        return view('components.parent.blade');
     }
 }
