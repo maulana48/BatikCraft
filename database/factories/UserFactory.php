@@ -19,16 +19,16 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'nama' => $this->faker->name(),
+            'name' => $this->faker->name(),
             'gender' => $this->faker->randomElement(['M', 'F']),
             'email' => fake()->unique()->safeEmail(),
             'password' => 'whoami???',
-            'alamat' => $this->faker->address(),
-            'no_telepon' => $this->faker->phoneNumber(),
-            'tanggal_lahir' => $this->faker->date(),
+            'address' => $this->faker->address(),
+            'phone_number' => $this->faker->phoneNumber(),
+            'birth_date' => $this->faker->date(),
             'role' => 2,
             'remember_token' => Str::random(10),
-            'media' => 'img/error.png'
+            'profile_picture' => 'img/error.png'
         ];
     }
 

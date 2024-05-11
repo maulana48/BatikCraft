@@ -31,8 +31,8 @@ class MediaFactory extends Factory
         $image_extensions = pathinfo($randomImage, PATHINFO_EXTENSION);
 
         return [
-            'entity_id' => $this->faker->numberBetween($min = 1, $max = 15),
-            'entity_name' => $this->faker->randomElement(['product_category', 'products', 'product_review', 'user']),
+            'parent_id' => $this->faker->numberBetween($min = 1, $max = 15),
+            'parent_type' => $this->faker->randomElement(['product_category', 'products', 'product_review', 'user']),
             'file' => $image,
             'extension' => $image_extensions,
         ];

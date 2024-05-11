@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductPesanan>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrderProduct>
  */
-class ProductPesananFactory extends Factory
+class OrderProductFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class ProductPesananFactory extends Factory
     {
         return [
             'product_id' => $this->faker->numberBetween($min = 1, $max = 20),
-            'jumlah' => $this->faker->numberBetween($min = 1, $max = 20),
-            'pemesanan_id' => $this->faker->numberBetween($min = 1, $max = 6)
+            'order_id' => $this->faker->numberBetween($min = 1, $max = 6),
+            'amount' => $this->faker->numberBetween($min = 1, $max = 20),
         ];
     }
 }

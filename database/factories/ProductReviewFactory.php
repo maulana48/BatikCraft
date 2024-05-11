@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ReviewProduct>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductReview>
  */
-class ReviewProductFactory extends Factory
+class ProductReviewFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,10 +19,9 @@ class ReviewProductFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween($min = 1, $max = 5),
             'product_id' => $this->faker->numberBetween($min = 1, $max = 5),
-            'judul' => $this->faker->sentence(mt_rand(3, 8)),
-            'komentar' => $this->faker->sentence(mt_rand(5, 20)),
+            'title' => $this->faker->sentence(mt_rand(3, 8)),
+            'comment' => $this->faker->sentence(mt_rand(5, 20)),
             'rating' => mt_rand(1, 5),
-            'media' => 'img/error.png'
         ];
     }
 }
