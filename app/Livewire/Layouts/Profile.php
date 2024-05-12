@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Livewire\Layouts;
+
+use Livewire\Component;
+
+class Profile extends Component
+{
+    public $title;
+
+    public function mount($user, $productId)
+    {
+        if ($user == null) {
+            $this->url = 'auth.login';
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
+            $this->emitUp('login');
+            return;
+        }
+        $this->user = $user;
+    }
+    public function render()
+    {
+        return view('livewire.layouts.profile');
+    }
+}

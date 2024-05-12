@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\{Landing, Dashboard};
+use App\Livewire\{Landing, Dashboard};
 
 Route::get('/welcome', function () {
     return view('welcome');

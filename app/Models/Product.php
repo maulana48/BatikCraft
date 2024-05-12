@@ -15,23 +15,23 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class, 'kategori_product_id');
     }
 
-    public function reviewproduct()
+    public function productReviews()
     {
-        return $this->hasMany(ReviewProduct::class, 'product_id', 'id');
+        return $this->hasMany(ProductReview::class, 'product_id', 'id');
     }
 
-    public function productkeranjang()
+    public function cartProducts()
     {
-        return $this->hasMany(ProductKeranjang::class, 'product_id', 'id');
+        return $this->hasMany(CartProduct::class, 'product_id', 'id');
     }
 
-    public function productpesanan()
+    public function orderProducts()
     {
-        return $this->hasMany(ProductPesanan::class, 'product_id', 'id');
+        return $this->hasMany(OrderProduct::class, 'product_id', 'id');
     }
 
     public function media()
     {
-        return $this->hasOne(Media::class, ['entitas_id', 'nama_entitas'], ['id', 'entity_name']);
+        return $this->hasOne(Media::class, 'parent_id', 'id');
     }
 }

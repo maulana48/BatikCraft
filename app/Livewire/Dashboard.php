@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Laravel\Sanctum\PersonalAccessToken as PAT;
-use App\Models\{ 
-    KategoriProduct
+use App\Models\{
+    ProductCategory
 };
 
 class Dashboard extends Component
@@ -18,18 +18,18 @@ class Dashboard extends Component
     public Location $location;
     public $listeners = ['home' => 'mount'];
 
-    public function mount(){
+    public function mount()
+    {
         // $this->url = 'auth.login';
         // session()->invalidate();
         // session()->regenerateToken();
-        $token = session()->get('token'. '');
-        
-        if($token == '' || !session()->has('admin')){
+        $token = session()->get('token' . '');
+
+        if ($token == '' || !session()->has('admin')) {
             $this->url = 'auth.login';
             $this->login();
             session()->flash('warning', 'Silahkan login terlebih dahulu');
-        }
-        else{
+        } else {
             $token = PAT::findToken($token->plainTextToken);
             $this->admin = $token->tokenable;
             $this->url = 'index';
@@ -37,29 +37,35 @@ class Dashboard extends Component
         }
     }
 
-    public function home(){
+    public function home()
+    {
         return view('livewire.dashboard.index');
         return;
     }
 
-    public function product(){
+    public function product()
+    {
         $this->url = 'product';
     }
 
-    public function transaksi(){
+    public function transaksi()
+    {
         $this->url = 'transaksi';
     }
 
-    public function footer(){
+    public function footer()
+    {
         $this->url = 'layouts.footer';
     }
 
-    public function profile(){
+    public function profile()
+    {
         $this->url = 'profile';
     }
 
-    public function login(){
-        if($this->admin){
+    public function login()
+    {
+        if ($this->admin) {
             return;
         }
         $this->url = 'auth.login';
@@ -67,14 +73,16 @@ class Dashboard extends Component
         $this->icon = 'batik(1).png';
     }
 
-    public function logout(){
+    public function logout()
+    {
         $this->url = 'auth.login';
         session()->invalidate();
         session()->regenerateToken();
         return redirect('/dashboard');
     }
 
-    public function registration(){
+    public function registration()
+    {
         $this->url = 'auth.registration';
     }
 

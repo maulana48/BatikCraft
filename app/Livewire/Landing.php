@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Laravel\Sanctum\PersonalAccessToken as PAT;
@@ -16,7 +16,7 @@ class Landing extends Component
     public $url;
     public $productId;
     public $kategori;
-    public $cartProduct;
+    public $cartProducts;
     public $transaksi;
 
     public $listeners = ['shops' => 'shop', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
@@ -30,8 +30,8 @@ class Landing extends Component
             if ($token) {
                 if ($token->tokenable->role == 2) {
                     $this->user = $token->tokenable;
-                    $this->cartProduct = $this->user->keranjang->productkeranjang->count();
-                    $this->transaksi = $this->user->keranjang->pemesananKeranjang->count();
+                    $this->cartProducts = $this->user->cart->cartProducts->count();
+                    $this->transaksi = $this->user->cart->cartOrder->count();
                 }
             }
         }
@@ -123,11 +123,11 @@ class Landing extends Component
     public function render()
     {
         if ($this->user) {
-            $this->cartProduct = $this->user->keranjang->productkeranjang->count();
+            $this->cartProducts = $this->user->cart->cartProducts->count();
         }
         $this->title = 'BatikCraft';
         $this->icon = 'batik(1).png';
-        $this->url = ($this->url == '') ? 'index' : $this->url;
+        $this->url = ($this->url == '') ? 'Index' : $this->url;
 
         return view('livewire.landing')->layout('layouts.app', [
             'title' => $this->title,
