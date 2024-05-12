@@ -45,8 +45,8 @@
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
                     <div class="text-xs leading-3">Keranjang</div>
-                    <template x-if="$wire.cartProduct != null">
-                        <div x-text="$wire.cartProduct"
+                    <template x-if="$wire.cartProducts != null">
+                        <div x-text="$wire.cartProducts"
                             class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                         </div>
                     </template>

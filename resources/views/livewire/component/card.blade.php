@@ -25,11 +25,11 @@
     <div class="pt-4 pb-3 px-4">
         <a href="#">
             <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-[#6B4226] transition">
-                {{ $batik['nama'] }}
+                {{ $batik['name'] }}
             </h4>
         </a>
         <div class="flex items-baseline mb-1 space-x-2">
-            <p class="text-xl text-[#6B4226] font-semibold">Rp. {{ (int) $batik['harga'] }}</p>
+            <p class="text-xl text-[#6B4226] font-semibold">Rp. {{ (int) $batik['price'] }}</p>
             {{-- <p class="text-sm text-gray-400 line-through">{{ $batik['harga'] }}</p> --}}
         </div>
         <div class="flex items-center">

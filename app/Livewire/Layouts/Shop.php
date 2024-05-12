@@ -5,8 +5,8 @@ namespace App\Livewire\Layouts;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\{
-    ProductBatik,
-    KategoriProduct,
+    Product,
+    ProductCategory,
 };
 
 class Shop extends Component
@@ -14,7 +14,7 @@ class Shop extends Component
     use WithPagination;
 
     public $url;
-    public $batik;
+    private $batiks;
     public $kategori;
 
     public $kategoriF;
@@ -29,18 +29,20 @@ class Shop extends Component
 
     public function mount()
     {
-        $batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
-        $kategori = KategoriProduct::all();
+        $batiks = Product::with(['productReviews', 'productCategory']);
+        $kategori = ProductCategory::all();
 
-        $this->batik = $batik;
+        $this->batiks = $batiks;
         $this->kategori = $kategori;
 
-        $merk = $batik->groupBy('merk')->map(function ($value) {
+        $batiks = $batiks->get();
+
+        $merk = $batiks->groupBy('merk')->map(function ($value) {
             return $value;
         });
         $this->merks = $merk;
 
-        $warna = $batik->groupBy('tipe_warna')->map(function ($value) {
+        $warna = $batiks->groupBy('tipe_warna')->map(function ($value) {
             return $value;
         });
 
@@ -55,14 +57,14 @@ class Shop extends Component
         $this->minF = $min;
         $this->maxF = $max;
         $this->warnaF = $warna;
-        $this->batik = ProductBatik::with(['reviewproduct', 'kategoriproduct'])->get();
+        $this->batiks = Product::with(['productReviews', 'productCategory'])->get();
 
         if ($min != null || $max != null) {
-            $filtered = $this->batik->filter(function ($value, $key) {
+            $filtered = $this->batiks->filter(function ($value, $key) {
                 return $value->harga >= $this->minF && $value->harga <= $this->maxF;
             });
         } else {
-            $filtered = $this->batik;
+            $filtered = $this->batiks;
         }
 
         // filter kategori
@@ -86,22 +88,22 @@ class Shop extends Component
             });
         }
 
-        $this->batik = $filtered;
+        $this->batiks = $filtered;
     }
 
     public function sort($sort)
     {
         if ($sort == 'default') {
-            $this->batik = $this->batik->sort();
+            $this->batiks = $this->batiks->sort();
         }
         if ($sort == 'latest') {
-            $this->batik = $this->batik->sortByDesc('created_at');
+            $this->batiks = $this->batiks->sortByDesc('created_at');
         }
         if ($sort == 'price-low-to-high') {
-            $this->batik = $this->batik->sortBy('harga');
+            $this->batiks = $this->batiks->sortBy('harga');
         }
         if ($sort == 'price-high-to-low') {
-            $this->batik = $this->batik->sortByDesc('harga');
+            $this->batiks = $this->batiks->sortByDesc('harga');
         }
     }
 
@@ -111,7 +113,7 @@ class Shop extends Component
             $this->sort($this->sort);
         }
         return view('livewire.layouts.shop', [
-            'batiks' => $this->batik->paginate(9)
+            'batik_list' => $this->batiks->paginate(9),
         ]);
     }
 }
