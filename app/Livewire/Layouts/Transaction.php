@@ -6,14 +6,14 @@ use Livewire\Component;
 use Illuminate\Support\Facades\{Validator, DB};
 use Livewire\WithFileUploads;
 use App\Models\{
-    ProductBatik,
-    Pemesanan,
+    Product,
+    Order,
     Media,
-    PemesananKeranjang,
-    ProductPesanan,
+    CartOrder,
+    OrderProduct,
 };
 
-class Transaksi extends Component
+class Transaction extends Component
 {
     use WithFileUploads;
 
@@ -27,11 +27,11 @@ class Transaksi extends Component
     public function mount($user)
     {
         $this->user = $user;
-        $this->pemesanan = PemesananKeranjang::query()
+        $this->pemesanan = CartOrder::query()
             ->where('keranjang_id', $this->user->keranjang->id)
             ->get();
 
-        $this->pemesanan = Pemesanan::query()
+        $this->pemesanan = Order::query()
             ->with(['pembayaran', 'productpesanan'])
             ->whereIn('id', $this->pemesanan->map->only(['pemesanan_id']))
             ->get();
@@ -46,13 +46,13 @@ class Transaksi extends Component
         }
         $this->url = 'pembayaran';
 
-        $this->pemesanan = Pemesanan::query()
+        $this->pemesanan = Order::query()
             ->with(['pembayaran'])
             ->where('id', $id)
             ->get();
 
-        $this->product_pesanan = ProductPesanan::query()
-            ->with(['productbatik', 'reviewproduct'])
+        $this->product_pesanan = OrderProduct::query()
+            ->with(['Product', 'reviewproduct'])
             ->withCount([
                 'reviewproduct as review_count' => function ($query) {
                     $query->where('user_id', '=', $this->user->id);
@@ -71,7 +71,7 @@ class Transaksi extends Component
         return 'pembayaran berhasil';
     }
 
-    public function review(ProductBatik $batik, $media, $reviewData)
+    public function review(Product $batik, $media, $reviewData)
     {
         $reviewData = [
             'user_id' => $this->user->id,

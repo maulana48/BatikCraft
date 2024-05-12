@@ -4,7 +4,7 @@ namespace App\Livewire\Layouts;
 
 use Livewire\Component;
 
-class Pembayaran extends Component
+class Payment extends Component
 {
     public $pemesanan;
     public $product_pesanan;

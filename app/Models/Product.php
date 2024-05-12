@@ -12,7 +12,7 @@ class Product extends Model
 
     public function productCategory()
     {
-        return $this->belongsTo(ProductCategory::class, 'kategori_product_id');
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 
     public function productReviews()

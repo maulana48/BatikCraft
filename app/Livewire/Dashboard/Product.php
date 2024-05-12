@@ -26,10 +26,10 @@ class ProductLayout extends Component
 
     public $nama;
     public $merk;
-    public $kategori_product_id;
+    public $product_category_id;
     public $harga;
     public $deskripsi;
-    public $tipe_warna;
+    public $color_type;
     public $stok;
     public $asal_kota;
     public $motif_batik;
@@ -90,10 +90,10 @@ class ProductLayout extends Component
         $rules = [
             'nama' => 'required',
             'merk' => 'required',
-            'kategori_product_id' => 'required',
+            'product_category_id' => 'required',
             'harga' => 'required',
             'deskripsi' => 'required|min:5',
-            'tipe_warna' => 'required',
+            'color_type' => 'required',
             'stok' => 'required',
             'asal_kota' => 'required',
             'motif_batik' => 'required',
@@ -136,10 +136,10 @@ class ProductLayout extends Component
         $batikEdit = $this->batik->find($id);
         $this->nama = $batikEdit->nama;
         $this->merk = $batikEdit->merk;
-        $this->kategori_product_id = $batikEdit->kategori_product_id;
+        $this->product_category_id = $batikEdit->product_category_id;
         $this->harga = $batikEdit->harga;
         $this->deskripsi = $batikEdit->deskripsi;
-        $this->tipe_warna = $batikEdit->tipe_warna;
+        $this->color_type = $batikEdit->color_type;
         $this->stok = $batikEdit->stok;
         $this->asal_kota = $batikEdit->asal_kota;
         $this->motif_batik = $batikEdit->motif_batik;
@@ -160,10 +160,10 @@ class ProductLayout extends Component
         $rules = [
             'nama' => 'required',
             'merk' => 'required',
-            'kategori_product_id' => 'required',
+            'product_category_id' => 'required',
             'harga' => 'required',
             'deskripsi' => 'required|min:5',
-            'tipe_warna' => 'required',
+            'color_type' => 'required',
             'stok' => 'required',
             'asal_kota' => 'required',
             'motif_batik' => 'required',

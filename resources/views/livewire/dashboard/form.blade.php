@@ -22,8 +22,7 @@
             <input wire:model.defer="nama"
                 class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
                 @error('nama') border-red-500 @enderror"
-                type="text" placeholder="Masukkan nama batik" name="nama"
-                id="nama" autofocus>
+                type="text" placeholder="Masukkan nama batik" name="nama" id="nama" autofocus>
 
             @error('nama')
                 <div class="text-sm text-red-500">
@@ -45,18 +44,20 @@
             @enderror
         </div>
         <div class="grid grid-cols-1 space-y-2">
-            <label for="kategori_product_id" class="text-sm font-bold text-gray-500 tracking-wide">Pilih kategori
+            <label for="product_category_id" class="text-sm font-bold text-gray-500 tracking-wide">Pilih kategori
                 produk</label>
-            <select wire:model.defer="kategori_product_id" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-            @error('kategori_product_id') border-red-500 @enderror"
-                name="kategori_product_id" id="kategori_product_id">
-                <option value="" @if(!$kategori_product_id) selected @endif> -- select an option -- </option>
+            <select wire:model.defer="product_category_id"
+                class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
+            @error('product_category_id') border-red-500 @enderror"
+                name="product_category_id" id="product_category_id">
+                <option value="" @if (!$product_category_id) selected @endif> -- select an option --
+                </option>
                 @foreach ($kategori as $k)
-                        <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                    <option value="{{ $k->id }}">{{ $k->nama }}</option>
                 @endforeach
             </select>
 
-            @error('kategori_product_id')
+            @error('product_category_id')
                 <div class="text-sm text-red-500">
                     {{ $message }}
                 </div>
@@ -67,8 +68,7 @@
             <input wire:model.defer="harga"
                 class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
                 @error('harga') border-red-500 @enderror"
-                type="number" placeholder="Masukkan harga batik"
-                id="harga" autofocus>
+                type="number" placeholder="Masukkan harga batik" id="harga" autofocus>
 
             @error('harga')
                 <div class="text-sm text-red-500">
@@ -81,8 +81,7 @@
             <input wire:model.defer="stok"
                 class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
                 @error('stok') border-red-500 @enderror"
-                type="number" placeholder="Masukkan stok batik"
-                id="stok" autofocus>
+                type="number" placeholder="Masukkan stok batik" id="stok" autofocus>
 
             @error('stok')
                 <div class="text-sm text-red-500">
@@ -91,13 +90,13 @@
             @enderror
         </div>
         <div class="grid grid-cols-1 space-y-2">
-            <label for="tipe_warna" class="text-sm font-bold text-gray-500 tracking-wide">Tipe Warna</label>
-            <input wire:model.defer="tipe_warna"
+            <label for="color_type" class="text-sm font-bold text-gray-500 tracking-wide">Tipe Warna</label>
+            <input wire:model.defer="color_type"
                 class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                @error('tipe_warna') border-red-500 @enderror"
-                type="text" placeholder="Masukkan tipe warna batik" name="tipe_warna" id="tipe_warna" autofocus>
+                @error('color_type') border-red-500 @enderror"
+                type="text" placeholder="Masukkan tipe warna batik" name="color_type" id="color_type" autofocus>
 
-            @error('tipe_warna')
+            @error('color_type')
                 <div class="text-sm text-red-500">
                     {{ $message }}
                 </div>
@@ -133,9 +132,8 @@
             <label for="deskripsi" class="text-sm font-bold text-gray-500 tracking-wide">Deskripsi</label>
             <textarea wire:model.defer="deskripsi"
                 class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                @error('deskripsi') border-red-500 @enderror" type="text"
-                placeholder="Masukkan deskripsi batik" name="deskripsi" id="deskripsi"
-                autofocus></textarea>
+                @error('deskripsi') border-red-500 @enderror"
+                type="text" placeholder="Masukkan deskripsi batik" name="deskripsi" id="deskripsi" autofocus></textarea>
 
             @error('deskripsi')
                 <div class="text-sm text-red-500">
@@ -150,25 +148,23 @@
                 <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                     <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
                         <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10 justify-center">
-                            @if(!$media)
-                            <img class="has-mask h-36 object-center"
-                                src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
-                                alt="freepik image">
-                            
-                            @elseif(is_string($media[0]))
-                                @foreach($media as $m)
+                            @if (!$media)
                                 <img class="has-mask h-36 object-center"
-                                    src="{{ $m }}"
+                                    src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
                                     alt="freepik image">
+                            @elseif(is_string($media[0]))
+                                @foreach ($media as $m)
+                                    <img class="has-mask h-36 object-center" src="{{ $m }}"
+                                        alt="freepik image">
                                 @endforeach
                             @else
-                                @foreach($media as $m)
-                                <img class="has-mask h-36 object-center"
-                                    src="{{ $m->temporaryUrl() }}"
-                                    alt="freepik image">
+                                @foreach ($media as $m)
+                                    <img class="has-mask h-36 object-center" src="{{ $m->temporaryUrl() }}"
+                                        alt="freepik image">
                                 @endforeach
                             @endif
-                            <div wire:loading wire:target="media" class="text-lg p-2 absolute bg-gray-300">Uploading...</div>
+                            <div wire:loading wire:target="media" class="text-lg p-2 absolute bg-gray-300">
+                                Uploading...</div>
                         </div>
                         <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span> files here
                             <br /> or

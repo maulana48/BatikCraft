@@ -42,7 +42,7 @@ class Shop extends Component
         });
         $this->merks = $merk;
 
-        $warna = $batiks->groupBy('tipe_warna')->map(function ($value) {
+        $warna = $batiks->groupBy('color_type')->map(function ($value) {
             return $value;
         });
 
@@ -70,7 +70,7 @@ class Shop extends Component
         // filter kategori
         if (count($this->kategoriF) != 0) {
             $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->kategori_product_id, $this->kategoriF);
+                return in_array($value->product_category_id, $this->kategoriF);
             });
         }
 
@@ -84,7 +84,7 @@ class Shop extends Component
         // filter warna
         if (count($this->warnaF) != 0) {
             $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->tipe_warna, $this->warnaF);
+                return in_array($value->color_type, $this->warnaF);
             });
         }
 

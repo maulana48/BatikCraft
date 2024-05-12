@@ -19,7 +19,7 @@ class Landing extends Component
     public $cartProducts;
     public $transaksi;
 
-    public $listeners = ['shops' => 'shop', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
+    protected $listeners = ['shops' => 'shop', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
 
     public function mount()
     {

@@ -4,7 +4,7 @@ namespace App\Livewire\Layouts;
 
 use Livewire\Component;
 use App\Models\{
-    ProductBatik,
+    Product as ProductModel,
 };
 
 class Product extends Component
@@ -12,25 +12,32 @@ class Product extends Component
     public $user;
     public $url;
     public $urlT;
-    public $kategoriBatik;
-    public $batik;
-    public $rating;
-    public $tipe_warna;
+    private $batik;
+    private $kategori;
+    private $rating;
+    private $product_with_same_color_type;
+    private $product_with_same_category;
 
     public function mount($user, $productId)
     {
         $this->user = $user;
-        $batik = ProductBatik::find($productId);
-        $rating = $batik->reviewproduct;
+        $batik = ProductModel::find($productId);
+        $rating = $batik->productReviews()->get();
+
         foreach ($rating as $r) {
             $this->rating += $r->rating;
         }
+
         $this->rating = (count($rating) != 0) ? $this->rating / count($rating) : count($rating);
-        $kategori = ProductBatik::where('kategori_product_id', $batik->kategori_product_id)->limit(4)->get();
-        $tipe_warna = ProductBatik::where([['tipe_warna', $batik->tipe_warna], ['kategori_product_id', $batik->kategori_product_id]])->get();
+
+        $kategori = $batik->productCategory()->first();
+        $product_with_same_category = ProductModel::where('product_category_id', $batik->product_category_id)->get();
+        $product_with_same_color_type = ProductModel::where([['color_type', $batik->color_type], ['product_category_id', $batik->product_category_id]])->get();
+
         $this->batik = $batik;
-        $this->tipe_warna = $tipe_warna;
-        $this->kategoriBatik = $kategori;
+        $this->kategori = $kategori;
+        $this->product_with_same_category = $product_with_same_category;
+        $this->product_with_same_color_type = $product_with_same_color_type;
         $this->url = 'product';
     }
 
@@ -47,7 +54,7 @@ class Product extends Component
             return 'Product Habis';
         }
         $keranjang = $this->user->keranjang;
-        $jumlah = ($jumlah > $this->batik->stok) ? $batik->stok : $jumlah;
+        $jumlah = ($jumlah > $this->batik->stok) ? $this->batik->stok : $jumlah;
         $payload = [
             'product_id' => $this->batik->id,
             'keranjang_id' => $keranjang->id,
@@ -69,6 +76,12 @@ class Product extends Component
 
     public function render()
     {
-        return view('livewire.layouts.product');
+        return view('livewire.layouts.product', [
+            'batik' => $this->batik,
+            'kategori' => $this->kategori,
+            'rating' => $this->rating,
+            'product_with_same_category' => $this->product_with_same_category,
+            'product_with_same_color_type' => $this->product_with_same_color_type,
+        ]);
     }
 }

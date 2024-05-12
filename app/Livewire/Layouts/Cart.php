@@ -5,11 +5,11 @@ namespace App\Livewire\Layouts;
 use Livewire\Component;
 use Illuminate\Support\Facades\{DB};
 use App\Models\{
-    ProductBatik,
-    Pemesanan,
-    Pembayaran,
-    ProductPesanan,
-    PemesananKeranjang,
+    Product,
+    Order,
+    Payment,
+    OrderProduct,
+    CartOrder,
 };
 
 class Cart extends Component
@@ -34,7 +34,7 @@ class Cart extends Component
         $this->user = $user;
         $this->batik_keranjang = $user->keranjang->productkeranjang;
         $batik = $this->batik_keranjang->map->only(['product_id']);
-        $batik = ProductBatik::query()->whereIn('id', $batik)->orderBy('updated_at')->get();
+        $batik = Product::query()->whereIn('id', $batik)->orderBy('updated_at')->get();
 
         $this->batik = $batik;
     }
@@ -63,7 +63,7 @@ class Cart extends Component
     {
         $this->url = 'check-out';
         $this->checked = $this->batik_keranjang->where('status', 2)->sortBy('product_id');
-        $this->batik = ProductBatik::query()
+        $this->batik = Product::query()
             ->whereIn('id', $this->checked->map->only(['product_id']))
             ->orderBy('id')
             ->orderBy('updated_at')->get();
@@ -83,7 +83,7 @@ class Cart extends Component
                 'status' => 1,
             ];
 
-            $pemesanan = Pemesanan::create($payload);
+            $pemesanan = Order::create($payload);
 
             foreach ($this->checked as $keys => $check) {
                 $payload = [
@@ -92,16 +92,16 @@ class Cart extends Component
                     'pemesanan_id' => $pemesanan->id
                 ];
 
-                ProductPesanan::create($payload);
+                OrderProduct::create($payload);
                 $check->delete();
             }
 
-            $pemesananKeranjang = PemesananKeranjang::create([
+            $CartOrder = CartOrder::create([
                 'keranjang_id' => $this->user->keranjang->id,
                 'pemesanan_id' => $pemesanan->id
             ]);
 
-            $pembayaran = Pembayaran::create([
+            $pembayaran = Payment::create([
                 'pemesanan_id' => $pemesanan->id,
                 'no_pembayaran' => $this->user->id . (int) (time() / (60 * 60 * 24)),
                 'total_biaya' => $pemesanan->total_harga,

@@ -15,7 +15,7 @@ class Card extends Component
     public function mount($product)
     {
         $this->url = 'component.card';
-        $review = $product->productReviews;
+        $review = $product->productReviews()->get();
         $jumlah_review = count($review);
         if ($jumlah_review == 0) {
             $rating = 0;
@@ -33,7 +33,7 @@ class Card extends Component
 
     public function productDetail($id)
     {
-        $this->emit('detailProduct', $id);
+        $this->dispatch('detailProduct', $id);
     }
 
     public function render()

@@ -3,7 +3,7 @@
 namespace App\Livewire\Layouts\Auth;
 
 use Livewire\Component;
-use App\Models\{User, Keranjang};
+use App\Models\{User, Cart};
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
 
@@ -59,7 +59,7 @@ class Registration extends Component
         }
 
         $user = User::create($payload);
-        $keranjang = Keranjang::create(['user_id' => $user->id]);
+        $keranjang = Cart::create(['user_id' => $user->id]);
 
         if (!$user) {
             return session()->flash('regError', 'Pendaftaran gagal, coba ulangi');

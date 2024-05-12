@@ -4,7 +4,7 @@ namespace App\Livewire\Layouts;
 
 use Livewire\Component;
 
-class Pemesanan extends Component
+class Order extends Component
 {
     public function render()
     {
