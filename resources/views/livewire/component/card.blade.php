@@ -1,5 +1,5 @@
 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
+    <a href="#"> // remove this
         @if ($batik['media'])
             <img class="p-8 rounded-t-lg" src="{{ asset($batik['media']) }}" alt="product image" />
         @else
@@ -7,7 +7,7 @@
         @endif
 
         <div
-            class="absolute inset-0 bg-black bg-opacity-40 flex items-center 
+            class="bg-black bg-opacity-40 flex items-center 
                         justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
             <button wire:click="productDetail({{ $batik['id'] }})"
                 class="text-white text-lg w-9 h-8 rounded-full bg-[#6B4226] flex items-center justify-center hover:bg-gray-800 transition"
@@ -22,7 +22,7 @@
         </div>
     </a>
     <div class="px-5 pb-5">
-        <a href="#">
+        <a href="#"> // remove this
             <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ $batik['name'] }}</h5>
         </a>
         <div class="flex items-center mt-2.5 mb-5">

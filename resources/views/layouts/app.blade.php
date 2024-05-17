@@ -45,33 +45,34 @@
         <link rel="stylesheet" href="{{ asset('/') }}@fortawesome/fontawesome-free/css/all.min.css">
     @endif
 
-    <script>
-        tailwind.config = {
-            theme: {
-                container: {
-                    center: true,
-                    screens: {
-                        xl: '1170px',
-                    },
-                },
-            }
-        }
-    </script>
-
-
     @livewireStyles
 </head>
 
-<body @if (isset($admin)) class="bg-black-alt font-sans leading-normal tracking-normal" @endif>
+<body class="{{ isset($admin) ? 'bg-black-alt font-sans leading-normal tracking-normal' : '' }}">
     @if (isset($admin))
-            {{ $slot }}
+        {{ $slot }}
         @livewire('dashboard.layouts.footer')
     @else
-        @livewire('component.navbar')
+    <div class="container px-2 overflow-auto">
+        @livewire('component.header', [
+            'cartProducts' => $cartProducts,
+            'transaksi' => $transaksi,
+        ])
+        @livewire('component.navbar', [
+            'user' => $user,
+            'category_list' => $category_list,
+        ])
             {{ $slot }}
         @livewire('component.footer') @endif
-
+    </div>
     @livewireScripts
+    <script>
+        if (window.Livewire) {
+            window.Livewire.start();
+        }
+
+        Alpine.start();
+    </script>
 </body>
 
 </html>

@@ -56,16 +56,6 @@ class Landing extends Component
         $this->render();
     }
 
-    public function cart()
-    {
-        if ($this->user == null) {
-            $this->url = 'auth.login';
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->url = 'cart';
-        }
-    }
-
     public function checkOut()
     {
         if ($this->user == null) {
@@ -73,26 +63,6 @@ class Landing extends Component
             session()->flash('warning', 'Silahkan login terlebih dahulu');
         } else {
             $this->url = 'check-out';
-        }
-    }
-
-    public function transaksi()
-    {
-        if ($this->user == null) {
-            $this->url = 'auth.login';
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->url = 'transaksi';
-        }
-    }
-
-    public function profile()
-    {
-        if ($this->user == null) {
-            $this->url = 'auth.login';
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->url = 'profile';
         }
     }
 
@@ -132,6 +102,10 @@ class Landing extends Component
         return view('livewire.landing')->layout('layouts.app', [
             'title' => $this->title,
             'icon' => $this->icon,
+            'user' => $this->user,
+            'cartProducts' => $this->cartProducts,
+            'transaksi' => $this->transaksi,
+            'category_list' => $this->kategori,
         ]);
     }
 }
