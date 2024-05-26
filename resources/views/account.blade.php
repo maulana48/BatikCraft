@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <!-- header -->
     <header class="py-4 shadow-sm bg-white">
         <div class="container flex items-center justify-between">

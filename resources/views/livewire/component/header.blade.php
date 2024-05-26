@@ -1,8 +1,7 @@
 <!-- header -->
 <header class="py-4 shadow-sm bg-white" x-data="{
-    user: $wire.user,
-    transaksi: $wire.transaksi,
-    cartProducts: $wire.cartProducts
+    transaction: {{ $transaction }},
+    cartProducts: {{ $cartProducts }},
 }">
     <div class="container flex items-center justify-between px-4">
         <a href="index.html">
@@ -30,29 +29,31 @@
                         class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                         8</div>
                 </a> --}}
-            <button wire:click="transaksi" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
+            <button wire:click="open_transaction"
+                class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                 <div class="text-2xl">
                     <i class="fa-solid fa-rectangle-list"></i>
                 </div>
                 <div class="text-xs leading-3">Transaksi</div>
-                <template x-if="transaksi != null">
-                    <div x-text="transaksi"
+                <template x-if="transaction">
+                    <div x-text="transaction"
                         class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                     </div>
                 </template>
             </button>
-            <button wire:click="cart" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
+            <button wire:click="open_cart" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                 <div class="text-2xl">
                     <i class="fa-solid fa-bag-shopping"></i>
                 </div>
                 <div class="text-xs leading-3">Keranjang</div>
-                <template x-if="cartProducts != null">
+                <template x-if="cartProducts">
                     <div x-text="cartProducts"
                         class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-[#6B4226] text-white text-xs">
                     </div>
                 </template>
             </button>
-            <button wire:click="profile" class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
+            <button wire:click="open_profile"
+                class="text-center text-gray-700 hover:text-[#6B4226] transition relative">
                 <div class="text-2xl">
                     <i class="fa-regular fa-user"></i>
                 </div>

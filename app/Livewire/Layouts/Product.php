@@ -5,6 +5,7 @@ namespace App\Livewire\Layouts;
 use Livewire\Component;
 use App\Models\{
     Product as ProductModel,
+    User as UserModel
 };
 
 class Product extends Component
@@ -17,8 +18,9 @@ class Product extends Component
     private $rating;
     private $product_with_same_color_type;
     private $product_with_same_category;
+    private $productId;
 
-    public function mount($user, $productId)
+    public function mount(UserModel $user, $productId)
     {
         $this->user = $user;
         $batik = ProductModel::find($productId);
@@ -74,8 +76,20 @@ class Product extends Component
         return 'Product ditambahkan';
     }
 
+    public function productDetail($id)
+    {
+        $this->dispatch('detailProduct', $id);
+    }
+
     public function render()
     {
+        dd($this->batik);
+        if (!$this->batik) {
+            session()->flash('warning', 'Product not found');
+            $this->dispatch('home');
+            return;
+        }
+
         return view('livewire.layouts.product', [
             'batik' => $this->batik,
             'kategori' => $this->kategori,

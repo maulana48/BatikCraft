@@ -14,11 +14,11 @@ class Shop extends Component
     use WithPagination;
 
     public $url;
-    private $batiks;
-    public $kategori;
+    private $batik_list;
+    public $category_list;
 
     public $kategoriF;
-    public $merks = [];
+    public $merk_list = [];
     public $merkF;
     public $warna;
     public $warnaF;
@@ -29,20 +29,20 @@ class Shop extends Component
 
     public function mount()
     {
-        $batiks = Product::with(['productReviews', 'productCategory']);
-        $kategori = ProductCategory::all();
+        $batik_list = Product::with(['productReviews', 'productCategory']);
+        $category_list = ProductCategory::all();
 
-        $this->batiks = $batiks;
-        $this->kategori = $kategori;
+        $this->batik_list = $batik_list;
+        $this->category_list = $category_list;
 
-        $batiks = $batiks->get();
+        $batik_list = $batik_list->get();
 
-        $merk = $batiks->groupBy('merk')->map(function ($value) {
+        $merk = $batik_list->groupBy('merk')->map(function ($value) {
             return $value;
         });
-        $this->merks = $merk;
+        $this->merk_list = $merk;
 
-        $warna = $batiks->groupBy('color_type')->map(function ($value) {
+        $warna = $batik_list->groupBy('color_type')->map(function ($value) {
             return $value;
         });
 
@@ -57,14 +57,14 @@ class Shop extends Component
         $this->minF = $min;
         $this->maxF = $max;
         $this->warnaF = $warna;
-        $this->batiks = Product::with(['productReviews', 'productCategory'])->get();
+        $this->batik_list = Product::with(['productReviews', 'productCategory'])->get();
 
         if ($min != null || $max != null) {
-            $filtered = $this->batiks->filter(function ($value, $key) {
+            $filtered = $this->batik_list->filter(function ($value, $key) {
                 return $value->harga >= $this->minF && $value->harga <= $this->maxF;
             });
         } else {
-            $filtered = $this->batiks;
+            $filtered = $this->batik_list;
         }
 
         // filter kategori
@@ -88,22 +88,22 @@ class Shop extends Component
             });
         }
 
-        $this->batiks = $filtered;
+        $this->batik_list = $filtered;
     }
 
     public function sort($sort)
     {
         if ($sort == 'default') {
-            $this->batiks = $this->batiks->sort();
+            $this->batik_list = $this->batik_list->sort();
         }
         if ($sort == 'latest') {
-            $this->batiks = $this->batiks->sortByDesc('created_at');
+            $this->batik_list = $this->batik_list->sortByDesc('created_at');
         }
         if ($sort == 'price-low-to-high') {
-            $this->batiks = $this->batiks->sortBy('harga');
+            $this->batik_list = $this->batik_list->sortBy('harga');
         }
         if ($sort == 'price-high-to-low') {
-            $this->batiks = $this->batiks->sortByDesc('harga');
+            $this->batik_list = $this->batik_list->sortByDesc('harga');
         }
     }
 
@@ -112,8 +112,14 @@ class Shop extends Component
         if ($this->sort != '') {
             $this->sort($this->sort);
         }
+
+        dd($this->category_list, $this->batik_list);
+
         return view('livewire.layouts.shop', [
-            'batik_list' => $this->batiks->paginate(9),
+            'batik_list' => $this->batik_list->paginate(9),
+            'category_list' => $this->category_list,
+            'merk_list' => $this->merk_list,
+            'warna' => $this->warna,
         ]);
     }
 }

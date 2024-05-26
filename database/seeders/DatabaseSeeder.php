@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::factory()->create([
-            'name' => 'test',
+            'name' => 'admin',
             'gender' => 'M',
-            'email' => 'test@gmail.com',
+            'email' => 'oyote@root.com',
             'password' => 'test',
-            'address' => 'test',
+            'address' => 'Jl. Kebon Jeruk No. 1',
             'phone_number' => '085640950627',
             'birth_date' => '2004-11-23',
             'role' => 1,
@@ -29,17 +29,22 @@ class DatabaseSeeder extends Seeder
             'profile_picture' => 'img/error.png'
         ]);
         \App\Models\User::factory()->create([
-            'name' => 'test1',
+            'name' => 'User baru',
             'gender' => 'M',
-            'email' => 'test1@gmail.com',
-            'password' => 'test1',
-            'address' => 'test1',
+            'email' => 'userbaru@gmail.com',
+            'password' => 'userbaru',
+            'address' => 'Jl. Kebon Jeruk No. 22',
             'phone_number' => '111111111111',
             'birth_date' => '2000-01-01',
             'role' => 2,
             'remember_token' => Str::random(10),
             'profile_picture' => 'img/error.png'
         ]);
+
+        $this->call([
+            MediaSeeder::class,
+        ]);
+
 
         \App\Models\User::factory(4)->create();
         \App\Models\ProductCategory::factory(3)->create();
@@ -51,6 +56,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Product::factory(20)->create();
         \App\Models\CartProduct::factory(10)->create();
         \App\Models\ProductReview::factory(10)->create();
-        //  \App\Models\Media::factory(20)->create();
+        \App\Models\Media::factory(20)->create();
     }
 }

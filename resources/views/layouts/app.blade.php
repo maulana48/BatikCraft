@@ -53,7 +53,7 @@
         {{ $slot }}
         @livewire('dashboard.layouts.footer')
     @else
-    <div class="container px-2 overflow-auto">
+    <div class="container overflow-auto">
         @livewire('component.header', [
             'cartProducts' => $cartProducts,
             'transaksi' => $transaksi,

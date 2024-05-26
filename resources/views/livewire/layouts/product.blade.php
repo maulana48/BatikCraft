@@ -1,6 +1,6 @@
 <div x-data="{
     jumlah: 1,
-    increment() { this.jumlah == {{ $batik['stok'] }} ? this.jumlah : this.jumlah++ },
+    increment() { this.jumlah == {{ $batik ? $batik['stok'] : 0 }} ? this.jumlah : this.jumlah++ },
     decrement() { this.jumlah == 0 ? this.jumlah : this.jumlah-- },
     btnK: ''
 }">
@@ -130,7 +130,7 @@
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Kategori Terkait</h2>
         <div class="grid grid-cols-4 gap-6">
             @foreach ($product_with_same_category as $cat)
-                @livewire('component.card', ['product' => $cat], key($cat['id']))
+                @livewire('component.card', ['product' => $cat], key($cat['id'] . now()))
             @endforeach
         </div>
     </div>

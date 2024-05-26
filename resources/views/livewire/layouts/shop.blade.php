@@ -13,32 +13,31 @@
     <!-- ./breadcrumb -->
 
     <!-- shop wrapper -->
-    <div class="container grid grid-cols-4 gap-6 pt-4 pb-16 items-start" x-data="kategori = [];
+    <div class="container grid grid-cols-4 gap-6 pt-4 pb-16 items-start" x-data="category_list = [];
     merk = [];
     warnaF = [];
     min = null;
-    max = null;
-    batik = '$batik'">
+    max = null;">
         <!-- sidebar -->
         <div class="col-span-1 bg-white px-4 pb-6 shadow rounded overflow-hidden">
             <div class="divide-y divide-gray-200 space-y-5">
                 <div>
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Kategori</h3>
                     <div class="space-y-2">
-                        @if (count($kategori) == 0)
+                        @if (count($category_list) == 0)
                             <div class="flex items-center">
                                 <p for="cat-1" class="text-gray-600 ml-3 cusror-pointer">Kategori kosong</p>
                             </div>
                         @else
-                            @foreach ($kategori as $k)
+                            @foreach ($category_list as $item)
                                 <div class="flex items-center">
                                     <input
-                                        @click="const index = kategori.indexOf({{ $k->id }}); kategori.includes({{ $k->id }}) ? kategori.splice(index, 1) : kategori.push({{ $k->id }}) ; $wire.filtering(kategori, merk, min, max, warnaF)"
-                                        type="checkbox" name="cat-{{ $k->id }}" id="cat-{{ $k->id }}"
+                                        @click="const index = category_list.indexOf({{ $item->id }}); category_list.includes({{ $item->id }}) ? category_list.splice(index, 1) : category_list.push({{ $item->id }}) ; $wire.filtering(category_list, merk, min, max, warnaF)"
+                                        type="checkbox" name="cat-{{ $item->id }}" id="cat-{{ $item->id }}"
                                         class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
-                                    <label for="cat-{{ $k->id }}"
-                                        class="text-gray-600 ml-3 cusror-pointer">{{ $k->nama }}</label>
-                                    <div class="ml-auto text-gray-600 text-sm">({{ count($k->products) }})</div>
+                                    <label for="cat-{{ $item->id }}"
+                                        class="text-gray-600 ml-3 cusror-pointer">{{ $item->nama }}</label>
+                                    <div class="ml-auto text-gray-600 text-sm">({{ count($item->products) }})</div>
                                 </div>
                             @endforeach
                         @endif
@@ -48,8 +47,8 @@
                 <div class="pt-4">
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Merk</h3>
                     <div class="space-y-2">
-                        @if (isset($merks))
-                            @foreach ($merks as $keys => $m)
+                        @if (isset($merk_list))
+                            @foreach ($merk_list as $keys => $m)
                                 <div class="flex items-center">
                                     <input
                                         @click="const index1 = merk.indexOf('{{ $keys }}') ; merk.includes('{{ $keys }}') ? merk.splice(index1, 1) : merk.push('{{ $keys }}') ;   $wire.filtering(kategori, merk, min, max, warnaF)"
@@ -57,7 +56,7 @@
                                         class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
                                     <label for="brand-1"
                                         class="text-gray-600 ml-3 cusror-pointer">{{ $keys }}</label>
-                                    <div class="ml-auto text-gray-600 text-sm">({{ count($merks[$keys]) }})</div>
+                                    <div class="ml-auto text-gray-600 text-sm">({{ count($merk_list[$keys]) }})</div>
                                 </div>
                             @endforeach
                         @endif

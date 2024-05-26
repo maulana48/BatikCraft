@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class Sidebar extends Component
 {
-    public $url = 'component.sidebar';
+    private $user;
     public $listeners = ['logout'];
 
     public function mount($user)
@@ -31,6 +31,8 @@ class Sidebar extends Component
 
     public function render()
     {
-        return view('livewire.' . $this->url);
+        return view('livewire.component.sidebar', [
+            'user' => $this->user,
+        ]);
     }
 }

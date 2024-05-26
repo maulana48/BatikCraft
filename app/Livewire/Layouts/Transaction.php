@@ -17,9 +17,9 @@ class Transaction extends Component
 {
     use WithFileUploads;
 
-    public $detailPemesanan;
-    public $pemesanan;
-    public $product_pesanan;
+    private $orderDetail;
+    private $order;
+    private $orderedProduct;
 
     public $media = [];
     public $reviewData = [];
@@ -27,15 +27,15 @@ class Transaction extends Component
     public function mount($user)
     {
         $this->user = $user;
-        $this->pemesanan = CartOrder::query()
-            ->where('keranjang_id', $this->user->keranjang->id)
+        $this->order = CartOrder::query()
+            ->where('cart_id', $this->user->cart->id)
             ->get();
 
-        $this->pemesanan = Order::query()
-            ->with(['pembayaran', 'productpesanan'])
-            ->whereIn('id', $this->pemesanan->map->only(['pemesanan_id']))
+        $this->order = Order::query()
+            ->with(['payment', 'orderProduct'])
+            ->whereIn('id', $this->order->map->only(['order_id']))
             ->get();
-        $this->url = 'transaksi';
+        $this->url = 'transaction';
     }
 
     public function detailP($id)
@@ -44,14 +44,14 @@ class Transaction extends Component
             $this->url = 'auth.login';
             session()->flash('warning', 'Silahkan login terlebih dahulu');
         }
-        $this->url = 'pembayaran';
+        $this->url = 'payments';
 
-        $this->pemesanan = Order::query()
-            ->with(['pembayaran'])
+        $this->order = Order::query()
+            ->with(['payments'])
             ->where('id', $id)
             ->get();
 
-        $this->product_pesanan = OrderProduct::query()
+        $this->orderedProduct = OrderProduct::query()
             ->with(['Product', 'reviewproduct'])
             ->withCount([
                 'reviewproduct as review_count' => function ($query) {
@@ -123,6 +123,11 @@ class Transaction extends Component
 
     public function render()
     {
-        return view('livewire.layouts.' . $this->url);
+        return view('livewire.layouts.' . $this->url, [
+            'order' => $this->order,
+            'orderedProduct' => $this->orderedProduct,
+            'user' => $this->user,
+            'url' => $this->url,
+        ]);
     }
 }

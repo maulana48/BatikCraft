@@ -39,7 +39,7 @@ class Card extends Component
     public function render()
     {
         return view('livewire.' . $this->url, [
-            'batik' => $this->product[0]
+            'batik' => count($this->product) > 0 ? $this->product[0] : null,
         ]);
     }
 }

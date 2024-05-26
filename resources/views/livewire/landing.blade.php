@@ -1,7 +1,26 @@
-<div x-data="{
-    user: $wire.user
-}">
-    <div>
-        @livewire('layouts.' . $url, [$user, $productId], key($url . now()))
-    </div>
+<div class="container overflow-auto">
+    @livewire(
+        'component.header',
+        [
+            'user' => $user,
+        ],
+        key($url . now())
+    )
+    @livewire(
+        'component.navbar',
+        [
+            'user' => $user,
+        ],
+        key($url . now())
+    )
+
+    @livewire(
+        'component.content',
+        [
+            'user' => $user,
+            'url' => $url,
+        ],
+        key($url . now())
+    )
+    @livewire('component.footer')
 </div>

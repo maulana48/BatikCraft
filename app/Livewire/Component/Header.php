@@ -14,42 +14,37 @@ class Header extends Component
     public $urlT;
     private $kategoriNav;
     public $cartProducts;
-    public $transaksi;
+    public $transaction;
 
-    public function mount($cartProducts, $transaksi)
+    public function mount($user)
     {
         $this->kategoriNav = ProductCategory::all();
-        $this->cartProducts = $cartProducts;
-        $this->transaksi = $transaksi;
+        $this->cartProducts = $this->user ? $this->user->cart->cartProducts->count() : 0;
+        $this->transaction = $this->user ? $this->user->cart->cartOrder->count() : 0;
     }
 
-    public function cart()
+    public function open_cart()
+    {
+        $this->dispatch('cart');
+    }
+
+    public function open_transaction()
     {
         if ($this->user == null) {
-            $this->url = 'auth.login';
+            $this->dispatch('login');
             session()->flash('warning', 'Silahkan login terlebih dahulu');
         } else {
-            $this->url = 'cart';
+            $this->dispatch('transaction_open');
         }
     }
 
-    public function transaksi()
+    public function open_profile()
     {
         if ($this->user == null) {
-            $this->url = 'auth.login';
+            $this->dispatch('login');
             session()->flash('warning', 'Silahkan login terlebih dahulu');
         } else {
-            $this->url = 'transaksi';
-        }
-    }
-
-    public function profile()
-    {
-        if ($this->user == null) {
-            $this->url = 'auth.login';
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->url = 'profile';
+            $this->dispatch('profile');
         }
     }
     public function render()
@@ -57,7 +52,7 @@ class Header extends Component
         $this->kategoriNav = ProductCategory::all();
         return view('livewire.component.header', [
             'kategori' => $this->kategoriNav,
-            'transaksi' => $this->transaksi,
+            'transaction' => $this->transaction,
             'cartProducts' => $this->cartProducts
         ]);
     }

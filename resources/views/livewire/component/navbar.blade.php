@@ -19,22 +19,22 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-between flex-grow pl-12">
+        <div class="flex items-center justify-between flex-grow px-12">
             <div class="flex items-center space-x-6 capitalize">
-                <button x-on:click="$wire.home()" class="text-gray-200 hover:text-white transition">Home</button>
-                <button x-on:click="$wire.shop()" class="text-gray-200 hover:text-white transition">Toko</button>
+                <button wire:click="home" class="text-gray-200 hover:text-white transition">Home</button>
+                <button wire:click="open_shop" class="text-gray-200 hover:text-white transition">Toko</button>
             </div>
             @if (!$user)
                 <div class="flex items-center space-x-6 capitalize">
-                    <button x-on:click="$wire.login" class=" text-gray-200 hover:text-white transition">Login</button>
-                    <button x-on:click="$wire.registration"
+                    <button wire:click="login" class=" text-gray-200 hover:text-white transition">Login</button>
+                    <button wire:click="registration"
                         class=" text-gray-200 hover:text-white transition">Register</button>
                 </div>
             @else
                 <div class="flex items-center space-x-2 capitalize">
                     <img src="{{ asset($user->profile_picture) }}" alt=""
                         class="rounded-full w-10 h-10 border border-gray-200 p-1 object-cover">
-                    <button x-on:click="$wire.profile()" x-text="'{{ $user->nama }}'"
+                    <button wire:click="profile" x-text="'{{ $user->nama }}'"
                         class=" text-gray-200 hover:text-white transition"></a>
                 </div>
             @endif
