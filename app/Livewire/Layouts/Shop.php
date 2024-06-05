@@ -113,8 +113,6 @@ class Shop extends Component
             $this->sort($this->sort);
         }
 
-        dd($this->category_list, $this->batik_list);
-
         return view('livewire.layouts.shop', [
             'batik_list' => $this->batik_list->paginate(9),
             'category_list' => $this->category_list,

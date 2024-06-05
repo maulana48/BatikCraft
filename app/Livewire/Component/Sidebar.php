@@ -26,7 +26,7 @@ class Sidebar extends Component
 
     public function logout()
     {
-        $this->emit('logout');
+        $this->dispatch('logout');
     }
 
     public function render()

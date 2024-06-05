@@ -7,13 +7,14 @@ use Livewire\Component;
 class Profile extends Component
 {
     public $title;
+    public $user;
 
-    public function mount($user, $productId)
+    public function mount($user)
     {
-        if ($user == null) {
+        if (!$user) {
             $this->url = 'auth.login';
             session()->flash('warning', 'Silahkan login terlebih dahulu');
-            $this->emitUp('login');
+            $this->dispatch('login');
             return;
         }
         $this->user = $user;

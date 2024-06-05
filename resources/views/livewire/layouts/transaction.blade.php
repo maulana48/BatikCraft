@@ -1,5 +1,5 @@
 <div x-data="{
-    order: {{ json_encode($order) }}
+    order: {{ json_encode($order) }},
 }">
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
     <!-- breadcrumb -->
@@ -22,31 +22,37 @@
 
         <!-- wishlist -->
         <div class="col-span-9 space-y-4">
-            <template x-for="(p, index) in order">
-                <template x-if="p">
+            {{-- <template x-for="(p, index) in order"> --}}
+            @foreach ($order as $index => $item)
+                <template x-if="{{ $item }}">
                     <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">
                         <div class="w-28">
-                            <p x-text="'order ' + (index + 1)"></p>
+                            <p x-text="'order ' + ({{ $index }} + 1)"></p>
                         </div>
                         <div class="w-1/3">
-                            <h2 x-text="new Date(p.created_at).toLocaleString()"
+                            <h2 x-text="new Date('{{ $item->created_at }}').toLocaleString()"
                                 class="text-gray-800 text-xl font-medium uppercase"></h2>
                             <p class="text-gray-500 text-sm">
-                                Total Produk : <span x-text="p.productpesanan.length" class="text-gray-500"></span>
+                                Total Produk : <span x-text="{{ count($item->orderProduct) }}"
+                                    class="text-gray-500"></span>
                             </p>
-                            <p x-show="(p.status == 3)" class="text-gray-500 text-sm">
+                            <p x-show="({{ $item->status }} == 3)" class="text-gray-500 text-sm">
                                 Status : <span class="text-green-600">Selesai</span>
                             </p>
-                            <p x-show="(p.status != 3)" class="text-gray-500 text-sm">
+                            <p x-show="({{ $item->status }} != 3)" class="text-gray-500 text-sm">
                                 Status : <span class="text-red-600">Menunggu pembayaran</span>
                             </p>
                         </div>
-                        <div x-text="'Rp.'  + parseInt(p.total_harga)" class="text-[#6B4226] text-lg font-semibold">
+                        <div x-text="'Rp.'  + parseInt({{ $item->total_amount }})"
+                            class="text-[#6B4226] text-lg font-semibold">
                         </div>
-                        <button x-on:click="$wire.detailP(p.id)"
+                        <button wire:click="detailOrder({{ $item->id }})"
                             class="px-6 py-2 text-center text-sm text-white bg-[#6B4226] border border-[#120a1b] rounded hover:bg-transparent hover:text-[#6B4226] transition uppercase font-roboto font-medium">Lihat
                             detail</button>
                     </div>
+                </template>
+            @endforeach
+            {{-- </template> --}}
         </div>
     </div>
     <!-- ./wishlist -->

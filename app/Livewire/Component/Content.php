@@ -12,11 +12,12 @@ class Content extends Component
     public $icon;
     public $url;
     public $productId;
+    public $orderId;
     public $kategori;
     public $cartProducts;
     public $transaksi;
 
-    protected $listeners = ['home', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
+    protected $listeners = ['home', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh', 'detailOrder_open'];
 
     public function mount($user, $url)
     {
@@ -33,7 +34,6 @@ class Content extends Component
     #[On('shop_open')]
     public function shop()
     {
-        dd('shop');
         $this->url = 'shop';
     }
 
@@ -60,6 +60,15 @@ class Content extends Component
         $this->url = 'transaction';
     }
 
+    #[On('detailOrder_open')]
+    public function detailOrder_open($orderId)
+    {
+        $this->url = 'payment';
+        dd($orderId, $this->url);
+        $this->orderId = $orderId;
+        $this->render();
+    }
+
     public function productDetail($id)
     {
         $this->detailProduct($id);
@@ -82,6 +91,7 @@ class Content extends Component
         }
     }
 
+    #[On('login')]
     public function login()
     {
         if ($this->user) {
@@ -92,11 +102,15 @@ class Content extends Component
         $this->icon = 'batik(1).png';
     }
 
+    #[On('logout')]
     public function logout()
     {
-        $this->url = 'auth.login';
         session()->invalidate();
         session()->regenerateToken();
+
+        $this->url = 'auth.login';
+        $this->user = null;
+
         return redirect('/');
     }
 
@@ -108,9 +122,9 @@ class Content extends Component
     public function render()
     {
         return view('livewire.component.content', [
-            'url' => $this->url,
             'user' => $this->user,
             'productId' => $this->productId,
+            'orderId' => $this->orderId,
         ]);
     }
 }

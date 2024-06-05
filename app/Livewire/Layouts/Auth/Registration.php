@@ -12,15 +12,15 @@ class Registration extends Component
     use WithFileUploads;
 
     public $url;
-    public $nama;
-    public $gender;
-    public $email;
-    public $alamat;
-    public $no_telepon;
-    public $tanggal_lahir;
-    public $password;
-    public $password_confirmation;
-    public $media;
+    public $name = "user test";
+    public $gender = "M";
+    public $email = "usertest@gmail.com";
+    public $address = "Jl. Test";
+    public $phone_number = "081234567890";
+    public $birth_date = "2000-01-01";
+    public $password = "usertest";
+    public $password_confirmation = "usertest";
+    public $profile_picture;
 
     public function mount()
     {
@@ -36,25 +36,26 @@ class Registration extends Component
         ];
 
         $rules = [
-            'nama' => 'required',
+            'name' => 'required',
             'gender' => 'required|max:1',
             'email' => 'required|email',
-            'alamat' => 'required',
-            'no_telepon' => 'required|min:12',
-            'tanggal_lahir' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required|min:12',
+            'birth_date' => 'required',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
-            'media' => 'required|image|max:2048',
+            'profile_picture' => 'required|image|max:2048',
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media->store('img/User', ['disk' => 'public_uploads']);
+        $payload['profile_picture'] = $this->profile_picture->store('img/User', ['disk' => 'public_uploads']);
 
         $payload['role'] = 2;
 
         $user = User::query()->where('email', $payload['email'])->first();
 
         if ($user) {
+            dd($user);
             return session()->flash('regError', 'Email ini sudah terpakai');
         }
 
@@ -62,17 +63,14 @@ class Registration extends Component
         $keranjang = Cart::create(['user_id' => $user->id]);
 
         if (!$user) {
+            dd($user);
             return session()->flash('regError', 'Pendaftaran gagal, coba ulangi');
         }
 
         session()->flash('success', 'Pendaftaran berhasil');
-        return $this->login();
-    }
 
-    public function login()
-    {
-        // $this->url = 'auth.registration';
-        $this->emitUp('login');
+        $this->dispatch('login');
+        return;
     }
 
     public function render()

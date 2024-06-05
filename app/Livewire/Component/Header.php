@@ -44,7 +44,7 @@ class Header extends Component
             $this->dispatch('login');
             session()->flash('warning', 'Silahkan login terlebih dahulu');
         } else {
-            $this->dispatch('profile');
+            $this->dispatch('profile_open');
         }
     }
     public function render()

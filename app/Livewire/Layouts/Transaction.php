@@ -3,6 +3,7 @@
 namespace App\Livewire\Layouts;
 
 use Livewire\Component;
+use App\Livewire\Component\Content;
 use Illuminate\Support\Facades\{Validator, DB};
 use Livewire\WithFileUploads;
 use App\Models\{
@@ -17,6 +18,8 @@ class Transaction extends Component
 {
     use WithFileUploads;
 
+    public $test = false;
+    public $user;
     private $orderDetail;
     private $order;
     private $orderedProduct;
@@ -35,31 +38,29 @@ class Transaction extends Component
             ->with(['payment', 'orderProduct'])
             ->whereIn('id', $this->order->map->only(['order_id']))
             ->get();
-        $this->url = 'transaction';
     }
 
-    public function detailP($id)
+    public function detailOrder($id)
     {
-        if ($this->user == null) {
-            $this->url = 'auth.login';
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        }
-        $this->url = 'payments';
+        $this->dispatch('detailOrder_open', orderId: $id)->to(Content::class);
+        $this->test = true;
+        // if ($this->user == null) {
+        //     session()->flash('warning', 'Silahkan login terlebih dahulu');
+        // }
 
-        $this->order = Order::query()
-            ->with(['payments'])
-            ->where('id', $id)
-            ->get();
+        // $this->orderDetail = Order::query()
+        //     ->with(['payment'])
+        //     ->find($id);
 
-        $this->orderedProduct = OrderProduct::query()
-            ->with(['Product', 'reviewproduct'])
-            ->withCount([
-                'reviewproduct as review_count' => function ($query) {
-                    $query->where('user_id', '=', $this->user->id);
-                }
-            ])
-            ->where('pemesanan_id', $this->pemesanan[0]->id)
-            ->get();
+        // $this->orderedProduct = OrderProduct::query()
+        //     ->with(['product', 'productReview'])
+        //     ->withCount([
+        //         'productReview as review_count' => function ($query) {
+        //             $query->where('user_id', '=', $this->user->id);
+        //         }
+        //     ])
+        //     ->where('order_id', $this->orderDetail->id)
+        //     ->get();
     }
 
     public function bayar()
@@ -123,11 +124,14 @@ class Transaction extends Component
 
     public function render()
     {
-        return view('livewire.layouts.' . $this->url, [
+        if ($this->test) {
+            dd($this);
+        }
+
+        return view('livewire.layouts.transaction', [
             'order' => $this->order,
             'orderedProduct' => $this->orderedProduct,
             'user' => $this->user,
-            'url' => $this->url,
         ]);
     }
 }
