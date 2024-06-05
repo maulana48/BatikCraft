@@ -107,7 +107,7 @@ class Transaction extends Component
 
         if ($this->media) {
             foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Review', ['disk' => 'public_uploads']);
+                $media = '/storage/' . $media->store('img/Review');
                 $payload = [
                     'entitas_id' => $review->id,
                     'nama_entitas' => 'review_product',

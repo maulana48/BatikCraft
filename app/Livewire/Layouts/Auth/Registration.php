@@ -12,14 +12,14 @@ class Registration extends Component
     use WithFileUploads;
 
     public $url;
-    public $name = "user test";
-    public $gender = "M";
-    public $email = "usertest@gmail.com";
-    public $address = "Jl. Test";
-    public $phone_number = "081234567890";
-    public $birth_date = "2000-01-01";
-    public $password = "usertest";
-    public $password_confirmation = "usertest";
+    public $name;
+    public $gender;
+    public $email;
+    public $address;
+    public $phone_number;
+    public $birth_date;
+    public $password;
+    public $password_confirmation;
     public $profile_picture;
 
     public function mount()
@@ -48,14 +48,13 @@ class Registration extends Component
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['profile_picture'] = $this->profile_picture->store('img/User', ['disk' => 'public_uploads']);
+        $payload['profile_picture'] = '/storage/' . $this->profile_picture->store('img/User');
 
         $payload['role'] = 2;
 
         $user = User::query()->where('email', $payload['email'])->first();
 
         if ($user) {
-            dd($user);
             return session()->flash('regError', 'Email ini sudah terpakai');
         }
 
@@ -63,7 +62,6 @@ class Registration extends Component
         $keranjang = Cart::create(['user_id' => $user->id]);
 
         if (!$user) {
-            dd($user);
             return session()->flash('regError', 'Pendaftaran gagal, coba ulangi');
         }
 

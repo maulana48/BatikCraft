@@ -101,7 +101,7 @@ class ProductLayout extends Component
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);    // dalam proses testing
+        $payload['media'] = $this->media[0]->store('uploads/Product');    // dalam proses testing
         $batik = Product::create($payload);
 
         if (!$batik) {
@@ -110,7 +110,7 @@ class ProductLayout extends Component
 
         if ($this->media) {
             foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
+                $media = '/storage/' . $media->store('img/Product');
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
@@ -175,7 +175,7 @@ class ProductLayout extends Component
 
         if ($this->media) {
             foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
+                $media = '/storage/' . $media->store('img/Product');
                 $data = [
                     'entitas_id' => $batik->id,
                     'nama_entitas' => 'product_batik',
@@ -234,7 +234,7 @@ class ProductLayout extends Component
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Kategori', ['disk' => 'public_uploads']);
+        $payload['media'] = '/storage/' . $this->media[0]->store('img/Kategori');
         $kategori = ProductCategory::create($payload);
 
         if (!$kategori) {
@@ -243,7 +243,7 @@ class ProductLayout extends Component
 
         if ($this->media) {
             foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']);
+                $media = '/storage/' . $media->store('img/Kategori');
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
@@ -291,7 +291,7 @@ class ProductLayout extends Component
         if ($this->media) {
             $kategori->medias()->each->delete();
             foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']);
+                $media = '/storage/' . $media->store('img/Kategori');
                 $payload = [
                     'entitas_id' => $kategori->id,
                     'nama_entitas' => 'kategori_product',
@@ -305,7 +305,7 @@ class ProductLayout extends Component
         $this->media = null;
 
         // foreach ($this->media as $media) {
-        //     $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
+        //     $media = '/storage/' . $media->store('img/Product');
         //     $payload = [
         //         'entitas_id' => $batik->id,
         //         'nama_entitas' => 'product_batik',
