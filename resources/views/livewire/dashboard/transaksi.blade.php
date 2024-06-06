@@ -55,10 +55,14 @@
                             <label for="checkbox-table-1" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <td x-text="t.total_harga" class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                    <td x-text="t.metode_pengiriman" class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
-                    <td x-text="t.alamat_pengiriman" class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
-                    <td x-text="t.estimasi_waktu" class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
+                    <td x-text="t.total_amount"
+                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                    <td x-text="t.shipping_method"
+                        class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
+                    <td x-text="t.shipping_address"
+                        class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
+                    <td x-text="t.estimated_delivery_timestamp"
+                        class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
                     {{-- <td x-text="t." class="py-6 px-8 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
                         <img src="{{ asset($t->media) }}" alt="kosong">
                     </td> --}}

@@ -1,6 +1,6 @@
 <div x-data="{
-    jumlah: 1,
-    increment() { this.jumlah == {{ $batik ? $batik['stok'] : 0 }} ? this.jumlah : this.jumlah++ },
+    jumlah: 0,
+    increment() { this.jumlah == {{ $batik ? $batik['stock'] : 0 }} ? this.jumlah : this.jumlah++ },
     decrement() { this.jumlah == 0 ? this.jumlah : this.jumlah-- },
     btnK: ''
 }">

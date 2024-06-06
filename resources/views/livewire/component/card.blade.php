@@ -1,15 +1,18 @@
-<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        @if ($batik['main_media'])
-            <img class="p-8 rounded-t-lg"
-                src="{{ asset($batik['main_media']->file . '.' . $batik['main_media']->extension) }}"
-                alt="product image" />
-        @else
-            <img class="p-8 rounded-t-lg" src="{{ asset('/img/no_image.png') }}" alt="product image" />
-        @endif
+<div
+    class="w-full h-[550px] max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between pb-6">
+    <div class="group px-5 relative w-full h-[70%] overflow-hidden">
+        <div class="absolute top-0 right-0 w-full h-full p-6">
+            @if ($batik['main_media'])
+                <img class="object-fill mx-auto rounded-lg"
+                    src="{{ asset($batik['main_media']->file . '.' . $batik['main_media']->extension) }}"
+                    alt="product image" />
+            @else
+                <img class="object-fill mx-auto rounded-lg" src="{{ asset('/img/no_image.png') }}" alt="product image" />
+            @endif
+        </div>
 
         <div
-            class="bg-black bg-opacity-40 flex items-center 
+            class="absolute bottom-0 right-0 bg-black bg-opacity-40 flex items-center w-full h-full 
                         justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
             <button wire:click="productDetail({{ $batik['id'] }})"
                 class="text-white text-lg w-9 h-8 rounded-full bg-[#6B4226] flex items-center justify-center hover:bg-gray-800 transition"
@@ -22,10 +25,10 @@
                 <i class="fa-solid fa-heart"></i>
             </button>
         </div>
-    </a>
-    <div class="px-5 pb-5">
+    </div>
+    <div class="px-5">
         <a href="#">
-            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ $batik['name'] }}</h5>
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-600">{{ $batik['name'] }}</h5>
         </a>
         <div class="flex items-center mt-2.5 mb-5">
             <div class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -50,8 +53,8 @@
                 Review</span>
         </div>
         <div class="flex items-center justify-between">
-            <span class="text-3xl font-bold text-gray-900 dark:text-white">Rp.{{ (int) $batik['price'] }}</span>
-            <button x-on:click="$wire.productDetail({{ $batik['id'] }})"
+            <span class="text-3xl font-bold text-gray-900 dark:text-gray-600">Rp.{{ (int) $batik['price'] }}</span>
+            <button wire:click="productDetail({{ $batik['id'] }})"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Lihat
                 Product</button>
         </div>

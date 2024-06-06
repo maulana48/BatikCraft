@@ -9,7 +9,7 @@ use App\Models\{
 
 class Card extends Component
 {
-    public $product = [];
+    private $product;
     public $url;
 
     public function mount($product)
@@ -28,7 +28,7 @@ class Card extends Component
         }
         $product->rating = $rating;
         $product->jumlah_review = $jumlah_review;
-        $this->product = [$product];
+        $this->product = $product;
     }
 
     public function productDetail($id)
@@ -39,7 +39,7 @@ class Card extends Component
     public function render()
     {
         return view('livewire.' . $this->url, [
-            'batik' => count($this->product) > 0 ? $this->product[0] : null,
+            'batik' => $this->product,
         ]);
     }
 }

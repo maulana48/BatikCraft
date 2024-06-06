@@ -1,6 +1,6 @@
 <div x-data="{
     batik: {{ json_encode($batik) }},
-    batik_keranjang: {{ json_encode($batik_keranjang) }}
+    cartProducts: {{ json_encode($cartProducts) }}
 }">
     {{-- Because she competes with no one, no one can compete with her. --}}
     <!-- breadcrumb -->
@@ -22,7 +22,8 @@
         <!-- wishlist -->
         <div class="col-span-9 space-y-4">
             <div class="flex justify-end">
-                <button wire:click="checkOut" class="py-[10px] px-[20px] rounded-lg bg-blue-600 text-white">Check out</button>
+                <button wire:click="checkOut" class="py-[10px] px-[20px] rounded-lg bg-blue-600 text-white">Check
+                    out</button>
             </div>
             <template x-for="(b, index) in batik">
                 <template x-if="b">
@@ -31,7 +32,7 @@
                             <img x-bind:src="b.media" src="" alt="product 6" class="w-full">
                         </div>
                         <div class="w-1/3">
-                            <h2 x-text="b.nama" class="text-gray-800 text-xl font-medium uppercase"></h2>
+                            <h2 x-text="b.name" class="text-gray-800 text-xl font-medium uppercase"></h2>
                             <p x-show="(b.stok != 0)" class="text-gray-500 text-sm">
                                 Stok : <span class="text-green-600">Tersedia</span>
                             </p>
@@ -39,14 +40,16 @@
                                 Stok : <span class="text-red-600">Maaf produk ini sudah habis</span>
                             </p>
                             <p class="text-gray-500 text-sm">
-                                Jumlah : <span x-text="batik_keranjang[index].jumlah" class="text-gray-500"></span>
+                                Jumlah : <span x-text="cartProducts[index].jumlah" class="text-gray-500"></span>
                             </p>
                         </div>
                         <div x-text="'Rp.'  + parseInt(b.harga)" class="text-[#6B4226] text-lg font-semibold"></div>
-                        <button x-on:click="b.status = await $wire.checking(b.id)" x-text="!b.status ? 'Tekan untuk Check-out' : b.status"
+                        <button x-on:click="b.status = await $wire.checking(b.id)"
+                            x-text="!b.status ? 'Tekan untuk Check-out' : b.status"
                             class="px-6 py-2 text-center text-sm text-white bg-[#6B4226] border border-[#120a1b] rounded hover:bg-transparent hover:text-[#6B4226] transition uppercase font-roboto font-medium"></button>
-            
-                        <div x-on:click="deleted = confirm('Pindahkan produk dari keranjang?') ? await $wire.delete(b.id) : false; if(deleted) b = null;" class="text-gray-600 cursor-pointer hover:text-[#6B4226]">
+
+                        <div x-on:click="deleted = confirm('Pindahkan produk dari keranjang?') ? await $wire.delete(b.id) : false; if(deleted) b = null;"
+                            class="text-gray-600 cursor-pointer hover:text-[#6B4226]">
                             <i class="fa-solid fa-trash"></i>
                         </div>
                     </div>

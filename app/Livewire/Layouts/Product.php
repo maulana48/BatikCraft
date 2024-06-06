@@ -83,12 +83,11 @@ class Product extends Component
 
     public function render()
     {
-        dd($this->batik);
-        if (!$this->batik) {
-            session()->flash('warning', 'Product not found');
-            $this->dispatch('home');
-            return;
-        }
+        // if (!$this->batik) {
+        //     session()->flash('warning', 'Product not found');
+        //     $this->dispatch('home');
+        //     return;
+        // }
 
         return view('livewire.layouts.product', [
             'batik' => $this->batik,
