@@ -3,11 +3,12 @@
     <div class="group px-5 relative w-full h-[70%] overflow-hidden">
         <div class="absolute top-0 right-0 w-full h-full p-6">
             @if ($batik['main_media'])
-                <img class="object-fill mx-auto rounded-lg"
-                    src="{{ asset($batik['main_media']->file . '.' . $batik['main_media']->extension) }}"
+                <img class="object-contain mx-auto h-full rounded-lg"
+                    src="{{ asset($batik['main_media']['file'] . '.' . $batik['main_media']['extension']) }}"
                     alt="product image" />
             @else
-                <img class="object-fill mx-auto rounded-lg" src="{{ asset('/img/no_image.png') }}" alt="product image" />
+                <img class="object-contain mx-auto h-full rounded-lg" src="{{ asset('/img/no_image.png') }}"
+                    alt="product image" />
             @endif
         </div>
 

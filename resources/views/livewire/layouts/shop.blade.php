@@ -36,7 +36,7 @@
                                         type="checkbox" name="cat-{{ $item->id }}" id="cat-{{ $item->id }}"
                                         class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
                                     <label for="cat-{{ $item->id }}"
-                                        class="text-gray-600 ml-3 cusror-pointer">{{ $item->nama }}</label>
+                                        class="text-gray-600 ml-3 cusror-pointer">{{ $item->name }}</label>
                                     <div class="ml-auto text-gray-600 text-sm">({{ count($item->products) }})</div>
                                 </div>
                             @endforeach
@@ -52,9 +52,10 @@
                                 <div class="flex items-center">
                                     <input
                                         @click="const index1 = merk.indexOf('{{ $keys }}') ; merk.includes('{{ $keys }}') ? merk.splice(index1, 1) : merk.push('{{ $keys }}') ;   $wire.filtering(kategori, merk, min, max, warnaF)"
-                                        type="checkbox" name="brand-1" id="brand-{{ $keys }}"
+                                        type="checkbox" name="brand-{{ $keys }}"
+                                        id="brand-{{ $keys }}"
                                         class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
-                                    <label for="brand-1"
+                                    <label for="brand-{{ $keys }}"
                                         class="text-gray-600 ml-3 cusror-pointer">{{ $keys }}</label>
                                     <div class="ml-auto text-gray-600 text-sm">({{ count($merk_list[$keys]) }})</div>
                                 </div>
@@ -79,16 +80,17 @@
                 </div>
 
                 <div class="pt-4" x-data="{
-                    warna: {{ json_encode($warna) }}
+                    warna: {{ $warna }}
                 }">
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Warna</h3>
                     <template x-for="(w, index) in warna">
                         <div class="flex items-center">
                             <input
                                 x-on:click="const index2 = warnaF.indexOf(index) ; warnaF.includes(index) ? warnaF.splice(index2, 1) : warnaF.push(index) ;   $wire.filtering(kategori, merk, min, max, warnaF)"
-                                type="checkbox" name="brand-1" x-bind:id="'brand-' + index"
+                                type="checkbox" name="brand-' + index" x-bind:id="'brand-' + index"
                                 class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
-                            <label x-text="index" for="brand-1" class="text-gray-600 ml-3 cusror-pointer"></label>
+                            <label x-text="index" for="brand-' + index"
+                                class="text-gray-600 ml-3 cusror-pointer"></label>
                             <div x-text="w.length" class="ml-auto text-gray-600 text-sm"></div>
                         </div>
                     </template>

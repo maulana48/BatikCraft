@@ -39,7 +39,7 @@ class Home extends Component
 
     // public function detailProduct($id){
     //     $this->url = 'product';
-    //     $this->emitUp('detailProduct'); 
+    //     $this->emitUp('detailProduct_open'); 
     //     $this->productId = $id;
     // }
 

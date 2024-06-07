@@ -17,7 +17,15 @@ class Content extends Component
     public $cartProducts;
     public $transaksi;
 
-    protected $listeners = ['home', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh', 'detailOrder_open'];
+    protected $listeners = ['home', 'cart', 'logout', 'registration', 'login', 'detailProduct_open', 'checkOut' => '$refresh', 'detailOrder_open'];
+
+    public function boot()
+    {
+        $user = session()->get('user');
+        if (!$this->user && $user) {
+            $this->user = $user;
+        }
+    }
 
     public function mount($user, $url)
     {
@@ -64,21 +72,15 @@ class Content extends Component
     public function detailOrder_open($orderId)
     {
         $this->url = 'payment';
-        dd($orderId, $this->url);
         $this->orderId = $orderId;
         $this->render();
     }
 
-    public function productDetail($id)
-    {
-        $this->detailProduct($id);
-    }
-
-    public function detailProduct($id)
+    #[On('detailProduct_open')]
+    public function detailProduct_open($id)
     {
         $this->url = 'product';
         $this->productId = $id;
-        $this->render();
     }
 
     public function checkOut()
@@ -122,6 +124,7 @@ class Content extends Component
     public function render()
     {
         return view('livewire.component.content', [
+            'url' => $this->url,
             'user' => $this->user,
             'productId' => $this->productId,
             'orderId' => $this->orderId,

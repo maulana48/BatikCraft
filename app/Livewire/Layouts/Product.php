@@ -20,7 +20,7 @@ class Product extends Component
     private $product_with_same_category;
     private $productId;
 
-    public function mount(UserModel $user, $productId)
+    public function mount($user = null, $productId)
     {
         $this->user = $user;
         $batik = ProductModel::find($productId);
@@ -78,17 +78,11 @@ class Product extends Component
 
     public function productDetail($id)
     {
-        $this->dispatch('detailProduct', $id);
+        $this->dispatch('detailProduct_open', $id);
     }
 
     public function render()
     {
-        // if (!$this->batik) {
-        //     session()->flash('warning', 'Product not found');
-        //     $this->dispatch('home');
-        //     return;
-        // }
-
         return view('livewire.layouts.product', [
             'batik' => $this->batik,
             'kategori' => $this->kategori,

@@ -18,9 +18,9 @@ class Shop extends Component
     public $category_list;
 
     public $kategoriF;
-    public $merk_list = [];
+    private $merk_list;
     public $merkF;
-    public $warna;
+    private $warna;
     public $warnaF;
 
     public $sort;
@@ -37,7 +37,7 @@ class Shop extends Component
 
         $batik_list = $batik_list->get();
 
-        $merk = $batik_list->groupBy('merk')->map(function ($value) {
+        $merk = $batik_list->groupBy('merch')->map(function ($value) {
             return $value;
         });
         $this->merk_list = $merk;
