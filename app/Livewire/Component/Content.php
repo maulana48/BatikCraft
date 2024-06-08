@@ -51,20 +51,33 @@ class Content extends Component
         if ($this->user == null) {
             $this->url = 'auth.login';
             session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->url = 'cart';
+            return;
         }
+
+        $this->url = 'cart';
     }
 
     #[On('profile_open')]
     public function profile()
     {
+        if ($this->user == null) {
+            $this->url = 'auth.login';
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
+            return;
+        }
+
         $this->url = 'profile';
     }
 
     #[On('transaction_open')]
     public function transaction_open()
     {
+        if ($this->user == null) {
+            $this->url = 'auth.login';
+            session()->flash('warning', 'Silahkan login terlebih dahulu');
+            return;
+        }
+
         $this->url = 'transaction';
     }
 

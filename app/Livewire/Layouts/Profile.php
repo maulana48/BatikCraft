@@ -20,15 +20,8 @@ class Profile extends Component
     public $password_confirmation;
     public $profile_picture;
 
-    public function mount($user)
+    public function mount($user = null)
     {
-        if (!$user) {
-            $this->url = 'auth.login';
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-            $this->dispatch('login');
-            return;
-        }
-
         $this->user = $user;
         $this->title = 'Profile';
         $this->url = 'profile';

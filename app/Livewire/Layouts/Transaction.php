@@ -27,7 +27,7 @@ class Transaction extends Component
     public $media = [];
     public $reviewData = [];
 
-    public function mount($user)
+    public function mount($user = null)
     {
         $this->user = $user;
         $this->order = CartOrder::query()

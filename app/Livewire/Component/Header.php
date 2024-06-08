@@ -30,22 +30,12 @@ class Header extends Component
 
     public function open_transaction()
     {
-        if ($this->user == null) {
-            $this->dispatch('login');
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->dispatch('transaction_open');
-        }
+        $this->dispatch('transaction_open');
     }
 
     public function open_profile()
     {
-        if ($this->user == null) {
-            $this->dispatch('login');
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->dispatch('profile_open');
-        }
+        $this->dispatch('profile_open');
     }
     public function render()
     {
