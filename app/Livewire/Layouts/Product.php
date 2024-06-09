@@ -43,7 +43,7 @@ class Product extends Component
         $this->url = 'product';
     }
 
-    public function addCart($jumlah)
+    public function addCart($amount)
     {
         if (!$this->user) {
             $this->url = 'auth.login';
@@ -57,15 +57,15 @@ class Product extends Component
         }
 
         $cart = $this->user->cart;
-        $jumlah = ($jumlah > $this->batik->stock) ? $this->batik->stock : $jumlah;
+        $amount = ($amount > $this->batik->stock) ? $this->batik->stock : $amount;
         $payload = [
             'product_id' => $this->batik->id,
             'cart_id' => $cart->id,
-            'jumlah' => $jumlah,
+            'amount' => $amount,
             'status' => 1,
         ];
 
-        $this->batik->stock = $this->batik->stock - $jumlah;
+        $this->batik->stock = $this->batik->stock - $amount;
         $this->batik->update(['stock' => $this->batik->stock]);
         $pk = $cart->cartProducts()->firstWhere('product_id', $payload['product_id']);
         if ($pk) {

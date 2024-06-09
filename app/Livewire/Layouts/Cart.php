@@ -15,7 +15,7 @@ use App\Models\{
 class Cart extends Component
 {
     public $user;
-    public $batik;
+    public $batik_list;
     public $cartProducts;
     public $checked;
     public $title;
@@ -27,28 +27,53 @@ class Cart extends Component
         $this->url = 'cart';
         $this->user = $user;
         $this->cartProducts = $user->cart->cartProducts;
-        $batik = $this->cartProducts->map->only(['product_id']);
-        $batik = Product::query()->whereIn('id', $batik)->orderBy('updated_at')->get();
 
-        $this->batik = $batik;
+        $batik_list = $this->cartProducts->map->only(['product_id']);
+
+        // get the product list from the cart with their status from cart_products
+        $media_query = DB::raw('(SELECT file FROM media WHERE parent_id = products.id AND parent_type = "products" LIMIT 1) as main_media');
+        $batik_list = DB::table('products')
+            ->join('cart_products', function ($join) {
+                $join->on('products.id', '=', 'cart_products.product_id')
+                    ->where('cart_products.cart_id', $this->user->cart->id);
+            })
+            ->whereIn('products.id', $batik_list)
+            ->select(
+                'products.*',
+                'cart_products.status',
+                'cart_products.amount',
+                $media_query
+            )
+            ->get();
+
+        $this->batik_list = $batik_list;
     }
 
-    public function checking($id)
+    public function checking($index)
     {
-        $checked = $this->cartProducts->firstWhere('product_id', $id);
-        if ($checked->status == 1) {
-            $checked->update(['status' => 2]);
+        $checkedItem = $this->batik_list[$index];
+        $status = 0;
+
+        if ($checkedItem->status == 1) {
+            $status = 2;
         } else {
-            $checked->update(['status' => 1]);
-            return 'Pilih untuk Check-out';
+            $status = 1;
         }
 
-        return 'Checked';
+        $this->batik_list[$index]->status = $status;
+        DB::table('cart_products')
+            ->where('product_id', $checkedItem->id)
+            ->update(['status' => $status]);
+
+        return $status;
     }
 
-    public function delete($id)
+    public function delete($index)
     {
-        $deleted = $this->cartProducts->firstWhere('product_id', $id);
+        $checkedItem = $this->batik_list[$index];
+        $this->batik_list->forget($index);
+
+        $deleted = $this->cartProducts->firstWhere('product_id', $checkedItem->id);
         $deleted = $deleted->delete();
         return 'deleted';
     }
@@ -57,7 +82,7 @@ class Cart extends Component
     {
         $this->url = 'check-out';
         $this->checked = $this->cartProducts->where('status', 2)->sortBy('product_id');
-        $this->batik = Product::query()
+        $this->batik_list = Product::query()
             ->whereIn('id', $this->checked->map->only(['product_id']))
             ->orderBy('id')
             ->orderBy('updated_at')->get();
@@ -66,13 +91,14 @@ class Cart extends Component
         if ($konfirmasi) {
             $total = 0;
             foreach ($this->checked as $keys => $check) {
-                $total += $check->jumlah * $this->batik->find($check->product_id)->harga;
+                $total += $check->amount * $this->batik_list->find($check->product_id)->harga;
             }
 
             $payload = [
                 'total_amount' => $total,
-                'shipping_address' => $this->user->alamat,
+                'shipping_address' => $this->user->address,
                 'shipping_method' => 'J&T mungkin?',
+                'order_timestamp' => now(),
                 'estimated_delivery_timestamp' => now()->addDays(7),
                 'status' => 1,
             ];
@@ -82,7 +108,7 @@ class Cart extends Component
             foreach ($this->checked as $keys => $check) {
                 $payload = [
                     'product_id' => $check->product_id,
-                    'amount' => $check->jumlah,
+                    'amount' => $check->amount,
                     'order_id' => $pemesanan->id
                 ];
 
@@ -90,16 +116,16 @@ class Cart extends Component
                 $check->delete();
             }
 
-            $CartOrder = CartOrder::create([
-                'cart_id' => $this->user->keranjang->id,
+            CartOrder::create([
+                'cart_id' => $this->user->cart->id,
                 'order_id' => $pemesanan->id
             ]);
 
-            $pembayaran = Payment::create([
+            Payment::create([
                 'order_id' => $pemesanan->id,
                 'payment_code' => $this->user->id . (int) (time() / (60 * 60 * 24)),
-                'total_amount' => $pemesanan->total_harga,
-                'paided_amount' => $pemesanan->total_harga,
+                'total_amount' => $pemesanan->total_amount,
+                'paided_amount' => $pemesanan->total_amount,
                 'payment_method' => 'COD',
                 'status' => 1
             ]);
@@ -113,7 +139,7 @@ class Cart extends Component
     public function render()
     {
         return view('livewire.layouts.' . $this->url, [
-            'batik' => $this->batik,
+            'batik_list' => $this->batik_list,
         ]);
     }
 }
