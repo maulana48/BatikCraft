@@ -56,8 +56,8 @@
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
                     <span>Stok barang : </span>
-                    @if ($batik['stok'])
-                        <span class="text-green-600">{{ $batik['stok'] . ' Tersedia' }}</span>
+                    @if ($batik['stock'])
+                        <span class="text-green-600">{{ $batik['stock'] . ' Tersedia' }}</span>
                     @else
                         <span class="text-red-600">{{ 'Habis' }}</span>
                     @endif
@@ -88,7 +88,7 @@
             </div>
 
             <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                <button x-on:click="btnK = await $wire.addCart(jumlah)"
+                <button @click="btnK = await $wire.addCart(jumlah)"
                     class="bg-[#6B4226] border border-[#6B4226] text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-[#6B4226] transition">
                     <i x-bind:class="btnK == '' ? 'fa-solid fa-bag-shopping' : 'fa-solid fa-circle-check'"></i>
                     <p x-text="(btnK == '') ? 'Tambah ke Keranjang' : btnK"></p>

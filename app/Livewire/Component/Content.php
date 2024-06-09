@@ -101,9 +101,10 @@ class Content extends Component
         if ($this->user == null) {
             $this->url = 'auth.login';
             session()->flash('warning', 'Silahkan login terlebih dahulu');
-        } else {
-            $this->url = 'check-out';
+            return;
         }
+
+        $this->url = 'check-out';
     }
 
     #[On('login')]

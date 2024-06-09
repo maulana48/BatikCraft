@@ -11,11 +11,11 @@
             </div>
             @if ($errors->any())
                 @foreach ($errors->all() as $e)
-                    <div class="bg-red-500 w-full p-2 m-2">{{ $e }}</div>
+                    <div class="bg-red-500 w-full p-2 my-2">{{ $e }}</div>
                 @endforeach
             @endif
             @if (session()->has('success'))
-                <div class="bg-green-500 w-full p-2 m-2">
+                <div class="bg-green-500 w-full p-2 my-2">
                     {{ session('success') }}
                 </div>
             @endif

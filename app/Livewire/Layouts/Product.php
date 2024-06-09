@@ -13,11 +13,11 @@ class Product extends Component
     public $user;
     public $url;
     public $urlT;
-    private $batik;
-    private $kategori;
-    private $rating;
-    private $product_with_same_color_type;
-    private $product_with_same_category;
+    public $batik;
+    public $kategori;
+    public $rating;
+    public $product_with_same_color_type;
+    public $product_with_same_category;
     private $productId;
 
     public function mount($user = null, $productId)
@@ -45,32 +45,33 @@ class Product extends Component
 
     public function addCart($jumlah)
     {
-        if ($this->user == null) {
+        if (!$this->user) {
             $this->url = 'auth.login';
             session()->flash('warning', 'Silahkan login terlebih dahulu');
-            $this->emitUp('login');
+            $this->dispatch('login');
             return 'Gagal';
         }
 
-        if ($this->batik->stok == 0) {
+        if ($this->batik->stock == 0) {
             return 'Product Habis';
         }
-        $keranjang = $this->user->keranjang;
-        $jumlah = ($jumlah > $this->batik->stok) ? $this->batik->stok : $jumlah;
+
+        $cart = $this->user->cart;
+        $jumlah = ($jumlah > $this->batik->stock) ? $this->batik->stock : $jumlah;
         $payload = [
             'product_id' => $this->batik->id,
-            'keranjang_id' => $keranjang->id,
+            'cart_id' => $cart->id,
             'jumlah' => $jumlah,
             'status' => 1,
         ];
 
-        $this->batik->stok = $this->batik->stok - $jumlah;
-        $this->batik->update(['stok' => $this->batik->stok]);
-        $pk = $keranjang->productkeranjang()->firstWhere('product_id', $payload['product_id']);
+        $this->batik->stock = $this->batik->stock - $jumlah;
+        $this->batik->update(['stock' => $this->batik->stock]);
+        $pk = $cart->cartProducts()->firstWhere('product_id', $payload['product_id']);
         if ($pk) {
             $pk->update($payload);
         } else {
-            $keranjang->productkeranjang()->create($payload);
+            $cart->cartProducts()->create($payload);
         }
 
         return 'Product ditambahkan';
@@ -84,11 +85,8 @@ class Product extends Component
     public function render()
     {
         return view('livewire.layouts.product', [
-            'batik' => $this->batik,
             'kategori' => $this->kategori,
             'rating' => $this->rating,
-            'product_with_same_category' => $this->product_with_same_category,
-            'product_with_same_color_type' => $this->product_with_same_color_type,
         ]);
     }
 }
