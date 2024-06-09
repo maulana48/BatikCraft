@@ -7,7 +7,6 @@
     <title>{{ $title ? $title : '' }}</title>
     <link rel="shortcut icon" href="{{ asset('icon/' . $icon) }}" type="image/x-icon">
     @vite('resources/css/app.css')
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/css/main.css">
 
