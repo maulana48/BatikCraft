@@ -21,7 +21,7 @@ class Transaction extends Component
     public $test = false;
     public $user;
     private $orderDetail;
-    private $order;
+    private $order_list;
     private $orderedProduct;
 
     public $media = [];
@@ -30,13 +30,13 @@ class Transaction extends Component
     public function mount($user = null)
     {
         $this->user = $user;
-        $this->order = CartOrder::query()
+        $this->order_list = CartOrder::query()
             ->where('cart_id', $this->user->cart->id)
             ->get();
 
-        $this->order = Order::query()
+        $this->order_list = Order::query()
             ->with(['payment', 'orderProduct'])
-            ->whereIn('id', $this->order->map->only(['order_id']))
+            ->whereIn('id', $this->order_list->map->only(['order_id']))
             ->get();
     }
 
@@ -125,11 +125,11 @@ class Transaction extends Component
     public function render()
     {
         if ($this->test) {
-            dd($this);
+            dd($this, $this->order_list);
         }
 
         return view('livewire.layouts.transaction', [
-            'order' => $this->order,
+            'order_list' => $this->order_list,
             'orderedProduct' => $this->orderedProduct,
             'user' => $this->user,
         ]);

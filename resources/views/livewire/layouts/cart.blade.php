@@ -29,7 +29,7 @@
                 <template x-if="b">
                     <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">
                         <div class="w-28">
-                            <img x-bind:src="b.main_media" src="" alt="product 6" class="w-full">
+                            <img x-bind:src="b.main_media" :alt="'product ' + (index + 1)" class="w-full">
                         </div>
                         <div class="w-1/3">
                             <h2 x-text="b.name" class="text-gray-800 text-xl font-medium uppercase"></h2>
