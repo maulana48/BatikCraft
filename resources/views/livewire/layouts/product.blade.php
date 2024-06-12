@@ -29,7 +29,7 @@
             <div class="grid grid-cols-5 gap-4 mt-4">
                 @foreach ($product_with_same_color_type as $ct)
                     @if ($ct['media'])
-                        <img src="{{ asset($ct['media']) }}" alt="product2" class="w-full cursor-pointer border">
+                        <img src="{{ asset($ct['media']) }}" alt="product" class="w-full cursor-pointer border">
                     @else
                         <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}../assets/images/products/product3.jpg"
                             alt="product2" class="w-full cursor-pointer border">
@@ -64,7 +64,7 @@
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Merk: </span>
-                    <span class="text-gray-600">{{ $batik['merk'] }}</span>
+                    <span class="text-gray-600">{{ $batik['merch'] }}</span>
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Kategori: </span>
@@ -104,7 +104,7 @@
         <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Product details</h3>
         <div class="w-3/5 pt-6">
             <div class="text-gray-600">
-                {{ $batik['deskripsi'] }}
+                {{ $batik['description'] }}
             </div>
 
             <table class="table-auto border-collapse w-full text-left text-gray-600 text-sm mt-6">
@@ -114,11 +114,11 @@
                 </tr>
                 <tr>
                     <th class="py-2 px-4 border border-gray-300 w-40 font-medium">Motif Batik</th>
-                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['motif_batik'] }}</th>
+                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['batik_motif'] }}</th>
                 </tr>
                 <tr>
                     <th class="py-2 px-4 border border-gray-300 w-40 font-medium">Asal Kota</th>
-                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['asal_kota'] }}</th>
+                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['city_origin'] }}</th>
                 </tr>
             </table>
         </div>

@@ -14,14 +14,14 @@ class Sidebar extends Component
         $this->user = $user;
     }
 
-    public function profile()
+    public function open_profile()
     {
-        $this->emit('profile');
+        $this->dispatch('profile_open');
     }
 
-    public function pembayaran()
+    public function open_transaction()
     {
-        $this->emitUp('cart');
+        $this->dispatch('transaction_open');
     }
 
     public function logout()

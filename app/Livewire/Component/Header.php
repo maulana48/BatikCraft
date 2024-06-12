@@ -25,7 +25,7 @@ class Header extends Component
 
     public function open_cart()
     {
-        $this->dispatch('cart');
+        $this->dispatch('cart_open');
     }
 
     public function open_transaction()

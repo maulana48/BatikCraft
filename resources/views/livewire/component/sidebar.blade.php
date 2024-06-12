@@ -3,18 +3,18 @@
     <!-- sidebar -->
     <div class="px-4 py-3 shadow flex items-center gap-4">
         <div class="flex-shrink-0">
-            <img x-bind:src="'/' + '{{ $user ? $user->media : '' }}'" src="" alt="profile"
+            <img x-bind:src="'/' + '{{ $user ? $user->profile_picture : '' }}'" src="" alt="profile"
                 class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
         </div>
         <div class="flex-grow">
             <p class="text-gray-600">Selamat datang,</p>
-            <h4 x-text="'{{ $user ? $user->nama : '' }}'" class="text-gray-800 font-medium"></h4>
+            <h4 x-text="'{{ $user ? $user->name : '' }}'" class="text-gray-800 font-medium"></h4>
         </div>
     </div>
 
     <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
         <div class="space-y-1 pl-8">
-            <a x-on:click="$wire.profile" style="cursor: pointer;"
+            <a wire:click="open_profile" style="cursor: pointer;"
                 class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                 <span class="absolute -left-8 top-0 text-base">
                     <i class="fa-solid fa-user"></i>
@@ -24,23 +24,24 @@
         </div>
 
         <div class="space-y-1 pl-8 pt-4">
-            <a href="#" class="relative hover:text-[#6B4226] block font-medium capitalize transition">
+            <a wire:click="open_transaction"
+                class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                 <span class="absolute -left-8 top-0 text-base">
                     <i class="fa-solid fa-box-archive"></i>
                 </span>
                 Riwayat Pemesanan
             </a>
-            <a x-on:click="$wire.pembayaran({{ $user ? $user->id : '' }})" style="cursor: pointer;"
+            <a wire:click="open_transaction({{ $user ? $user->id : '' }})" style="cursor: pointer;"
                 class="relative hover:text-[#6B4226] block capitalize transition">
                 Pembayaran
             </a>
-            <a href="#" class="relative hover:text-[#6B4226] block capitalize transition">
+            <a class="relative hover:text-[#6B4226] block capitalize transition">
                 Review ku
             </a>
         </div>
 
         <div class="space-y-1 pl-8 pt-4">
-            <a href="#" class="relative text-[#6B4226] block font-medium capitalize transition">
+            <a class="relative hover:text-[#6B4226] block font-medium capitalize transition">
                 <span class="absolute -left-8 top-0 text-base">
                     <i class="fa-regular fa-heart"></i>
                 </span>

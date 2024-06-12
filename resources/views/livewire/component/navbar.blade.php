@@ -34,7 +34,7 @@
                 <div class="flex items-center space-x-2 capitalize">
                     <img src="{{ asset($user->profile_picture) }}" alt=""
                         class="rounded-full w-10 h-10 border border-gray-200 p-1 object-cover">
-                    <button wire:click="profile" x-text="'{{ $user->nama }}'"
+                    <button wire:click="profile" x-text="'{{ $user->name }}'"
                         class=" text-gray-200 hover:text-white transition"></a>
                 </div>
             @endif
