@@ -6,33 +6,36 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Models\{
     Product,
-    Pemesanan,
+    Order,
     User,
-    Pembayaran,
-    ProductPesanan
+    Payment,
+    OrderProduct
 };
 
 class Index extends Component
 {
-    public $pemesanan;
+    public $order;
     public $user;
     public $batik;
-    public $pembayaran;
+    public $payment;
+    public $terpopuler;
 
     public function mount()
     {
-        $this->pemesanan = Pemesanan::all()->count();
+        $this->order = Order::all()->count();
         $this->user = User::query()->where('role', 2)->get();
         $this->batik = Product::all();
-        $this->terpopuler = ProductPesanan::query()
-            ->with(['productbatik'])
-            ->select('product_id', DB::raw('SUM(jumlah) as total'))
+        $this->terpopuler = OrderProduct::query()
+            ->with(['product'])
+            ->select('product_id', DB::raw('SUM(amount) as total'))
             ->groupBy('product_id')
             ->distinct()
             ->orderBy('total', 'desc')
             ->limit(3)
             ->get();
-        $this->pembayaran = Pembayaran::all();
+        $this->payment = Payment::all();
+
+        dd($this->terpopuler);
     }
 
     public function render()

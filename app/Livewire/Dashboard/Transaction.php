@@ -8,7 +8,7 @@ use App\Models\{
     Pemesanan
 };
 
-class Transaksi extends Component
+class Transaction extends Component
 {
     public $title;
     public $icon;
@@ -25,12 +25,11 @@ class Transaksi extends Component
             ->get();
 
         $this->transaksi = $transaksi;
-        $this->url = 'transaksi';
+        $this->url = 'transaction';
     }
     public function transaksi()
     {
-        $this->url = 'transaksi';
-        // return view('livewire.dashboard.' . $this->url);
+        $this->url = 'transaction';
     }
     public function detail($id)
     {

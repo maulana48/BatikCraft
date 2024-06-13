@@ -6,12 +6,12 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\{File, DB};
 use App\Models\{
-    Product,
+    Product as ProductModel,
     ProductCategory,
     Media
 };
 
-class ProductLayout extends Component
+class Product extends Component
 {
     use WithFileUploads;
 
@@ -37,7 +37,7 @@ class ProductLayout extends Component
 
     public function mount()
     {
-        $batik = Product::with(['reviewproduct:rating', 'kategoriproduct'])
+        $batik = ProductModel::with(['productReviews:rating', 'productCategory'])
             ->latest()
             ->get();
 
@@ -102,7 +102,7 @@ class ProductLayout extends Component
 
         $payload = $this->validate($rules, $messages);
         $payload['media'] = $this->media[0]->store('uploads/Product');    // dalam proses testing
-        $batik = Product::create($payload);
+        $batik = ProductModel::create($payload);
 
         if (!$batik) {
             return session()->flash('Error', 'Gagal menambahkan data product, coba lagi');
@@ -171,7 +171,7 @@ class ProductLayout extends Component
         ];
         $payload = $this->validate($rules, $messages);
 
-        $batik = Product::find($id);
+        $batik = ProductModel::find($id);
 
         if ($this->media) {
             foreach ($this->media as $media) {

@@ -29,7 +29,7 @@
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-400">Total Pendapatan</h5>
                                 <h3 class="font-bold text-3xl text-gray-600">
-                                    Rp.{{ $pembayaran->sum('jumlah_yang_dibayar') }} <span class="text-green-500"><i
+                                    Rp.{{ $payment->sum('paided_amount') }} <span class="text-green-500"><i
                                             class="fas fa-caret-up"></i></span></h3>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-400">Total Pemesanan</h5>
-                                <h3 class="font-bold text-3xl text-gray-600">{{ $pemesanan }}<span
+                                <h3 class="font-bold text-3xl text-gray-600">{{ $order }}<span
                                         class="text-yellow-600"><i class="fas fa-caret-up"></i></span></h3>
                             </div>
                         </div>
@@ -144,17 +144,17 @@
                                 <div class="bg-white shadow rounded overflow-hidden group">
                                     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
                                     <div class="relative">
-                                        <img x-bind:src="populer.productbatik.media" src="" alt="product 1"
+                                        <img x-bind:src="populer.product.main_media" src="" alt="product 1"
                                             class="w-full">
                                     </div>
                                     <div class="pt-4 pb-3 px-4">
                                         <a>
-                                            <h4 x-text="populer.productbatik.nama"
+                                            <h4 x-text="populer.product.name"
                                                 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-[#6B4226] transition">
                                             </h4>
                                         </a>
                                         <div class="flex items-baseline mb-1 space-x-2">
-                                            <p x-text="'Rp.' + populer.productbatik.harga"
+                                            <p x-text="'Rp.' + populer.product.price"
                                                 class="text-xl text-[#6B4226] font-semibold"></p>
                                             {{-- <p class="text-sm text-gray-400 line-through">{{ $batik['harga'] }}</p> --}}
                                         </div>
@@ -163,7 +163,7 @@
                                                 class="text-xs text-gray-500 ml-3"></div>
                                         </div>
                                     </div>
-                                    <button x-text="populer.productbatik.nama"
+                                    <button x-text="populer.product.name"
                                         class="block w-full py-1 text-center text-white bg-[#6B4226] border border-[#6B4226] rounded-b hover:bg-transparent hover:text-[#6B4226] transition"></button>
                                 </div>
                             </div>
