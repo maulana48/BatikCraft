@@ -1,5 +1,5 @@
 <div class="max-w-full bg-[#111827]" x-data="{
-    transaksi: {{ json_encode($transaksi) }}
+    transaction_list: {{ json_encode($transaction_list) }}
 }">
     <!-- component -->
     <!-- This is an example component -->
@@ -39,29 +39,30 @@
                 </th>
                 <th scope="col"
                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                    Estimasi Waktu
+                    Tanggal Pemesanan
                 </th>
                 <th scope="col" class="p-4">Detail
                 </th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-            <template x-for="(t, index) in transaksi">
+            <template x-for="(t, index) in transaction_list">
                 <tr class="hover:bg-gray-200 dark:hover:bg-gray-700">
                     <td class="p-4 w-4">
                         <div class="flex items-center">
-                            <input id="checkbox-table-1" type="checkbox"
+                            <input :id="'checkbox-table-'(index + 1)" type="checkbox"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-table-1" class="sr-only">checkbox</label>
+                            <label :for="'checkbox-table-'(index + 1)" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <td x-text="t.total_amount"
-                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                    <td x-text="'Rp.' + t.total_amount"
+                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white text-right">
+                    </td>
                     <td x-text="t.shipping_method"
                         class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
                     <td x-text="t.shipping_address"
                         class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
-                    <td x-text="t.estimated_delivery_timestamp"
+                    <td x-text="t.order_timestamp"
                         class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white"></td>
                     {{-- <td x-text="t." class="py-6 px-8 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
                         <img src="{{ asset($t->media) }}" alt="kosong">

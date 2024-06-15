@@ -37,7 +37,11 @@ class Product extends Component
 
     public function mount()
     {
-        $batik = ProductModel::with(['productReviews:rating', 'productCategory'])
+        $batik = ProductModel::
+            select('products.*', 'product_categories.name as category_name', DB::raw('AVG(product_reviews.rating) as avg_rating'))
+            ->leftJoin('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->leftJoin('product_reviews', 'products.id', '=', 'product_reviews.product_id')
+            ->groupBy('products.id')
             ->latest()
             ->get();
 
@@ -46,7 +50,6 @@ class Product extends Component
         $this->batik = $batik;
         $this->kategori = $kategori;
         $this->url = 'product';
-
     }
 
 

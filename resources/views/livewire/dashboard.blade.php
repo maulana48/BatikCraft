@@ -2,6 +2,7 @@
     @livewire(
         'dashboard.component.navbar',
         [
+            'url' => $url,
             'admin' => $admin,
         ],
         key($url . now())

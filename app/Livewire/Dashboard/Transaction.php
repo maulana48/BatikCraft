@@ -5,7 +5,7 @@ namespace App\Livewire\Dashboard;
 use Livewire\Component;
 use App\Models\{
     Product,
-    Pemesanan
+    Order
 };
 
 class Transaction extends Component
@@ -13,34 +13,34 @@ class Transaction extends Component
     public $title;
     public $icon;
     public $url;
-    public $transaksi;
-    public $detailTransaksi;
-    public $detailProduct;
-    public $detailUser;
+    public $transaction_list;
+    public $transaction;
+    public $productDetail;
+    public $orderedUser;
 
     public function mount()
     {
-        $transaksi = Pemesanan::with(['pembayaran', 'pemesanankeranjang'])
+        $transaction_list = Order::with(['payment', 'cartOrder'])
             ->latest()
             ->get();
 
-        $this->transaksi = $transaksi;
+        $this->transaction_list = $transaction_list;
         $this->url = 'transaction';
     }
-    public function transaksi()
+    public function transaction_list()
     {
         $this->url = 'transaction';
     }
     public function detail($id)
     {
-        $this->url = 'detail-transaksi';
-        $detailTransaksi = $this->transaksi->find($id);
-        $detailUser = $detailTransaksi->pemesanankeranjang->keranjang->user;
-        $detailProduct = $detailTransaksi->productpesanan;
+        $this->url = 'transaction-detail';
+        $transaction = $this->transaction_list->find($id);
+        $orderedUser = $transaction->cartOrder->cart->user;
+        $productDetail = $transaction->orderProduct;
 
-        $this->$detailProduct = $detailProduct->load('productbatik');
-        $this->detailTransaksi = $detailTransaksi;
-        $this->detailUser = $detailUser;
+        $this->$productDetail = $productDetail->load('product');
+        $this->transaction = $transaction;
+        $this->orderedUser = $orderedUser;
     }
     public function render()
     {

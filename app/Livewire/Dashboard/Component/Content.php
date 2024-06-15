@@ -8,18 +8,18 @@ use Livewire\Attributes\On;
 class Content extends Component
 {
     public $admin;
-
     public $url;
 
-    public function mount($admin = null)
+    public function mount($admin = null, $url = "")
     {
         $this->admin = $admin;
+        $this->url = $url;
     }
 
     #[On('home')]
     public function home()
     {
-        return view('livewire.dashboard.index');
+        $this->url = 'home';
     }
 
     #[On('product_open')]

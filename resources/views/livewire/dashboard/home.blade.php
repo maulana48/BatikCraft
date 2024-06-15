@@ -162,8 +162,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button x-text="populer.product.name"
-                                        class="block w-full py-1 text-center text-white bg-[#6B4226] border border-[#6B4226] rounded-b hover:bg-transparent hover:text-[#6B4226] transition"></button>
+                                    <button
+                                        class="block w-full py-1 text-center text-white bg-[#6B4226] border border-[#6B4226] rounded-b hover:bg-transparent hover:text-[#6B4226] transition">
+                                        Lihat detail
+                                    </button>
                                 </div>
                             </div>
                         </div>

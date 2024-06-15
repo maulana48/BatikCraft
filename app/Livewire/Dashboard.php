@@ -41,7 +41,6 @@ class Dashboard extends Component
         return view('livewire.dashboard')->layout('layouts.dashboard', [
             'title' => $this->title,
             'icon' => $this->icon,
-            'admin' => $this->admin
         ]);
     }
 }
