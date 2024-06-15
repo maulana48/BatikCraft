@@ -16,7 +16,7 @@ class Transaction extends Component
     public $transaction_list;
     public $transaction;
     public $productDetail;
-    public $orderedUser;
+    public $detailUser;
 
     public function mount()
     {
@@ -35,12 +35,12 @@ class Transaction extends Component
     {
         $this->url = 'transaction-detail';
         $transaction = $this->transaction_list->find($id);
-        $orderedUser = $transaction->cartOrder->cart->user;
+        $detailUser = $transaction->cartOrder->cart->user;
         $productDetail = $transaction->orderProduct;
 
         $this->$productDetail = $productDetail->load('product');
         $this->transaction = $transaction;
-        $this->orderedUser = $orderedUser;
+        $this->detailUser = $detailUser;
     }
     public function render()
     {
