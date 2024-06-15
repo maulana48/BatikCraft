@@ -10,10 +10,6 @@ class Form extends Component
 {
     use WithFileUploads;
 
-    public function test()
-    {
-        dd($this->product);
-    }
     public function edit($id)
     {
     }

@@ -19,6 +19,7 @@ class Product extends Component
     public $icon;
     public $url;
     public $formUrl;
+    public $message;
     public $batik;
     public $kategori;
     public $listCat = false;
@@ -50,6 +51,9 @@ class Product extends Component
         $this->batik = $batik;
         $this->kategori = $kategori;
         $this->url = 'product';
+        $this->urlForm = '';
+        $this->title = 'List Product BatikCraft';
+        $this->message = '';
     }
 
 
@@ -61,16 +65,14 @@ class Product extends Component
     //     $this->emitUp('transaksi');
     // }
 
-    public function list()
+    public function listProduct()
     {
         $this->listCat = false;
-        $this->render();
     }
 
-    public function listCat()
+    public function listCategory()
     {
         $this->listCat = true;
-        $this->render();
     }
 
     public function create()
@@ -218,8 +220,8 @@ class Product extends Component
     {
         $this->url = 'cat-form';
         $this->urlForm = 'createCategory';
-        $this->title = 'Tambah Category Baru';
-        $this->message = 'Masukkan data untuk categori ini.';
+        $this->title = 'Tambah Kategori Produk';
+        $this->message = 'Masukkan data untuk kategori ini.';
     }
 
     public function createCategory()

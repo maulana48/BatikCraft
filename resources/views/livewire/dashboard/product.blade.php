@@ -18,9 +18,11 @@
                     Kategori baru</button>
             </div>
             <div class="">
-                <button wire:click="list" class="py-[10px] px-[15px] rounded-lg bg-green-500 text-white">Tampilkan
+                <button wire:click="listProduct"
+                    class="py-[10px] px-[15px] rounded-lg bg-green-500 text-white">Tampilkan
                     Produk</button>
-                <button wire:click="listCat" class="py-[10px] px-[15px] rounded-lg bg-blue-500 text-white">Tampilkan
+                <button wire:click="listCategory"
+                    class="py-[10px] px-[15px] rounded-lg bg-blue-500 text-white">Tampilkan
                     Kategori</button>
             </div>
             @if (session()->has('success'))
@@ -146,29 +148,29 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-
-                <template x-for="(k, index) in kategori">
-                    <template x-if="k">
+                <span x-text="console.log(kategori.length)"></span>
+                <template x-for="(kat, index) in kategori">
+                    <template x-if="kat">
                         <tr class="hover:bg-gray-200 dark:hover:bg-gray-700">
                             <td class="p-4 w-4">
                                 <div class="flex items-center">
-                                    <input id="checkbox-table-1" type="checkbox"
+                                    <input :id="'checkbox-table-' + (index + 1)" type="checkbox"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox-table-1" class="sr-only">checkbox</label>
+                                    <label :for="'checkbox-table-' + (index + 1)" class="sr-only">checkbox</label>
                                 </div>
                             </td>
-                            <td x-text="k.nama"
+                            <td x-text="kat.name"
                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             </td>
-                            <td x-text="k.deskripsi"
+                            <td x-text="kat.description"
                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             </td>
                             <td class="mt-5 py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                 <div class="flex flex-col gap-2 items-center justify-center">
-                                    <button x-on:click="result = await $wire.editCat(k.id)"
+                                    <button x-on:click="result = await $wire.editCat(kat.id)"
                                         class="text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                                     <button
-                                        x-on:click="deleted = confirm('Hapus Kategori ini?') ? await $wire.deleteCat(k.id) : false; if(deleted) k = null;"
+                                        x-on:click="deleted = confirm('Hapus Kategori ini?') ? await $wire.deleteCat(kat.id) : false; if(deleted) k = null;"
                                         class="text-red-600 dark:text-red-500 hover:underline">Delete</button>
                                 </div>
                             </td>
