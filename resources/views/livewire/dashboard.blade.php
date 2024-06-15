@@ -1,4 +1,4 @@
-<div class="py-[150px] px-[50px]" x-data="">
+<div x-data="">
     @livewire(
         'dashboard.component.navbar',
         [

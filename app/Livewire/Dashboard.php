@@ -24,12 +24,11 @@ class Dashboard extends Component
 
         if ($token == '' || !session()->has('admin')) {
             $this->url = 'auth.login';
-            $this->login();
             session()->flash('warning', 'Silahkan login terlebih dahulu');
         } else {
             $token = PAT::findToken($token->plainTextToken);
             $this->admin = $token->tokenable;
-            $this->url = 'index';
+            $this->url = 'home';
             // $this->location->refresh();
         }
     }

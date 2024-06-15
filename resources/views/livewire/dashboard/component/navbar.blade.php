@@ -2,8 +2,7 @@
     {{-- Success is as dangerous as failure. --}}
     <nav id="header" class="bg-gray-900 z-10 fixed w-full z-10 top-0 shadow">
         {{-- Care about people's approval and you will be their prisoner. --}}
-        <div class="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3 md:pb-0">
-
+        <div class="w-full container mx-auto flex flex-wrap items-center mt pt-3 pb-3 md:pb-0">
             <div class="w-1/2 pl-2 md:pl-0">
                 <a class="text-gray-100 text-base xl:text-xl no-underline hover:no-underline font-bold" href="#">
                     <img class="max-w-[90px]" src="/img/logo3.png" alt="">

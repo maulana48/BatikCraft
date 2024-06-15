@@ -29,7 +29,7 @@
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-400">Total Pendapatan</h5>
                                 <h3 class="font-bold text-3xl text-gray-600">
-                                    Rp.{{ $payment->sum('paided_amount') }} <span class="text-green-500"><i
+                                    Rp.{{ $payment_list->sum('paided_amount') }} <span class="text-green-500"><i
                                             class="fas fa-caret-up"></i></span></h3>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-400">Total Pemesanan</h5>
-                                <h3 class="font-bold text-3xl text-gray-600">{{ $order }}<span
+                                <h3 class="font-bold text-3xl text-gray-600">{{ $order_list }}<span
                                         class="text-yellow-600"><i class="fas fa-caret-up"></i></span></h3>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-400">Total Produk</h5>
-                                <h3 class="font-bold text-3xl text-gray-600">{{ $batik->count() }}</h3>
+                                <h3 class="font-bold text-3xl text-gray-600">{{ $batik_list->count() }}</h3>
                             </div>
                         </div>
                     </div>
@@ -128,39 +128,38 @@
             <!--Divider-->
             <hr class="border-b-2 border-gray-600 my-8 mx-4">
 
-            <div x-data="{
-                terpopuler: {{ json_encode($terpopuler) }}
-            }" class="flex flex-row flex-wrap flex-grow mt-2">
-
-                <div class="w-full flex p-3 gap-4">
+            <div class="mt-2">
+                <div class="max-w-[50%] flex flex-row flex-wrap justify-center   flex-grow p-3 gap-4 mx-auto">
                     <!--Graph Card-->
-
-                    <template x-for="(populer, index) in terpopuler">
+                    @foreach ($terpopuler as $key => $item)
                         <div class="bg-gray-900 border border-gray-800 rounded shadow">
                             <div class="border-b border-gray-800 p-3">
-                                <h5 x-text="'Tepopuler ' + (index + 1)" class="font-bold uppercase text-gray-600"></h5>
+                                <h5 class="font-bold uppercase text-gray-600">Tepopuler {{ $key + 1 }}</h5>
                             </div>
                             <div class="p-5">
                                 <div class="bg-white shadow rounded overflow-hidden group">
                                     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
                                     <div class="relative">
-                                        <img x-bind:src="populer.product.main_media" src="" alt="product 1"
+                                        <img src="{{ $item->main_media }}" src="" alt="product 1"
                                             class="w-full">
                                     </div>
                                     <div class="pt-4 pb-3 px-4">
                                         <a>
-                                            <h4 x-text="populer.product.name"
+                                            <h4
                                                 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-[#6B4226] transition">
+                                                {{ $item->name }}
                                             </h4>
                                         </a>
                                         <div class="flex items-baseline mb-1 space-x-2">
-                                            <p x-text="'Rp.' + populer.product.price"
-                                                class="text-xl text-[#6B4226] font-semibold"></p>
+                                            <p class="text-xl text-[#6B4226] font-semibold">
+                                                Rp. {{ $item->price }}
+                                            </p>
                                             {{-- <p class="text-sm text-gray-400 line-through">{{ $batik['harga'] }}</p> --}}
                                         </div>
                                         <div class="flex items-center">
-                                            <div x-text="'Total pembelian: ' + populer.total"
-                                                class="text-xs text-gray-500 ml-3"></div>
+                                            <div class="text-xs text-gray-500 ml-3">
+                                                Total pembelian: {{ $item->total_sell }}
+                                            </div>
                                         </div>
                                     </div>
                                     <button x-text="populer.product.name"
@@ -168,12 +167,9 @@
                                 </div>
                             </div>
                         </div>
-
-                    </template>
-
+                    @endforeach
                     <!--/Graph Card-->
                 </div>
-
             </div>
 
             <!--/ Console Content-->
