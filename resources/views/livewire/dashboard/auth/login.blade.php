@@ -1,6 +1,6 @@
+<!-- login -->
 <div class="contain">
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-    <!-- login -->
     <div class="max-w-lg mx-auto shadow rounded overflow-hidden border-white border-4 px-6 py-10 bg-[#fffaf0]">
         <div class="text-center">
             <h2 class="text-2xl uppercase font-medium mb-1">Login Admin</h2>
@@ -56,5 +56,5 @@
         </form>
 
     </div>
-    <!-- ./login -->
 </div>
+<!-- ./login -->

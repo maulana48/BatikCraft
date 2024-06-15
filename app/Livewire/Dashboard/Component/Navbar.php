@@ -15,11 +15,11 @@ class Navbar extends Component
         $this->url = $url;
     }
 
-    public function logout()
+    public function open_logout()
     {
         session()->invalidate();
         session()->regenerateToken();
-        return redirect()->route('auth.login');
+        return redirect()->route('dashboard');
     }
 
     public function open_home()
@@ -46,10 +46,10 @@ class Navbar extends Component
         $this->dispatch('profile_open');
     }
 
-    public function registration()
+    public function open_registration()
     {
         $this->url = 'auth.registration';
-        $this->dispatch('registration');
+        $this->dispatch('registration_open');
     }
 
     public function render()

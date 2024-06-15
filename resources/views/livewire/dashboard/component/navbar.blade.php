@@ -13,11 +13,11 @@
             @if ($admin)
                 <div class="w-1/2 pr-0">
                     <div class="flex relative inline-block float-right">
-
                         <div class="relative text-sm text-gray-100">
                             <button id="userButton" class="flex items-center focus:outline-none mr-3">
-                                <img class="w-8 h-8 rounded-full mr-4" src="{{ $admin->media }}" alt="Avatar of User">
-                                <span class="hidden md:inline-block text-gray-100">{{ $admin->nama }}</span>
+                                <img class="w-8 h-8 rounded-full mr-4" src="{{ $admin->profile_picture }}"
+                                    alt="Avatar of User">
+                                <span class="hidden md:inline-block text-gray-100">{{ $admin->name }}</span>
                                 <svg class="pl-2 h-2 fill-current text-gray-100" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
@@ -30,19 +30,22 @@
                             <div id="userMenu"
                                 class="bg-gray-900 rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
                                 <ul class="list-reset text-center">
-                                    <li><button
-                                            class="mx-auto py-2 block text-gray-100 hover:bg-gray-800 no-underline hover:no-underline">My
-                                            profile</button>
+                                    <li>
+                                        <button
+                                            class="mx-auto py-2 block text-gray-100 hover:bg-gray-800 no-underline hover:no-underline">
+                                            My profile
+                                        </button>
                                     <li>
                                         <hr class="border-t mx-2 border-gray-400">
                                     </li>
-                                    <li><button wire:click="logout"
-                                            class="mx-auto py-2 block text-gray-100 hover:bg-gray-800 no-underline hover:no-underline">Logout</button>
+                                    <li>
+                                        <button wire:click="open_logout"
+                                            class="mx-auto py-2 block text-gray-100 hover:bg-gray-800 no-underline hover:no-underline">Logout
+                                        </button>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-
 
                         <div class="block lg:hidden pr-4">
                             <button id="nav-toggle"
@@ -55,9 +58,7 @@
                             </button>
                         </div>
                     </div>
-
                 </div>
-
 
                 <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-gray-900 z-20"
                     id="nav-content">
@@ -82,7 +83,7 @@
                             </button>
                         </li>
                         <li class="mr-6 my-2 md:my-0">
-                            <button wire:click="registration"
+                            <button wire:click="open_registration"
                                 class="block py-1 md:py-3 pl-1 align-middle @if ($url == 'auth.registration') text-purple-400 border-purple-400 @else text-gray-500 border-gray-900 @endif no-underline hover:text-gray-100 border-b-2  hover:border-purple-400">
                                 <i class="fa fa-user fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Pendaftaran
                                     Admin</span>
@@ -102,10 +103,8 @@
                             </svg>
                         </div>
                     </div>
-
                 </div>
             @endif
-
         </div>
     </nav>
 

@@ -58,7 +58,8 @@ class Content extends Component
         return redirect('/dashboard');
     }
 
-    public function registration()
+    #[On('registration_open')]
+    public function registration_open()
     {
         $this->url = 'auth.registration';
     }
