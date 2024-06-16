@@ -20,26 +20,26 @@
         <form wire:submit.prevent="{{ $formUrl }}" class="mt-8 flex flex-col gap-4" method="POST"
             enctype="multipart/form-data">
             <div class="grid grid-cols-1 space-y-2">
-                <label for="nama" class="text-sm font-bold text-gray-500 tracking-wide">Nama</label>
-                <input wire:model.defer="nama"
+                <label for="name" class="text-sm font-bold text-gray-500 tracking-wide">Nama</label>
+                <input wire:model.defer="name"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                    @error('nama') border-red-500 @enderror"
-                    type="text" placeholder="Masukkan nama batik" name="nama" id="nama" autofocus>
+                    @error('name') border-red-500 @enderror"
+                    type="text" placeholder="Masukkan nama batik" name="name" id="name" autofocus>
 
-                @error('nama')
+                @error('name')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
             <div class="grid grid-cols-1 space-y-2">
-                <label for="merk" class="text-sm font-bold text-gray-500 tracking-wide">Merk</label>
-                <input wire:model.defer="merk"
+                <label for="merch" class="text-sm font-bold text-gray-500 tracking-wide">Merk</label>
+                <input wire:model.defer="merch"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
                     @error('merk') border-red-500 @enderror"
-                    type="text" placeholder="Masukkan merk batik" name="merk" id="merk" autofocus>
+                    type="text" placeholder="Masukkan merk batik" name="merch" id="merch" autofocus>
 
-                @error('merk')
+                @error('merch')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
@@ -54,8 +54,8 @@
                     name="product_category_id" id="product_category_id">
                     <option value="" @if (!$product_category_id) selected @endif> -- select an option --
                     </option>
-                    @foreach ($kategori as $k)
-                        <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                    @foreach ($category_list as $k)
+                        <option value="{{ $k->id }}">{{ $k->name }}</option>
                     @endforeach
                 </select>
 
@@ -66,26 +66,26 @@
                 @enderror
             </div>
             <div class="grid grid-cols-1 space-y-2">
-                <label for="harga" class="text-sm font-bold text-gray-500 tracking-wide">Harga</label>
-                <input wire:model.defer="harga"
+                <label for="price" class="text-sm font-bold text-gray-500 tracking-wide">Harga</label>
+                <input wire:model.defer="price"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                    @error('harga') border-red-500 @enderror"
-                    type="number" placeholder="Masukkan harga batik" id="harga" autofocus>
+                    @error('price') border-red-500 @enderror"
+                    type="number" placeholder="Masukkan harga batik" name="price" id="price" autofocus>
 
-                @error('harga')
+                @error('price')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
             <div class="grid grid-cols-1 space-y-2">
-                <label for="stok" class="text-sm font-bold text-gray-500 tracking-wide">Stok</label>
-                <input wire:model.defer="stok"
+                <label for="price" class="text-sm font-bold text-gray-500 tracking-wide">Stok</label>
+                <input wire:model.defer="price"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                    @error('stok') border-red-500 @enderror"
-                    type="number" placeholder="Masukkan stok batik" id="stok" autofocus>
+                    @error('price') border-red-500 @enderror"
+                    type="number" placeholder="Masukkan stok batik" name="stock" id="price" autofocus>
 
-                @error('stok')
+                @error('price')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
@@ -105,39 +105,39 @@
                 @enderror
             </div>
             <div class="grid grid-cols-1 space-y-2">
-                <label for="asal_kota" class="text-sm font-bold text-gray-500 tracking-wide">Asal Kota</label>
-                <input wire:model.defer="asal_kota"
+                <label for="city_origin" class="text-sm font-bold text-gray-500 tracking-wide">Asal Kota</label>
+                <input wire:model.defer="city_origin"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                    @error('asal_kota') border-red-500 @enderror"
-                    type="text" placeholder="Masukkan asal kota batik" name="asal_kota" id="asal_kota" autofocus>
+                    @error('city_origin') border-red-500 @enderror"
+                    type="text" placeholder="Masukkan asal kota batik" name="city_origin" id="city_origin" autofocus>
 
-                @error('asal_kota')
+                @error('city_origin')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
             <div class="grid grid-cols-1 space-y-2">
-                <label for="motif_batik" class="text-sm font-bold text-gray-500 tracking-wide">Motif Batik</label>
-                <input wire:model.defer="motif_batik"
+                <label for="batik_motif" class="text-sm font-bold text-gray-500 tracking-wide">Motif Batik</label>
+                <input wire:model.defer="batik_motif"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                    @error('motif_batik') border-red-500 @enderror"
-                    type="text" placeholder="Masukkan motif batik" name="motif_batik" id="motif_batik" autofocus>
+                    @error('batik_motif') border-red-500 @enderror"
+                    type="text" placeholder="Masukkan motif batik" name="batik_motif" id="batik_motif" autofocus>
 
-                @error('motif_batik')
+                @error('batik_motif')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
             <div class="grid grid-cols-1 space-y-2">
-                <label for="deskripsi" class="text-sm font-bold text-gray-500 tracking-wide">Deskripsi</label>
-                <textarea wire:model.defer="deskripsi"
+                <label for="description" class="text-sm font-bold text-gray-500 tracking-wide">Deskripsi</label>
+                <textarea wire:model.defer="description"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 h-[200px]
-                    @error('deskripsi') border-red-500 @enderror"
-                    type="text" placeholder="Masukkan deskripsi batik" name="deskripsi" id="deskripsi" autofocus></textarea>
+                    @error('description') border-red-500 @enderror"
+                    type="text" placeholder="Masukkan deskripsi batik" name="description" id="description" autofocus></textarea>
 
-                @error('deskripsi')
+                @error('description')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
@@ -155,12 +155,14 @@
                                     <img class="has-mask h-36 object-center"
                                         src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
                                         alt="freepik image">
-                                @elseif(is_string($media[0]))
+                                @elseif(count($media) != 0)
                                     @foreach ($media as $m)
-                                        <img class="has-mask h-36 object-center" src="{{ $m }}"
+                                        <img class="has-mask h-36 object-center"
+                                            src="{{ asset($m ? $m->file . '.' . $m->extension : '') }}"
                                             alt="freepik image">
                                     @endforeach
                                 @else
+                                    <span x-text="console.log('test1', {{ $media }})"></span>
                                     @foreach ($media as $m)
                                         <img class="has-mask h-36 object-center" src="{{ $m->temporaryUrl() }}"
                                             alt="freepik image">
@@ -176,13 +178,18 @@
                                 computer
                             </p>
                         </div>
-                        <input wire:model="media" multiple type="file" name="medias" id="medias"
+                        <input wire:model="media" multiple type="file" name="media" id="media"
                             class="hidden">
                     </label>
                 </div>
                 <p class="text-sm text-gray-300">
                     <span>File type: doc,pdf,types of images</span>
                 </p>
+                @error('media')
+                    <div class="text-sm text-red-500">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div>
                 <button type="submit"

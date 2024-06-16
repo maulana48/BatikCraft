@@ -1,6 +1,6 @@
 <div class="max-w-full bg-[#111827]" x-data="{
-    batik: {{ json_encode($batik) }},
-    kategori: {{ json_encode($kategori) }}
+    batik_list: {{ json_encode($batik_list) }},
+    category_list: {{ json_encode($category_list) }}
 }">
     <!-- component -->
     <!-- This is an example component -->
@@ -74,7 +74,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
 
-                <template x-for="(b, index) in batik">
+                <template x-for="(b, index) in batik_list">
                     <template x-if="b">
                         <tr class="hover:bg-gray-200 dark:hover:bg-gray-700">
                             <td class="p-4 w-4">
@@ -148,8 +148,8 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                <span x-text="console.log(kategori.length)"></span>
-                <template x-for="(kat, index) in kategori">
+                <span x-text="console.log(category_list.length)"></span>
+                <template x-for="(kat, index) in category_list">
                     <template x-if="kat">
                         <tr class="hover:bg-gray-200 dark:hover:bg-gray-700">
                             <td class="p-4 w-4">

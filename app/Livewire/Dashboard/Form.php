@@ -16,7 +16,6 @@ class Form extends Component
 
     public function render()
     {
-        dd($this->product);
         return view('livewire.dashboard.form');
     }
 }
