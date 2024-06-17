@@ -15,39 +15,35 @@ class Shop extends Component
 
     public $url;
     private $batik_list;
-    public $category_list;
+    private $category_list;
+    private $merch_list;
+    private $color;
 
     public $kategoriF;
-    private $merk_list;
     public $merkF;
-    private $warna;
-    public $warnaF;
+    public $colorF;
 
     public $sort;
 
     // public $listeners = ['toShop' => 'mount'];
 
-    public function mount()
+    public function mount($user = null, $url = null, $filter = null)
     {
         $batik_list = Product::with(['productReviews', 'productCategory']);
-        $category_list = ProductCategory::all();
 
         $this->batik_list = $batik_list;
-        $this->category_list = $category_list;
-
         $batik_list = $batik_list->get();
 
-        $merk = $batik_list->groupBy('merch')->map(function ($value) {
-            return $value;
-        });
-        $this->merk_list = $merk;
-
-        $warna = $batik_list->groupBy('color_type')->map(function ($value) {
-            return $value;
-        });
-
-        $this->warna = $warna;
+        $this->category_list = ProductCategory::all();
+        $this->merch_list = Product::groupBy('merch')->select('merch', \DB::raw('count(*) as total'))->get();
+        $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
         $this->url = 'product';
+
+        if ($filter) {
+            if (isset($filter["category_id"]) && count($filter["category_id"]) != 0) {
+                $this->filtering($filter["category_id"], [], null, null, []);
+            }
+        }
     }
 
     public function filtering($kategori = [], $merk = [], $min = null, $max = null, $warna = [])
@@ -56,39 +52,33 @@ class Shop extends Component
         $this->merkF = $merk;
         $this->minF = $min;
         $this->maxF = $max;
-        $this->warnaF = $warna;
-        $this->batik_list = Product::with(['productReviews', 'productCategory'])->get();
+        $this->colorF = $warna;
+        $this->batik_list = Product::with(['productReviews', 'productCategory']);
+
+        $this->category_list = ProductCategory::all();
+        $this->merch_list = Product::groupBy('merch')->select('merch', \DB::raw('count(*) as total'))->get();
+        $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
+
+        dd($kategori, $merk, $min, $max, $warna);
 
         if ($min != null || $max != null) {
-            $filtered = $this->batik_list->filter(function ($value, $key) {
-                return $value->harga >= $this->minF && $value->harga <= $this->maxF;
-            });
-        } else {
-            $filtered = $this->batik_list;
+            $this->batik_list = $this->batik_list->whereBetween('harga', [$min, $max]);
         }
 
         // filter kategori
         if (count($this->kategoriF) != 0) {
-            $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->product_category_id, $this->kategoriF);
-            });
+            $this->batik_list = $this->batik_list->whereIn('product_category_id', $this->kategoriF);
         }
 
         // filter merk
         if (count($this->merkF) != 0) {
-            $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->merk, $this->merkF);
-            });
+            $this->batik_list = $this->batik_list->whereIn('merch', $this->merkF);
         }
 
         // filter warna
-        if (count($this->warnaF) != 0) {
-            $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->color_type, $this->warnaF);
-            });
+        if (count($this->colorF) != 0) {
+            $this->batik_list = $this->batik_list->whereIn('color_type', $this->colorF);
         }
-
-        $this->batik_list = $filtered;
     }
 
     public function sort($sort)
@@ -116,8 +106,8 @@ class Shop extends Component
         return view('livewire.layouts.shop', [
             'batik_list' => $this->batik_list->paginate(9),
             'category_list' => $this->category_list,
-            'merk_list' => $this->merk_list,
-            'warna' => $this->warna,
+            'merch_list' => $this->merch_list,
+            'color' => $this->color,
         ]);
     }
 }

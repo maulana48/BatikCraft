@@ -7,6 +7,7 @@
                 'user' => $user,
                 'productId' => $productId,
                 'orderId' => $orderId,
+                'filter' => $filter,
             ],
             key(Str::uuid() . now())
         )

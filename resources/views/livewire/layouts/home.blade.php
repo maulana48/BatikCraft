@@ -54,18 +54,21 @@
     <div class="container py-16">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Kategori yang tersedia</h2>
         <div class="grid grid-cols-3 gap-3">
-            @foreach ($category_list as $item)
-                <div class="relative rounded-sm overflow-hidden group">
-                    @if ($item->media)
-                        <img src="{{ asset($item->media) }}" alt="category 1" class="w-full">
-                    @else
-                        <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/category/category-1.jpg"
-                            alt="category 1" class="w-full">
-                    @endif
-                    <a href="{{ $item->id }}"
-                        class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition">{{ $item->nama }}</a>
-                </div>
-            @endforeach
+            @if ($category_list)
+                @foreach ($category_list as $item)
+                    <div class="relative rounded-sm overflow-hidden group">
+                        @if ($item->main_media)
+                            <img src="{{ asset($item->main_media->file . '.' . $item->main_media->extension) }}"
+                                alt="category 1" class="w-full max-h-[300px] object-scale-down">
+                        @else
+                            <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}/assets/images/category/category-1.jpg"
+                                alt="category 1" class="w-full">
+                        @endif
+                        <a wire:click.prevent="open_shop({{ $item->id }})"
+                            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition">{{ $item->nama }}</a>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
     <!-- ./categories -->
@@ -74,9 +77,11 @@
     <div class="container pb-16">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Produk Terbaru</h2>
         <div class="grid grid-cols-4 gap-6">
-            @foreach ($latests as $item)
-                @livewire('component.card', ['product' => $item], key($item->id))
-            @endforeach
+            @if ($latests)
+                @foreach ($latests as $item)
+                    @livewire('component.card', ['product' => $item], key($item->id))
+                @endforeach
+            @endif
         </div>
     </div>
     <!-- ./new arrival -->
@@ -93,9 +98,11 @@
     <div class="container pb-16">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">recomended for you</h2>
         <div class="grid grid-cols-4 gap-6">
-            @foreach ($batik_list as $item)
-                @livewire('component.card', ['product' => $item], key($item->id))
-            @endforeach
+            @if ($batik_list)
+                @foreach ($batik_list as $item)
+                    @livewire('component.card', ['product' => $item], key($item->id))
+                @endforeach
+            @endif
         </div>
     </div>
     <!-- ./product -->

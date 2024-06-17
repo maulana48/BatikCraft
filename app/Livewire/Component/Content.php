@@ -11,9 +11,10 @@ class Content extends Component
     public $title;
     public $icon;
     public $url;
-    public $productId;
-    public $orderId;
-    public $kategori;
+    private $filter = [];
+    private $productId;
+    private $orderId;
+    private $kategori;
     public $cartProducts;
     public $transaksi;
 
@@ -40,8 +41,13 @@ class Content extends Component
     }
 
     #[On('shop_open')]
-    public function shop()
+    public function shop($catId = null)
     {
+        $this->filter = [];
+        if ($catId) {
+            $this->filter['category_id'] = $catId;
+        }
+
         $this->url = 'shop';
     }
 
@@ -142,6 +148,7 @@ class Content extends Component
             'user' => $this->user,
             'productId' => $this->productId,
             'orderId' => $this->orderId,
+            'filter' => $this->filter,
         ]);
     }
 }

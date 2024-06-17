@@ -10,7 +10,6 @@ use App\Models\{
 
 class Home extends Component
 {
-
     public $url;
     private $batik_list;
     private $productId;
@@ -32,16 +31,10 @@ class Home extends Component
 
     }
 
-    public function open_shop()
+    public function open_shop($catId = null)
     {
-        $this->dispatch('shop_open');
+        $this->dispatch('shop_open', $catId);
     }
-
-    // public function detailProduct($id){
-    //     $this->url = 'product';
-    //     $this->emitUp('detailProduct_open'); 
-    //     $this->productId = $id;
-    // }
 
     public function kategoriProduct($id)
     {
