@@ -17,7 +17,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <form wire:submit.prevent="{{ $formUrl }}" class="mt-8 flex flex-col gap-4" method="POST"
+        <form wire:submit="{{ $formUrl }}" class="mt-8 flex flex-col gap-4" method="POST"
             enctype="multipart/form-data">
             <div class="grid grid-cols-1 space-y-2">
                 <label for="name" class="text-sm font-bold text-gray-500 tracking-wide">Nama</label>
@@ -79,13 +79,13 @@
                 @enderror
             </div>
             <div class="grid grid-cols-1 space-y-2">
-                <label for="price" class="text-sm font-bold text-gray-500 tracking-wide">Stok</label>
-                <input wire:model.defer="price"
+                <label for="stock" class="text-sm font-bold text-gray-500 tracking-wide">Stok</label>
+                <input wire:model.defer="stock"
                     class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500
-                    @error('price') border-red-500 @enderror"
-                    type="number" placeholder="Masukkan stok batik" name="stock" id="price" autofocus>
+                    @error('stock') border-red-500 @enderror"
+                    type="number" placeholder="Masukkan stok batik" name="stock" id="stock" autofocus>
 
-                @error('price')
+                @error('stock')
                     <div class="text-sm text-red-500">
                         {{ $message }}
                     </div>
@@ -147,53 +147,59 @@
             <div class="grid grid-cols-1 space-y-2">
                 <label class="text-sm font-bold text-gray-500 tracking-wide">Tambahkan Foto Product</label>
                 <div class="flex items-center justify-center w-full">
-                    <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                    <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-80 p-10 group text-center">
                         <div
                             class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
-                            <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10 justify-center">
-                                @if (!$media)
-                                    <img class="has-mask h-36 object-center"
-                                        src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
-                                        alt="freepik image">
-                                @elseif(count($media) != 0)
-                                    @foreach ($media as $m)
+                            <div class="flex flex-col gap-4 max-h-48 w-2/5 mx-auto -mt-10">
+                                <div class="flex flex-auto justify-center gap-3">
+                                    @php
+                                        for ($i = 0; $i < count($uploaded_media); $i++) {
+                                            array_push($original_media, $uploaded_media[$i]->temporaryUrl());
+                                        }
+                                    @endphp
+                                    @if (count($original_media) == 0)
                                         <img class="has-mask h-36 object-center"
-                                            src="{{ asset($m ? $m->file . '.' . $m->extension : '') }}"
+                                            src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
                                             alt="freepik image">
-                                    @endforeach
-                                @else
-                                    <span x-text="console.log('test1', {{ $media }})"></span>
-                                    @foreach ($media as $m)
-                                        <img class="has-mask h-36 object-center" src="{{ $m->temporaryUrl() }}"
-                                            alt="freepik image">
-                                    @endforeach
-                                @endif
-                                <div wire:loading wire:target="media" class="text-lg p-2 absolute bg-gray-300">
-                                    Uploading...</div>
+                                    @else
+                                        @foreach ($original_media as $m)
+                                            <img class="has-mask h-36 object-center border-2 border-solid border-[#ffe4c4] rounded-md"
+                                                src="{{ asset($m ? $m : '') }}" alt="freepik image">
+                                        @endforeach
+                                    @endif
+                                    <div wire:loading wire:target="media" class="text-lg p-2 absolute bg-gray-300">
+                                        Uploading...</div>
+                                </div>
+                                <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span>
+                                    files
+                                    here
+                                    <br /> or
+                                    <a id="" class="text-blue-600 hover:underline">select a file</a> from
+                                    your
+                                    computer
+                                </p>
                             </div>
-                            <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span> files
-                                here
-                                <br /> or
-                                <a id="" class="text-blue-600 hover:underline">select a file</a> from your
-                                computer
-                            </p>
                         </div>
-                        <input wire:model="media" multiple type="file" name="media" id="media"
-                            class="hidden">
+                        <input wire:model="uploaded_media" multiple type="file" name="uploaded_media"
+                            id="uploaded_media" class="hidden">
                     </label>
                 </div>
                 <p class="text-sm text-gray-300">
                     <span>File type: doc,pdf,types of images</span>
                 </p>
-                @error('media')
+                @error('uploaded_media.*')
                     <div class="text-sm text-red-500">
-                        {{ $message }}
+                        File yang diupload harus memenuhi kriteria berikut :
+                        <ul class="list-disc list-inside">
+                            <li>File harus berupa gambar</li>
+                            <li>Ukuran file maksimal 2MB</li>
+                        </ul>
                     </div>
                 @enderror
             </div>
             <div>
                 <button type="submit"
-                    class="my-5 w-full flex justify-center bg-blue-500 text-gray-100 p-4  rounded-full font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-600 shadow-lg cursor-pointer transition ease-in duration-300">
+                    class="my-5 w-full flex justify-center bg-blue-500 text-gray-100 p-4 rounded-full font-semibold focus:outline-none focus:shadow-outline hover:bg-blue-600 shadow-lg cursor-pointer transition ease-in duration-300">
                     Submit
                 </button>
             </div>

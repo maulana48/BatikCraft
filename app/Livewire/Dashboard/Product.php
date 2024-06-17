@@ -4,7 +4,8 @@ namespace App\Livewire\Dashboard;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Rules\{MediaCount, MediaSize};
+use Livewire\Attributes\Validate;
+use App\Custom\Rule\{MediaCount, MediaSize};
 use Illuminate\Support\Facades\{File, DB};
 use App\Models\{
     Product as ProductModel,
@@ -35,20 +36,11 @@ class Product extends Component
     public $stock;
     public $city_origin;
     public $batik_motif;
+    public $original_media = [];
 
-    // #[Validate(['media.*' => 'image|max:1024'])] // 1MB Max
-    public $media = [];
-
-    public function save()
-    {
-        $this->validate([
-            'media' => [new MediaCount(), new MediaSize()]
-        ]);
-
-        foreach ($this->media as $media) {
-            $media->store('img/Product');
-        }
-    }
+    // #[Validate(['media' => [new MediaCount(), new MediaSize()]])] // 1MB Max
+    #[Validate(['uploaded_media.*' => [new MediaCount, new MediaSize]])]
+    public $uploaded_media = [];
 
     public function mount()
     {
@@ -65,7 +57,7 @@ class Product extends Component
         $this->batik_list = $batik_list;
         $this->category_list = $category_list;
         $this->url = 'product';
-        $this->urlForm = '';
+        $this->formUrl = '';
         $this->title = 'List Product BatikCraft';
         $this->message = '';
     }
@@ -92,7 +84,7 @@ class Product extends Component
     public function create()
     {
         $this->url = 'form';
-        $this->urlForm = 'createProduct';
+        $this->formUrl = 'createProduct';
         $this->title = 'Tambah Produk Baru';
         $this->message = 'Masukkan data untuk produk ini.';
     }
@@ -106,40 +98,40 @@ class Product extends Component
         ];
 
         $rules = [
-            'nama' => 'required',
-            'merk' => 'required',
+            'name' => 'required',
+            'merch' => 'required',
             'product_category_id' => 'required',
-            'harga' => 'required',
-            'deskripsi' => 'required|min:5',
+            'price' => 'required',
+            'description' => 'required|min:5',
             'color_type' => 'required',
-            'stok' => 'required',
-            'asal_kota' => 'required',
-            'motif_batik' => 'required',
-            'media.*' => 'required|image|max:2048',  // 
+            'stock' => 'required',
+            'city_origin' => 'required',
+            'batik_motif' => 'required',
+            'uploaded_media.*' => 'required|image|max:2048',  // 
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('uploads/Product');    // dalam proses testing
+        $payload['uploaded_media'] = $this->uploaded_media[0]->store('uploads/Product');    // dalam proses testing
         $batik = ProductModel::create($payload);
 
         if (!$batik) {
             return session()->flash('Error', 'Gagal menambahkan data product, coba lagi');
         }
 
-        if ($this->media) {
-            foreach ($this->media as $media) {
+        if ($this->uploaded_media) {
+            foreach ($this->uploaded_media as $media) {
                 $media = '/storage/' . $media->store('img/Product');
                 $data = [
                     'parent_id' => $batik->id,
                     'parent_type' => 'product_batik',
                     'file' => $media,
-                    'ekstensi' => substr($media, strrpos($media, '.') + 1)
+                    'extension' => substr($media, strrpos($media, '.') + 1)
                 ];
                 Media::create($data);
             }
         }
 
-        $this->media = null;
+        $this->uploaded_media = [];
 
         return session()->flash('success', 'Data product berhasil ditambahkan');
     }
@@ -147,7 +139,7 @@ class Product extends Component
     public function edit($id)
     {
         $this->url = 'form';
-        $this->urlForm = 'editProduct(' . $id . ')';
+        $this->formUrl = 'editProduct(' . $id . ')';
         $this->title = 'Edit Produk';
         $this->message = 'Masukkan data terbaru untuk produk ini.';
 
@@ -162,9 +154,12 @@ class Product extends Component
         $this->stock = $batikEdit->stock;
         $this->city_origin = $batikEdit->city_origin;
         $this->batik_motif = $batikEdit->batik_motif;
-        $this->media = $batikEdit->media()->get();
 
-        // $this->emitUp('editProduct', $id);
+        $media_list = $batikEdit->media()->get();
+        for ($i = 0; $i < count($media_list); $i++) {
+            $file = $media_list[$i]->file . '.' . $media_list[$i]->extension;
+            array_push($this->original_media, $file);
+        }
     }
 
     public function editProduct($id)
@@ -186,14 +181,14 @@ class Product extends Component
             'stock' => 'required',
             'city_origin' => 'required',
             'batik_motif' => 'required',
-            'media.*' => 'nullable|max:2048',
+            'uploaded_media.*' => 'nullable|max:2048',
         ];
         $payload = $this->validate($rules, $messages);
 
         $batik = ProductModel::find($id);
 
-        if ($this->media) {
-            foreach ($this->media as $media) {
+        if ($this->uploaded_media) {
+            foreach ($this->uploaded_media as $media) {
                 $media = '/storage/' . $media->store('img/Product');
                 $data = [
                     'parent_id' => $batik->id,
@@ -202,11 +197,11 @@ class Product extends Component
                     'extension' => substr($media, strrpos($media, '.') + 1)
                 ];
                 Media::create($data);
-                $payload['media'] = $data['file'];
+                $payload['uploaded_media'] = $data['file'];
             }
         }
 
-        $this->media = null;
+        $this->uploaded_media = [];
 
         $batik = $batik->update($payload);
 
@@ -216,7 +211,7 @@ class Product extends Component
             return session()->flash('Error', 'Gagal update data product, coba lagi');
         }
 
-        return session()->flash('success', 'Update data product berhasil');
+        return session()->flash('success', 'Berhasil mengupdate product');
 
     }
 
@@ -233,7 +228,7 @@ class Product extends Component
     public function createCat()
     {
         $this->url = 'cat-form';
-        $this->urlForm = 'createCategory';
+        $this->formUrl = 'createCategory';
         $this->title = 'Tambah Kategori Produk';
         $this->message = 'Masukkan data untuk kategori ini.';
     }
@@ -249,19 +244,19 @@ class Product extends Component
         $rules = [
             'name' => 'required|min:3',
             'description' => 'required|min:5',
-            'media.*' => 'required',  // |image|max:2048
+            'uploaded_media.*' => 'required',  // |image|max:2048
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = '/storage/' . $this->media[0]->store('img/Kategori');
+        $payload['uploaded_media'] = '/storage/' . $this->uploaded_media[0]->store('img/Kategori');
         $category = ProductCategory::create($payload);
 
         if (!$category) {
             return session()->flash('Error', 'Gagal menambahkan data kategori, coba lagi');
         }
 
-        if ($this->media) {
-            foreach ($this->media as $media) {
+        if ($this->uploaded_media) {
+            foreach ($this->uploaded_media as $media) {
                 $media = '/storage/' . $media->store('img/Category');
                 $payload = [
                     'parent_id' => $category->id,
@@ -272,7 +267,7 @@ class Product extends Component
                 Media::create($payload);
             }
         }
-        $this->media = null;
+        $this->uploaded_media = [];
 
         return session()->flash('success', 'Data kategori berhasil ditambahkan');
     }
@@ -280,7 +275,7 @@ class Product extends Component
     public function editCat($id)
     {
         $this->url = 'cat-form';
-        $this->urlForm = 'editCategory(' . $id . ')';
+        $this->formUrl = 'editCategory(' . $id . ')';
         $this->title = 'Edit Data Kategori';
         $this->message = 'Masukkan data terbaru untuk kategori ini.';
 
@@ -307,9 +302,9 @@ class Product extends Component
 
         $cat = ProductCategory::find($id);
 
-        if ($this->media) {
+        if ($this->uploaded_media) {
             $cat->medias()->each->delete();
-            foreach ($this->media as $media) {
+            foreach ($this->uploaded_media as $media) {
                 $media = '/storage/' . $media->store('img/Category');
                 $payload = [
                     'parent_id' => $cat->id,
@@ -321,9 +316,9 @@ class Product extends Component
             }
         }
 
-        $this->media = null;
+        $this->uploaded_media = [];
 
-        // foreach ($this->media as $media) {
+        // foreach ($this->uploaded_media as $media) {
         //     $media = '/storage/' . $media->store('img/Product');
         //     $payload = [
         //         'parent_id' => $batik->id,
