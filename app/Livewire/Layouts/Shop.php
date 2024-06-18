@@ -19,13 +19,13 @@ class Shop extends Component
     private $merch_list;
     private $color;
 
-    public $kategoriF;
-    public $merkF;
-    public $colorF;
+    public $kategoriF = [];
+    public $merkF = [];
+    public $colorF = [];
+    public $minF = 0;
+    public $maxF = 0;
 
     public $sort;
-
-    // public $listeners = ['toShop' => 'mount'];
 
     public function mount($user = null, $url = null, $filter = null)
     {
@@ -46,23 +46,24 @@ class Shop extends Component
         }
     }
 
-    public function filtering($kategori = [], $merk = [], $min = null, $max = null, $warna = [])
+    public function filtering($kategori = [], $merk = [], $min = 0, $max = 0, $color = [])
     {
         $this->kategoriF = $kategori;
         $this->merkF = $merk;
         $this->minF = $min;
         $this->maxF = $max;
-        $this->colorF = $warna;
-        $this->batik_list = Product::with(['productReviews', 'productCategory']);
+        $this->colorF = $color;
 
-        $this->category_list = ProductCategory::all();
-        $this->merch_list = Product::groupBy('merch')->select('merch', \DB::raw('count(*) as total'))->get();
-        $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
+        if (!$this->batik_list) {
+            $this->batik_list = Product::with(['productReviews', 'productCategory']);
+        }
 
-        dd($kategori, $merk, $min, $max, $warna);
-
-        if ($min != null || $max != null) {
-            $this->batik_list = $this->batik_list->whereBetween('harga', [$min, $max]);
+        // filter harga
+        if ($min) {
+            $this->batik_list = $this->batik_list->where('price', '>=', $min);
+        }
+        if ($max) {
+            $this->batik_list = $this->batik_list->where('price', '<=', $max);
         }
 
         // filter kategori
@@ -81,30 +82,52 @@ class Shop extends Component
         }
     }
 
-    public function sort($sort)
+    public function sorting($sort)
     {
-        if ($sort == 'default') {
-            $this->batik_list = $this->batik_list->sort();
+        if (!$this->batik_list) {
+            $this->batik_list = Product::with(['productReviews', 'productCategory']);
         }
-        if ($sort == 'latest') {
-            $this->batik_list = $this->batik_list->sortByDesc('created_at');
+
+        switch ($sort) {
+            case 'default':
+                // $this->batik_list = $this->batik_list->sort();
+                break;
+            case 'latest':
+                $this->batik_list = $this->batik_list->orderByDesc('created_at');
+                break;
+            case 'price-low-to-high':
+                $this->batik_list = $this->batik_list->orderBy('price');
+                break;
+            case 'price-high-to-low':
+                $this->batik_list = $this->batik_list->orderByDesc('price');
+                break;
         }
-        if ($sort == 'price-low-to-high') {
-            $this->batik_list = $this->batik_list->sortBy('harga');
-        }
-        if ($sort == 'price-high-to-low') {
-            $this->batik_list = $this->batik_list->sortByDesc('harga');
+
+        if (count($this->kategoriF) != 0 || count($this->merkF) != 0 || $this->minF || $this->maxF || count($this->colorF) != 0) {
+            $this->filtering($this->kategoriF, $this->merkF, $this->minF, $this->maxF, $this->colorF);
         }
     }
 
     public function render()
     {
         if ($this->sort != '') {
-            $this->sort($this->sort);
+            $this->sorting($this->sort);
         }
 
+        if (!$this->category_list) {
+            $this->category_list = ProductCategory::all();
+        }
+        if (!$this->merch_list) {
+            $this->merch_list = Product::groupBy('merch')->select('merch', \DB::raw('count(*) as total'))->get();
+        }
+        if (!$this->color) {
+            $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
+        }
+
+        $batik_list = $this->batik_list;
+
         return view('livewire.layouts.shop', [
-            'batik_list' => $this->batik_list->paginate(9),
+            'batik_list' => $batik_list->paginate(9),
             'category_list' => $this->category_list,
             'merch_list' => $this->merch_list,
             'color' => $this->color,

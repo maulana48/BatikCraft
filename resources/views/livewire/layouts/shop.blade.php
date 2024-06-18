@@ -57,11 +57,11 @@
                             @foreach ($merch_list as $keys => $item)
                                 <div class="flex items-center">
                                     <input
-                                        @click="const index1 = merch.indexOf('{{ $keys }}') ; merch.includes('{{ $keys }}') ? merch.splice(index1, 1) : merch.push('{{ $keys }}') ;   $wire.filtering(category_list, merch, min, max, colorF)"
-                                        type="checkbox" name="brand-{{ $keys }}"
-                                        id="brand-{{ $keys }}"
+                                        @click="const index1 = merch.indexOf('{{ $item->merch }}') ; merch.includes('{{ $item->merch }}') ? merch.splice(index1, 1) : merch.push('{{ $item->merch }}') ;   $wire.filtering(category_list, merch, min, max, colorF)"
+                                        type="checkbox" name="brand-{{ $item->merch }}"
+                                        id="brand-{{ $item->merch }}"
                                         class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
-                                    <label for="brand-{{ $keys }}"
+                                    <label for="brand-{{ $item->merch }}"
                                         class="text-gray-600 ml-3 cusror-pointer">{{ $item->merch }}</label>
                                     <div class="ml-auto text-gray-600 text-sm">({{ $item->total }})</div>
                                 </div>
@@ -85,21 +85,20 @@
                     </div>
                 </div>
 
-                <div class="pt-4" x-data="{
-                    color: {{ $color }}
-                }">
+                <div class="pt-4">
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Warna</h3>
-                    <template x-for="(w, index) in color">
+                    @foreach ($color as $keys => $item)
                         <div class="flex items-center">
                             <input
-                                x-on:click="const index2 = colorF.indexOf(index) ; colorF.includes(index) ? colorF.splice(index2, 1) : colorF.push(index) ;   $wire.filtering(category_list, merch, min, max, colorF)"
-                                type="checkbox" :name="'brand-' + index" :id="'brand-' + index"
+                                x-on:click="const index2 = colorF.indexOf('{{ $item->color_type }}') ; colorF.includes('{{ $item->color_type }}') ? colorF.splice(index2, 1) : colorF.push('{{ $item->color_type }}') ;   $wire.filtering(category_list, merch, min, max, colorF)"
+                                type="checkbox" name="brand-{{ $item->color_type }}"
+                                id="brand-{{ $item->color_type }}"
                                 class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
-                            <label x-text="w.color_type" :for="'brand-' + index"
-                                class="text-gray-600 ml-3 cusror-pointer"></label>
-                            <div x-text="'(' + w.total + ')'" class="ml-auto text-gray-600 text-sm"></div>
+                            <label for="brand-{{ $item->color_type }}"
+                                class="text-gray-600 ml-3 cusror-pointer">{{ $item->color_type }}</label>
+                            <div class="ml-auto text-gray-600 text-sm">{{ $item->total }}</div>
                         </div>
-                    </template>
+                    @endforeach
                 </div>
 
             </div>
@@ -109,7 +108,7 @@
         <!-- products -->
         <div class="col-span-3">
             <div class="flex items-center mb-4">
-                <select wire:model="sort" name="sort" id="sort"
+                <select wire:model="sort" name="sort" id="sort" x-on:change="$wire.sorting($event.target.value)"
                     class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-[#6B4226] focus:border-[#6B4226]">
                     <option value="default">Urutan default</option>
                     <option value="price-low-to-high">Dari harga terendah</option>
