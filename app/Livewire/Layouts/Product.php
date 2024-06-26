@@ -10,8 +10,9 @@ use App\Models\{
 
 class Product extends Component
 {
-    public $user;
     public $url;
+    public $pageName;
+    public $user;
     public $urlT;
     public $batik;
     public $kategori;
@@ -40,7 +41,9 @@ class Product extends Component
         $this->kategori = $kategori;
         $this->product_with_same_category = $product_with_same_category;
         $this->product_with_same_color_type = $product_with_same_color_type;
+
         $this->url = 'product';
+        $this->pageName = 'Detail Batik';
     }
 
     public function addCart($amount)

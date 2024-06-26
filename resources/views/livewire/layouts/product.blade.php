@@ -5,17 +5,7 @@
     btnK: ''
 }">
     {{-- Because she competes with no one, no one can compete with her. --}}
-    <!-- breadcrumb -->
-    <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-[#6B4226] text-base">
-            <i class="fa-solid fa-house"></i>
-        </a>
-        <span class="text-sm text-gray-400">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
-        <p class="text-gray-600 font-medium">Detail Batik</p>
-    </div>
-    <!-- ./breadcrumb -->
+    @livewire('component.breadcumb', [$pageName])
 
     <!-- product-detail -->
     <div class="container grid grid-cols-2 gap-6">
