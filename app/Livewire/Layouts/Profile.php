@@ -7,9 +7,10 @@ use App\Models\{User, Cart};
 
 class Profile extends Component
 {
+    public $url;
+    public $pageName;
     public $title;
     public $user;
-    public $url;
     public $name;
     public $gender;
     public $email;
@@ -22,9 +23,10 @@ class Profile extends Component
 
     public function mount($user = null)
     {
+        $this->url = 'profile';
+        $this->pageName = "Profile";
         $this->user = $user;
         $this->title = 'Profile';
-        $this->url = 'profile';
 
         $this->name = $user->name;
         $this->gender = $user->gender;

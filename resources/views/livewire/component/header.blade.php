@@ -4,7 +4,7 @@
     cartProducts: {{ $cartProducts }},
 }">
     <div class="container flex items-center justify-between px-4">
-        <a href="index.html">
+        <a wire:click="open_home">
             <img src="/img/logo3.png" alt="Logo" class="w-24">
         </a>
 

@@ -19,6 +19,7 @@
         [
             'user' => $user,
             'url' => $url,
+            'pageName' => $pageName,
         ],
         key($url . now())
     )

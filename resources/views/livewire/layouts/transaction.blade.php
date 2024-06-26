@@ -1,16 +1,6 @@
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
-    <!-- breadcrumb -->
-    <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-[#6B4226] text-base">
-            <i class="fa-solid fa-house"></i>
-        </a>
-        <span class="text-sm text-gray-400">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
-        <p class="text-gray-600 font-medium">Transaksi</p>
-    </div>
-    <!-- ./breadcrumb -->
+    @livewire('component.breadcumb', [$pageName])
 
     <!-- wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">

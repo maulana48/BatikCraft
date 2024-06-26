@@ -14,8 +14,8 @@
 
     <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
         <div class="space-y-1 pl-8">
-            <a wire:click="open_profile" style="cursor: pointer;"
-                class="relative hover:text-[#6B4226] block font-medium capitalize transition">
+            <a wire:click="open_profile"
+                class="relative hover:text-[#6B4226] block font-medium capitalize transition cursor-pointer">
                 <span class="absolute -left-8 top-0 text-base">
                     <i class="fa-solid fa-user"></i>
                 </span>
@@ -25,23 +25,23 @@
 
         <div class="space-y-1 pl-8 pt-4">
             <a wire:click="open_transaction"
-                class="relative hover:text-[#6B4226] block font-medium capitalize transition">
+                class="relative hover:text-[#6B4226] block font-medium capitalize transition cursor-pointer">
                 <span class="absolute -left-8 top-0 text-base">
                     <i class="fa-solid fa-box-archive"></i>
                 </span>
                 Riwayat Pemesanan
             </a>
-            <a wire:click="open_transaction({{ $user ? $user->id : '' }})" style="cursor: pointer;"
-                class="relative hover:text-[#6B4226] block capitalize transition">
+            <a wire:click="open_transaction({{ $user ? $user->id : 0 }})"
+                class="relative hover:text-[#6B4226] block capitalize transition cursor-pointer">
                 Pembayaran
             </a>
-            <a class="relative hover:text-[#6B4226] block capitalize transition">
+            <a class="relative hover:text-[#6B4226] block capitalize transition cursor-pointer">
                 Review ku
             </a>
         </div>
 
         <div class="space-y-1 pl-8 pt-4">
-            <a class="relative hover:text-[#6B4226] block font-medium capitalize transition">
+            <a class="relative hover:text-[#6B4226] block font-medium capitalize transition cursor-pointer">
                 <span class="absolute -left-8 top-0 text-base">
                     <i class="fa-regular fa-heart"></i>
                 </span>

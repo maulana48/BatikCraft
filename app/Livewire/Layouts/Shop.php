@@ -12,8 +12,6 @@ use App\Models\{
 class Shop extends Component
 {
     use WithPagination;
-
-    public $url;
     private $batik_list;
     private $category_list;
     private $merch_list;
@@ -27,7 +25,7 @@ class Shop extends Component
 
     public $sort;
 
-    public function mount($user = null, $url = null, $filter = null)
+    public function mount($user = null, $url = "", $pageName = "", $filter = null)
     {
         $batik_list = Product::with(['productReviews', 'productCategory']);
 
@@ -37,13 +35,20 @@ class Shop extends Component
         $this->category_list = ProductCategory::all();
         $this->merch_list = Product::groupBy('merch')->select('merch', \DB::raw('count(*) as total'))->get();
         $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
-        $this->url = 'product';
 
         if ($filter) {
             if (isset($filter["category_id"]) && count($filter["category_id"]) != 0) {
                 $this->filtering($filter["category_id"], [], null, null, []);
             }
         }
+    }
+
+    public function open_home()
+    {
+        if (!$this->batik_list) {
+            $this->batik_list = Product::with(['productReviews', 'productCategory']);
+        }
+        $this->dispatch('home');
     }
 
     public function filtering($kategori = [], $merk = [], $min = 0, $max = 0, $color = [])
@@ -124,10 +129,14 @@ class Shop extends Component
             $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
         }
 
-        $batik_list = $this->batik_list;
+        $batik_list = [];
+        if ($this->batik_list) {
+            $batik_list = $this->batik_list->paginate(9);
+        }
 
         return view('livewire.layouts.shop', [
-            'batik_list' => $batik_list->paginate(9),
+            'pageName' => 'Shop',
+            'batik_list' => $batik_list,
             'category_list' => $this->category_list,
             'merch_list' => $this->merch_list,
             'color' => $this->color,

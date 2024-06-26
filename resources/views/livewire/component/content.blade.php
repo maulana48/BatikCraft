@@ -4,6 +4,7 @@
         @livewire(
             'layouts.' . $url,
             [
+                'pageName' => $pageName,
                 'user' => $user,
                 'productId' => $productId,
                 'orderId' => $orderId,

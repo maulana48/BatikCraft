@@ -14,6 +14,7 @@ class Landing extends Component
     public $title;
     public $icon;
     public $url;
+    public $pageName;
     public $productId;
 
     // protected $listeners = ['home', 'shops' => 'shop', 'cart', 'logout', 'registration', 'login', 'detailProduct', 'checkOut' => '$refresh'];
@@ -37,9 +38,11 @@ class Landing extends Component
         if ($this->user) {
             $this->cartProducts = $this->user->cart->cartProducts->count();
         }
+
         $this->title = 'BatikCraft';
         $this->icon = 'batik(1).png';
-        $this->url = ($this->url == '') ? 'home' : $this->url;
+        $this->url = $this->url == '' ? 'home' : $this->url;
+        $this->pageName = $this->pageName == '' ? 'Home' : $this->pageName;
 
         return view('livewire.landing', [
             'user' => $this->user,

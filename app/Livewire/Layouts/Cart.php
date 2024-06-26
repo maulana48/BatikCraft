@@ -14,17 +14,19 @@ use App\Models\{
 
 class Cart extends Component
 {
+    public $url;
+    public $pageName;
     public $user;
     public $batik_list;
     public $cartProducts;
     public $checked;
     public $title;
     public $icon;
-    public $url;
 
     public function mount($user = null)
     {
         $this->url = 'cart';
+        $this->pageName = "Keranjang";
         $this->user = $user;
         $this->cartProducts = $user->cart->cartProducts;
 
@@ -81,6 +83,7 @@ class Cart extends Component
     public function checkOut($konfirmasi = false)
     {
         $this->url = 'check-out';
+        $this->pageName = "Check out";
         $this->checked = $this->cartProducts->where('status', 2)->sortBy('product_id');
         $this->batik_list = Product::query()
             ->whereIn('id', $this->checked->map->only(['product_id']))

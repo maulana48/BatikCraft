@@ -11,6 +11,7 @@ class Content extends Component
     public $title;
     public $icon;
     public $url;
+    public $pageName;
     private $filter = [];
     private $productId;
     private $orderId;
@@ -28,16 +29,18 @@ class Content extends Component
         }
     }
 
-    public function mount($user, $url)
+    public function mount($user, $url, $pageName)
     {
         $this->user = $user;
         $this->url = $url;
+        $this->pageName = $pageName;
     }
 
     #[On('home')]
     public function home()
     {
         $this->url = 'home';
+        $this->pageName = 'Home';
     }
 
     #[On('shop_open')]
@@ -49,6 +52,7 @@ class Content extends Component
         }
 
         $this->url = 'shop';
+        $this->pageName = 'Shop';
     }
 
     #[On('cart_open')]
@@ -61,6 +65,7 @@ class Content extends Component
         }
 
         $this->url = 'cart';
+        $this->pageName = 'Cart';
     }
 
     #[On('profile_open')]
@@ -73,6 +78,7 @@ class Content extends Component
         }
 
         $this->url = 'profile';
+        $this->pageName = 'Profile';
     }
 
     #[On('transaction_open')]
@@ -85,12 +91,14 @@ class Content extends Component
         }
 
         $this->url = 'transaction';
+        $this->pageName = 'Transaksi';
     }
 
     #[On('detailOrder_open')]
     public function detailOrder_open($orderId)
     {
         $this->url = 'payment';
+        $this->pageName = 'Pembayaran';
         $this->orderId = $orderId;
         $this->render();
     }
@@ -99,6 +107,7 @@ class Content extends Component
     public function detailProduct_open($id)
     {
         $this->url = 'product';
+        $this->pageName = 'Product';
         $this->productId = $id;
     }
 
@@ -111,6 +120,7 @@ class Content extends Component
         }
 
         $this->url = 'check-out';
+        $this->pageName = 'Check out';
     }
 
     #[On('login')]
@@ -120,6 +130,7 @@ class Content extends Component
             return;
         }
         $this->url = 'auth.login';
+        $this->pageName = 'Login';
         $this->title = 'Login Page';
         $this->icon = 'batik(1).png';
     }
@@ -131,6 +142,7 @@ class Content extends Component
         session()->regenerateToken();
 
         $this->url = 'auth.login';
+        $this->pageName = 'Login';
         $this->user = null;
 
         return redirect('/');
@@ -139,12 +151,14 @@ class Content extends Component
     public function registration()
     {
         $this->url = 'auth.registration';
+        $this->pageName = 'Registration';
     }
 
     public function render()
     {
         return view('livewire.component.content', [
             'url' => $this->url,
+            'pageName' => $this->pageName,
             'user' => $this->user,
             'productId' => $this->productId,
             'orderId' => $this->orderId,

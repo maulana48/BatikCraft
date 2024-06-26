@@ -23,6 +23,11 @@ class Header extends Component
         $this->transaction = $this->user ? $this->user->cart->cartOrder->count() : 0;
     }
 
+    public function open_home()
+    {
+        $this->dispatch('home');
+    }
+
     public function open_cart()
     {
         $this->dispatch('cart_open');

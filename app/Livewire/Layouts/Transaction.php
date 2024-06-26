@@ -18,7 +18,8 @@ class Transaction extends Component
 {
     use WithFileUploads;
 
-    public $test = false;
+    public $url;
+    public $pageName;
     public $user;
     private $orderDetail;
     private $order_list;
@@ -27,9 +28,12 @@ class Transaction extends Component
     public $media = [];
     public $reviewData = [];
 
-    public function mount($user = null)
+    public function mount($user = null, $url = "", $pageName = "")
     {
+        $this->url = $url;
+        $this->pageName = $pageName;
         $this->user = $user;
+
         $this->order_list = CartOrder::query()
             ->where('cart_id', $this->user->cart->id)
             ->get();
@@ -43,7 +47,6 @@ class Transaction extends Component
     public function detailOrder($id)
     {
         $this->dispatch('detailOrder_open', orderId: $id)->to(Content::class);
-        $this->test = true;
         // if ($this->user == null) {
         //     session()->flash('warning', 'Silahkan login terlebih dahulu');
         // }
@@ -101,7 +104,6 @@ class Transaction extends Component
         ];
 
         dd(Validator::validate($reviewData, $rules, $messages));
-        dd('test', $reviewData);
         $reviewData = Validator::validate($reviewData, $rules, $messages);
         $review = $batik->reviewproduct()->create($reviewData);
 
@@ -124,14 +126,12 @@ class Transaction extends Component
 
     public function render()
     {
-        if ($this->test) {
-            dd($this, $this->order_list);
-        }
-
         return view('livewire.layouts.transaction', [
+            'url' => $this->url,
+            'pageName' => $this->pageName,
+            'user' => $this->user,
             'order_list' => $this->order_list,
             'orderedProduct' => $this->orderedProduct,
-            'user' => $this->user,
         ]);
     }
 }
