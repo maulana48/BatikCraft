@@ -5,8 +5,6 @@
     btnK: ''
 }">
     {{-- Because she competes with no one, no one can compete with her. --}}
-    @livewire('component.breadcumb', [$pageName])
-
     <!-- product-detail -->
     <div class="container grid grid-cols-2 gap-6">
         <div>
@@ -32,8 +30,8 @@
             <h2 class="text-3xl font-medium uppercase mb-2">{{ $batik['name'] }}</h2>
             <div class="flex items-center mb-4">
                 <div class="flex gap-1 text-sm text-yellow-400">
-                    @for ($i = 0; $i < 5; $i++)
-                        @if ($i < $rating)
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $rating)
                             <span><i class="fa-solid fa-star"></i></span>
                         @else
                             <span><i class="fa-solid fa-star text-gray-500"></i></span>
@@ -41,7 +39,7 @@
                     @endfor
                 </div>
                 <div class="text-xs text-gray-500 ml-3">
-                    ({{ $batik['reviewproduct'] ? count($batik['reviewproduct']) : '0' }} Review)</div>
+                    ({{ $batik['productReviews'] ? count($batik['productReviews']) : '0' }} Review)</div>
             </div>
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
@@ -125,4 +123,9 @@
         </div>
     </div>
     <!-- ./related product -->
+    @push('scripts')
+        @once
+            {!! "<script>console.log(\"test\");window.scrollTo({top: 0,behavior: 'smooth'});</script>" !!}
+        @endonce
+    @endpush
 </div>

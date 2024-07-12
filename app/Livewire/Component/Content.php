@@ -18,6 +18,7 @@ class Content extends Component
     private $kategori;
     public $cartProducts;
     public $transaksi;
+    public $breadcumb = [];
 
     protected $listeners = ['home', 'cart', 'logout', 'registration', 'login', 'detailProduct_open', 'checkOut' => '$refresh', 'detailOrder_open'];
 
@@ -34,6 +35,7 @@ class Content extends Component
         $this->user = $user;
         $this->url = $url;
         $this->pageName = $pageName;
+        // $this->breadcumb = [$this->pageName];
     }
 
     #[On('home')]
@@ -41,6 +43,7 @@ class Content extends Component
     {
         $this->url = 'home';
         $this->pageName = 'Home';
+        $this->breadcumb = [$this->pageName];
     }
 
     #[On('shop_open')]
@@ -53,6 +56,18 @@ class Content extends Component
 
         $this->url = 'shop';
         $this->pageName = 'Shop';
+        $this->breadcumb = [$this->pageName];
+    }
+
+    #[On('detailProduct_open')]
+    public function detailProduct_open($id)
+    {
+
+        $this->url = 'product';
+        $this->pageName = 'Product';
+        // $this->breadcumb = [$this->pageName];
+        array_push($this->breadcumb, $this->pageName);
+        $this->productId = $id;
     }
 
     #[On('cart_open')]
@@ -66,6 +81,7 @@ class Content extends Component
 
         $this->url = 'cart';
         $this->pageName = 'Cart';
+        $this->breadcumb = [$this->pageName];
     }
 
     #[On('profile_open')]
@@ -79,6 +95,7 @@ class Content extends Component
 
         $this->url = 'profile';
         $this->pageName = 'Profile';
+        $this->breadcumb = [$this->pageName];
     }
 
     #[On('transaction_open')]
@@ -92,6 +109,7 @@ class Content extends Component
 
         $this->url = 'transaction';
         $this->pageName = 'Transaksi';
+        $this->breadcumb = [$this->pageName];
     }
 
     #[On('detailOrder_open')]
@@ -99,16 +117,9 @@ class Content extends Component
     {
         $this->url = 'payment';
         $this->pageName = 'Pembayaran';
+        $this->breadcumb = [$this->pageName];
         $this->orderId = $orderId;
         $this->render();
-    }
-
-    #[On('detailProduct_open')]
-    public function detailProduct_open($id)
-    {
-        $this->url = 'product';
-        $this->pageName = 'Product';
-        $this->productId = $id;
     }
 
     public function checkOut()
@@ -121,6 +132,7 @@ class Content extends Component
 
         $this->url = 'check-out';
         $this->pageName = 'Check out';
+        $this->breadcumb = [$this->pageName];
     }
 
     #[On('login')]
@@ -131,6 +143,7 @@ class Content extends Component
         }
         $this->url = 'auth.login';
         $this->pageName = 'Login';
+        $this->breadcumb = [$this->pageName];
         $this->title = 'Login Page';
         $this->icon = 'batik(1).png';
     }
@@ -143,6 +156,7 @@ class Content extends Component
 
         $this->url = 'auth.login';
         $this->pageName = 'Login';
+        $this->breadcumb = [$this->pageName];
         $this->user = null;
 
         return redirect('/');
@@ -152,6 +166,7 @@ class Content extends Component
     {
         $this->url = 'auth.registration';
         $this->pageName = 'Registration';
+        $this->breadcumb = [$this->pageName];
     }
 
     public function render()
@@ -159,6 +174,7 @@ class Content extends Component
         return view('livewire.component.content', [
             'url' => $this->url,
             'pageName' => $this->pageName,
+            'breadcumb' => $this->breadcumb,
             'user' => $this->user,
             'productId' => $this->productId,
             'orderId' => $this->orderId,

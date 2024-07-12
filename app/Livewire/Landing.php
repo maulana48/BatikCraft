@@ -32,7 +32,6 @@ class Landing extends Component
         }
     }
 
-
     public function render()
     {
         if ($this->user) {

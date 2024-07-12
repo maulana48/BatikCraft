@@ -13,7 +13,6 @@ class Card extends Component
     private $product;
     public $url;
 
-
     public function mount($product)
     {
         $this->url = 'component.card';

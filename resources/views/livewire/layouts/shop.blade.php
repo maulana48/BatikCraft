@@ -1,6 +1,5 @@
 <div>
     {{-- The Master doesn't talk, he acts. --}}
-    @livewire('component.breadcumb', [$pageName])
 
     <!-- shop wrapper -->
     <div class="container grid grid-cols-4 gap-6 pt-4 pb-16 items-start" x-data="category_list = [];

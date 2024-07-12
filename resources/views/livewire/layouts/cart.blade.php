@@ -3,8 +3,6 @@
     cartProducts: {{ json_encode($cartProducts) }}
 }">
     {{-- Because she competes with no one, no one can compete with her. --}}
-    @livewire('component.breadcumb', [$pageName])
-
     <!-- wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
         @livewire('component.sidebar', [$user])

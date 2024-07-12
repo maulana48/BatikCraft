@@ -105,7 +105,7 @@ class Transaction extends Component
 
         dd(Validator::validate($reviewData, $rules, $messages));
         $reviewData = Validator::validate($reviewData, $rules, $messages);
-        $review = $batik->reviewproduct()->create($reviewData);
+        $review = $batik->productReviews()->create($reviewData);
 
         if ($this->media) {
             foreach ($this->media as $media) {

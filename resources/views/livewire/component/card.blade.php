@@ -33,8 +33,8 @@
         </a>
         <div class="flex items-center mt-2.5 mb-5">
             <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                @for ($i = 0; $i < 5; $i++)
-                    @if ($i < $batik['rating'])
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $batik['rating'])
                         <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 22 20">
                             <path

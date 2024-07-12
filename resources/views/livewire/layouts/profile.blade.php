@@ -1,7 +1,5 @@
 <div>
     {{-- Success is as dangerous as failure. --}}
-    @livewire('component.breadcumb', [$pageName])
-
     <!-- wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
         @livewire('component.sidebar', [$user])
