@@ -4,14 +4,16 @@ namespace App\Livewire\Dashboard;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+use App\Custom\Rule\{MediaCount, MediaSize};
 use Illuminate\Support\Facades\{File, DB};
 use App\Models\{
-    Product,
+    Product as ProductModel,
     ProductCategory,
     Media
 };
 
-class ProductLayout extends Component
+class Product extends Component
 {
     use WithFileUploads;
 
@@ -19,34 +21,45 @@ class ProductLayout extends Component
     public $icon;
     public $url;
     public $formUrl;
-    public $batik;
-    public $kategori;
+    public $message;
+    public $batik_list;
+    public $category_list;
     public $listCat = false;
     //protected $listeners = ['delete' => 'mount'];
 
-    public $nama;
-    public $merk;
+    public $name;
+    public $merch;
     public $product_category_id;
-    public $harga;
-    public $deskripsi;
+    public $price;
+    public $description;
     public $color_type;
-    public $stok;
-    public $asal_kota;
-    public $motif_batik;
-    public $media = [];
+    public $stock;
+    public $city_origin;
+    public $batik_motif;
+    public $original_media = [];
+
+    // #[Validate(['media' => [new MediaCount(), new MediaSize()]])] // 1MB Max
+    #[Validate(['uploaded_media.*' => [new MediaCount, new MediaSize]])]
+    public $uploaded_media = [];
 
     public function mount()
     {
-        $batik = Product::with(['reviewproduct:rating', 'kategoriproduct'])
+        $batik_list = ProductModel::
+            select('products.*', 'product_categories.name as category_name', DB::raw('AVG(product_reviews.rating) as avg_rating'))
+            ->leftJoin('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->leftJoin('product_reviews', 'products.id', '=', 'product_reviews.product_id')
+            ->groupBy('products.id')
             ->latest()
             ->get();
 
-        $kategori = ProductCategory::all();
+        $category_list = ProductCategory::all();
 
-        $this->batik = $batik;
-        $this->kategori = $kategori;
+        $this->batik_list = $batik_list;
+        $this->category_list = $category_list;
         $this->url = 'product';
-
+        $this->formUrl = '';
+        $this->title = 'List Product BatikCraft';
+        $this->message = '';
     }
 
 
@@ -58,26 +71,23 @@ class ProductLayout extends Component
     //     $this->emitUp('transaksi');
     // }
 
-    public function list()
+    public function listProduct()
     {
         $this->listCat = false;
-        $this->render();
     }
 
-    public function listCat()
+    public function listCategory()
     {
         $this->listCat = true;
-        $this->render();
     }
 
     public function create()
     {
         $this->url = 'form';
-        $this->urlForm = 'createProduct';
+        $this->formUrl = 'createProduct';
         $this->title = 'Tambah Produk Baru';
         $this->message = 'Masukkan data untuk produk ini.';
     }
-
 
     public function createProduct()
     {
@@ -88,40 +98,40 @@ class ProductLayout extends Component
         ];
 
         $rules = [
-            'nama' => 'required',
-            'merk' => 'required',
+            'name' => 'required',
+            'merch' => 'required',
             'product_category_id' => 'required',
-            'harga' => 'required',
-            'deskripsi' => 'required|min:5',
+            'price' => 'required',
+            'description' => 'required|min:5',
             'color_type' => 'required',
-            'stok' => 'required',
-            'asal_kota' => 'required',
-            'motif_batik' => 'required',
-            'media.*' => 'required|image|max:2048',  // 
+            'stock' => 'required',
+            'city_origin' => 'required',
+            'batik_motif' => 'required',
+            'uploaded_media.*' => 'required|image|max:2048',  // 
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Product', ['disk' => 'public_uploads']);    // dalam proses testing
-        $batik = Product::create($payload);
+        $payload['uploaded_media'] = $this->uploaded_media[0]->store('uploads/Product');    // dalam proses testing
+        $batik = ProductModel::create($payload);
 
         if (!$batik) {
             return session()->flash('Error', 'Gagal menambahkan data product, coba lagi');
         }
 
-        if ($this->media) {
-            foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
+        if ($this->uploaded_media) {
+            foreach ($this->uploaded_media as $media) {
+                $media = '/storage/' . $media->store('img/Product');
                 $data = [
-                    'entitas_id' => $batik->id,
-                    'nama_entitas' => 'product_batik',
+                    'parent_id' => $batik->id,
+                    'parent_type' => 'product_batik',
                     'file' => $media,
-                    'ekstensi' => substr($media, strrpos($media, '.') + 1)
+                    'extension' => substr($media, strrpos($media, '.') + 1)
                 ];
                 Media::create($data);
             }
         }
 
-        $this->media = null;
+        $this->uploaded_media = [];
 
         return session()->flash('success', 'Data product berhasil ditambahkan');
     }
@@ -129,23 +139,27 @@ class ProductLayout extends Component
     public function edit($id)
     {
         $this->url = 'form';
-        $this->urlForm = 'editProduct(' . $id . ')';
+        $this->formUrl = 'editProduct(' . $id . ')';
         $this->title = 'Edit Produk';
         $this->message = 'Masukkan data terbaru untuk produk ini.';
 
-        $batikEdit = $this->batik->find($id);
-        $this->nama = $batikEdit->nama;
-        $this->merk = $batikEdit->merk;
-        $this->product_category_id = $batikEdit->product_category_id;
-        $this->harga = $batikEdit->harga;
-        $this->deskripsi = $batikEdit->deskripsi;
-        $this->color_type = $batikEdit->color_type;
-        $this->stok = $batikEdit->stok;
-        $this->asal_kota = $batikEdit->asal_kota;
-        $this->motif_batik = $batikEdit->motif_batik;
-        $this->media = [$batikEdit->media];
+        $batikEdit = $this->batik_list->find($id);
 
-        // $this->emitUp('editProduct', $id);
+        $this->name = $batikEdit->name;
+        $this->merch = $batikEdit->merch;
+        $this->product_category_id = $batikEdit->product_category_id;
+        $this->price = $batikEdit->price;
+        $this->description = $batikEdit->description;
+        $this->color_type = $batikEdit->color_type;
+        $this->stock = $batikEdit->stock;
+        $this->city_origin = $batikEdit->city_origin;
+        $this->batik_motif = $batikEdit->batik_motif;
+
+        $media_list = $batikEdit->media()->get();
+        for ($i = 0; $i < count($media_list); $i++) {
+            $file = $media_list[$i]->file . '.' . $media_list[$i]->extension;
+            array_push($this->original_media, $file);
+        }
     }
 
     public function editProduct($id)
@@ -158,37 +172,36 @@ class ProductLayout extends Component
         ];
 
         $rules = [
-            'nama' => 'required',
-            'merk' => 'required',
+            'name' => 'required',
+            'merch' => 'required',
             'product_category_id' => 'required',
-            'harga' => 'required',
-            'deskripsi' => 'required|min:5',
+            'price' => 'required',
+            'description' => 'required|min:5',
             'color_type' => 'required',
-            'stok' => 'required',
-            'asal_kota' => 'required',
-            'motif_batik' => 'required',
-            'media.*' => 'nullable|max:2048',
+            'stock' => 'required',
+            'city_origin' => 'required',
+            'batik_motif' => 'required',
+            'uploaded_media.*' => 'nullable|max:2048',
         ];
         $payload = $this->validate($rules, $messages);
 
-        $batik = Product::find($id);
+        $batik = ProductModel::find($id);
 
-        if ($this->media) {
-            foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
+        if ($this->uploaded_media) {
+            foreach ($this->uploaded_media as $media) {
+                $media = '/storage/' . $media->store('img/Product');
                 $data = [
-                    'entitas_id' => $batik->id,
-                    'nama_entitas' => 'product_batik',
+                    'parent_id' => $batik->id,
+                    'parent_type' => 'product_batik',
                     'file' => $media,
-                    'ekstensi' => substr($media, strrpos($media, '.') + 1)
+                    'extension' => substr($media, strrpos($media, '.') + 1)
                 ];
                 Media::create($data);
-                $payload['media'] = $data['file'];
-                dd($data['file'], $payload['media']);
+                $payload['uploaded_media'] = $data['file'];
             }
         }
 
-        $this->media = null;
+        $this->uploaded_media = [];
 
         $batik = $batik->update($payload);
 
@@ -198,15 +211,16 @@ class ProductLayout extends Component
             return session()->flash('Error', 'Gagal update data product, coba lagi');
         }
 
-        return session()->flash('success', 'Update data product berhasil');
+        return session()->flash('success', 'Berhasil mengupdate product');
 
     }
 
     public function delete($id)
     {
-        $batik = $this->batik->find($id);
+        $batik = $this->batik_list->find($id);
         File::delete(public_path($batik->media));
         $batik->delete();
+
         session()->flash('success', 'Data product berhasil dihapus');
         return 'deleted';
     }
@@ -214,9 +228,9 @@ class ProductLayout extends Component
     public function createCat()
     {
         $this->url = 'cat-form';
-        $this->urlForm = 'createCategory';
-        $this->title = 'Tambah Category Baru';
-        $this->message = 'Masukkan data untuk categori ini.';
+        $this->formUrl = 'createCategory';
+        $this->title = 'Tambah Kategori Produk';
+        $this->message = 'Masukkan data untuk kategori ini.';
     }
 
     public function createCategory()
@@ -228,32 +242,32 @@ class ProductLayout extends Component
         ];
 
         $rules = [
-            'nama' => 'required|min:3',
-            'deskripsi' => 'required|min:5',
-            'media.*' => 'required',  // |image|max:2048
+            'name' => 'required|min:3',
+            'description' => 'required|min:5',
+            'uploaded_media.*' => 'required',  // |image|max:2048
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media[0]->store('img/Kategori', ['disk' => 'public_uploads']);
-        $kategori = ProductCategory::create($payload);
+        $payload['uploaded_media'] = '/storage/' . $this->uploaded_media[0]->store('img/Kategori');
+        $category = ProductCategory::create($payload);
 
-        if (!$kategori) {
+        if (!$category) {
             return session()->flash('Error', 'Gagal menambahkan data kategori, coba lagi');
         }
 
-        if ($this->media) {
-            foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']);
+        if ($this->uploaded_media) {
+            foreach ($this->uploaded_media as $media) {
+                $media = '/storage/' . $media->store('img/Category');
                 $payload = [
-                    'entitas_id' => $kategori->id,
-                    'nama_entitas' => 'kategori_product',
+                    'parent_id' => $category->id,
+                    'parent_type' => 'kategori_product',
                     'file' => $media,
-                    'ekstensi' => substr($media, strrpos($media, '.') + 1)
+                    'extension' => substr($media, strrpos($media, '.') + 1)
                 ];
                 Media::create($payload);
             }
         }
-        $this->media = null;
+        $this->uploaded_media = [];
 
         return session()->flash('success', 'Data kategori berhasil ditambahkan');
     }
@@ -261,13 +275,13 @@ class ProductLayout extends Component
     public function editCat($id)
     {
         $this->url = 'cat-form';
-        $this->urlForm = 'editCategory(' . $id . ')';
+        $this->formUrl = 'editCategory(' . $id . ')';
         $this->title = 'Edit Data Kategori';
         $this->message = 'Masukkan data terbaru untuk kategori ini.';
 
-        $kategoriEdit = $this->kategori->find($id);
-        $this->nama = $kategoriEdit->nama;
-        $this->deskripsi = $kategoriEdit->deskripsi;
+        $catEdit = $this->category_list->find($id);
+        $this->nama = $catEdit->nama;
+        $this->deskripsi = $catEdit->deskripsi;
 
         // $this->emitUp('editProduct', $id);
     }
@@ -281,45 +295,45 @@ class ProductLayout extends Component
         ];
 
         $rules = [
-            'nama' => 'required|min:3',
-            'deskripsi' => 'required|min:5',
+            'name' => 'required|min:3',
+            'description' => 'required|min:5',
         ];
         $payload = $this->validate($rules, $messages);
 
-        $kategori = ProductCategory::find($id);
+        $cat = ProductCategory::find($id);
 
-        if ($this->media) {
-            $kategori->medias()->each->delete();
-            foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Kategori', ['disk' => 'public_uploads']);
+        if ($this->uploaded_media) {
+            $cat->medias()->each->delete();
+            foreach ($this->uploaded_media as $media) {
+                $media = '/storage/' . $media->store('img/Category');
                 $payload = [
-                    'entitas_id' => $kategori->id,
-                    'nama_entitas' => 'kategori_product',
+                    'parent_id' => $cat->id,
+                    'parent_type' => 'kategori_product',
                     'file' => $media,
-                    'ekstensi' => substr($media, strrpos($media, '.') + 1)
+                    'extension' => substr($media, strrpos($media, '.') + 1)
                 ];
                 Media::create($payload);
             }
         }
 
-        $this->media = null;
+        $this->uploaded_media = [];
 
-        // foreach ($this->media as $media) {
-        //     $media = '/' . $media->store('img/Product', ['disk' => 'public_uploads']);
+        // foreach ($this->uploaded_media as $media) {
+        //     $media = '/storage/' . $media->store('img/Product');
         //     $payload = [
-        //         'entitas_id' => $batik->id,
-        //         'nama_entitas' => 'product_batik',
+        //         'parent_id' => $batik->id,
+        //         'parent_type' => 'product_batik',
         //         'file' => $media,
-        //         'ekstensi' => substr($media, strrpos($media, '.')+1)
+        //         'extension' => substr($media, strrpos($media, '.')+1)
         //     ];
         //     Media::create($payload);
         // }
 
-        $kategori = $kategori->update($payload);
+        $cat = $cat->update($payload);
 
 
 
-        if (!$kategori) {
+        if (!$cat) {
             return session()->flash('Error', 'Gagal update data kategori, coba lagi');
         }
 
@@ -329,12 +343,12 @@ class ProductLayout extends Component
 
     public function deleteCat($id)
     {
-        $kategori = $this->kategori->find($id);
-        foreach ($kategori->medias() as $media) {
+        $cat = $this->category_list->find($id);
+        foreach ($cat->medias() as $media) {
             File::delete(public_path($media->file));
             $media->delete();
         }
-        $kategori->delete();
+        $cat->delete();
         session()->flash('success', 'Data kategori berhasil dihapus');
         return 'deleted';
     }

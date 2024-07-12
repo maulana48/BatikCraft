@@ -5,20 +5,23 @@ namespace App\Livewire\Layouts;
 use Livewire\Component;
 use App\Models\{
     Product as ProductModel,
+    User as UserModel
 };
 
 class Product extends Component
 {
-    public $user;
     public $url;
+    public $pageName;
+    public $user;
     public $urlT;
-    private $batik;
-    private $kategori;
-    private $rating;
-    private $product_with_same_color_type;
-    private $product_with_same_category;
+    public $batik;
+    public $kategori;
+    public $rating;
+    public $product_with_same_color_type;
+    public $product_with_same_category;
+    private $productId;
 
-    public function mount($user, $productId)
+    public function mount($user = null, $productId)
     {
         $this->user = $user;
         $batik = ProductModel::find($productId);
@@ -38,50 +41,55 @@ class Product extends Component
         $this->kategori = $kategori;
         $this->product_with_same_category = $product_with_same_category;
         $this->product_with_same_color_type = $product_with_same_color_type;
+
         $this->url = 'product';
+        $this->pageName = 'Detail Batik';
     }
 
-    public function addCart($jumlah)
+    public function addCart($amount)
     {
-        if ($this->user == null) {
+        if (!$this->user) {
             $this->url = 'auth.login';
             session()->flash('warning', 'Silahkan login terlebih dahulu');
-            $this->emitUp('login');
+            $this->dispatch('login');
             return 'Gagal';
         }
 
-        if ($this->batik->stok == 0) {
+        if ($this->batik->stock == 0) {
             return 'Product Habis';
         }
-        $keranjang = $this->user->keranjang;
-        $jumlah = ($jumlah > $this->batik->stok) ? $this->batik->stok : $jumlah;
+
+        $cart = $this->user->cart;
+        $amount = ($amount > $this->batik->stock) ? $this->batik->stock : $amount;
         $payload = [
             'product_id' => $this->batik->id,
-            'keranjang_id' => $keranjang->id,
-            'jumlah' => $jumlah,
+            'cart_id' => $cart->id,
+            'amount' => $amount,
             'status' => 1,
         ];
 
-        $this->batik->stok = $this->batik->stok - $jumlah;
-        $this->batik->update(['stok' => $this->batik->stok]);
-        $pk = $keranjang->productkeranjang()->firstWhere('product_id', $payload['product_id']);
+        $this->batik->stock = $this->batik->stock - $amount;
+        $this->batik->update(['stock' => $this->batik->stock]);
+        $pk = $cart->cartProducts()->firstWhere('product_id', $payload['product_id']);
         if ($pk) {
             $pk->update($payload);
         } else {
-            $keranjang->productkeranjang()->create($payload);
+            $cart->cartProducts()->create($payload);
         }
 
         return 'Product ditambahkan';
     }
 
+    public function productDetail($id)
+    {
+        $this->dispatch('detailProduct_open', $id);
+    }
+
     public function render()
     {
         return view('livewire.layouts.product', [
-            'batik' => $this->batik,
             'kategori' => $this->kategori,
             'rating' => $this->rating,
-            'product_with_same_category' => $this->product_with_same_category,
-            'product_with_same_color_type' => $this->product_with_same_color_type,
         ]);
     }
 }

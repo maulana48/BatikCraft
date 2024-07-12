@@ -12,108 +12,134 @@ use App\Models\{
 class Shop extends Component
 {
     use WithPagination;
+    private $batik_list;
+    private $category_list;
+    private $merch_list;
+    private $color;
 
-    public $url;
-    private $batiks;
-    public $kategori;
-
-    public $kategoriF;
-    public $merks = [];
-    public $merkF;
-    public $warna;
-    public $warnaF;
+    public $kategoriF = [];
+    public $merkF = [];
+    public $colorF = [];
+    public $minF = 0;
+    public $maxF = 0;
 
     public $sort;
 
-    // public $listeners = ['toShop' => 'mount'];
-
-    public function mount()
+    public function mount($user = null, $url = "", $pageName = "", $filter = null)
     {
-        $batiks = Product::with(['productReviews', 'productCategory']);
-        $kategori = ProductCategory::all();
+        $batik_list = Product::with(['productReviews', 'productCategory']);
 
-        $this->batiks = $batiks;
-        $this->kategori = $kategori;
+        $this->batik_list = $batik_list;
+        $batik_list = $batik_list->get();
 
-        $batiks = $batiks->get();
+        $this->category_list = ProductCategory::all();
+        $this->merch_list = Product::groupBy('merch')->select('merch', \DB::raw('count(*) as total'))->get();
+        $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
 
-        $merk = $batiks->groupBy('merk')->map(function ($value) {
-            return $value;
-        });
-        $this->merks = $merk;
-
-        $warna = $batiks->groupBy('color_type')->map(function ($value) {
-            return $value;
-        });
-
-        $this->warna = $warna;
-        $this->url = 'product';
+        if ($filter) {
+            if (isset($filter["category_id"]) && count($filter["category_id"]) != 0) {
+                $this->filtering($filter["category_id"], [], null, null, []);
+            }
+        }
     }
 
-    public function filtering($kategori = [], $merk = [], $min = null, $max = null, $warna = [])
+    public function open_home()
+    {
+        if (!$this->batik_list) {
+            $this->batik_list = Product::with(['productReviews', 'productCategory']);
+        }
+        $this->dispatch('home');
+    }
+
+    public function filtering($kategori = [], $merk = [], $min = 0, $max = 0, $color = [])
     {
         $this->kategoriF = $kategori;
         $this->merkF = $merk;
         $this->minF = $min;
         $this->maxF = $max;
-        $this->warnaF = $warna;
-        $this->batiks = Product::with(['productReviews', 'productCategory'])->get();
+        $this->colorF = $color;
 
-        if ($min != null || $max != null) {
-            $filtered = $this->batiks->filter(function ($value, $key) {
-                return $value->harga >= $this->minF && $value->harga <= $this->maxF;
-            });
-        } else {
-            $filtered = $this->batiks;
+        if (!$this->batik_list) {
+            $this->batik_list = Product::with(['productReviews', 'productCategory']);
+        }
+
+        // filter harga
+        if ($min) {
+            $this->batik_list = $this->batik_list->where('price', '>=', $min);
+        }
+        if ($max) {
+            $this->batik_list = $this->batik_list->where('price', '<=', $max);
         }
 
         // filter kategori
         if (count($this->kategoriF) != 0) {
-            $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->product_category_id, $this->kategoriF);
-            });
+            $this->batik_list = $this->batik_list->whereIn('product_category_id', $this->kategoriF);
         }
 
         // filter merk
         if (count($this->merkF) != 0) {
-            $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->merk, $this->merkF);
-            });
+            $this->batik_list = $this->batik_list->whereIn('merch', $this->merkF);
         }
 
         // filter warna
-        if (count($this->warnaF) != 0) {
-            $filtered = $filtered->filter(function ($value, $key) {
-                return in_array($value->color_type, $this->warnaF);
-            });
+        if (count($this->colorF) != 0) {
+            $this->batik_list = $this->batik_list->whereIn('color_type', $this->colorF);
         }
-
-        $this->batiks = $filtered;
     }
 
-    public function sort($sort)
+    public function sorting($sort)
     {
-        if ($sort == 'default') {
-            $this->batiks = $this->batiks->sort();
+        if (!$this->batik_list) {
+            $this->batik_list = Product::with(['productReviews', 'productCategory']);
         }
-        if ($sort == 'latest') {
-            $this->batiks = $this->batiks->sortByDesc('created_at');
+
+        switch ($sort) {
+            case 'default':
+                // $this->batik_list = $this->batik_list->sort();
+                break;
+            case 'latest':
+                $this->batik_list = $this->batik_list->orderByDesc('created_at');
+                break;
+            case 'price-low-to-high':
+                $this->batik_list = $this->batik_list->orderBy('price');
+                break;
+            case 'price-high-to-low':
+                $this->batik_list = $this->batik_list->orderByDesc('price');
+                break;
         }
-        if ($sort == 'price-low-to-high') {
-            $this->batiks = $this->batiks->sortBy('harga');
-        }
-        if ($sort == 'price-high-to-low') {
-            $this->batiks = $this->batiks->sortByDesc('harga');
+
+        if (count($this->kategoriF) != 0 || count($this->merkF) != 0 || $this->minF || $this->maxF || count($this->colorF) != 0) {
+            $this->filtering($this->kategoriF, $this->merkF, $this->minF, $this->maxF, $this->colorF);
         }
     }
 
     public function render()
     {
         if ($this->sort != '') {
-            $this->sort($this->sort);
+            $this->sorting($this->sort);
         }
+
+        if (!$this->category_list) {
+            $this->category_list = ProductCategory::all();
+        }
+        if (!$this->merch_list) {
+            $this->merch_list = Product::groupBy('merch')->select('merch', \DB::raw('count(*) as total'))->get();
+        }
+        if (!$this->color) {
+            $this->color = Product::groupBy('color_type')->select('color_type', \DB::raw('count(*) as total'))->get();
+        }
+
+        $batik_list = [];
+        if ($this->batik_list) {
+            $batik_list = $this->batik_list->paginate(9);
+        }
+
         return view('livewire.layouts.shop', [
-            'batik_list' => $this->batiks->paginate(9),
+            'pageName' => 'Shop',
+            'batik_list' => $batik_list,
+            'category_list' => $this->category_list,
+            'merch_list' => $this->merch_list,
+            'color' => $this->color,
         ]);
     }
 }

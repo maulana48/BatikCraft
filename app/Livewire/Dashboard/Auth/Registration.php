@@ -21,9 +21,10 @@ class Registration extends Component
     public $password_confirmation;
     public $media;
 
-    public function mount()
+    public function mount($admin = null, $url = "")
     {
-        $this->url = 'auth.registration';
+        $this->admin = $admin;
+        $this->url = $url;
     }
 
     public function registration()
@@ -48,7 +49,7 @@ class Registration extends Component
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media->store('img/User', ['disk' => 'public_uploads']);
+        $payload['media'] = '/storage/' . $this->media->store('img/User');
 
         $payload['role'] = 1;
 
@@ -70,45 +71,6 @@ class Registration extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.' . $this->url);
+        return view('livewire.dashboard.auth.registration');
     }
 }
-
-// <?php
-
-// namespace App\Livewire\Layouts\Auth;
-
-// use Livewire\Component;
-// use App\Models\{ User, Keranjang };
-// use Illuminate\Support\Facades\Hash;
-// use Livewire\WithFileUploads;
-
-// class Registration extends Component
-// {
-//     use WithFileUploads;
-
-//     public $url;
-//     public $nama;
-//     public $gender;
-//     public $email;
-//     public $alamat;
-//     public $no_telepon;
-//     public $tanggal_lahir;
-//     public $password;
-//     public $password_confirmation;
-//     public $media;
-
-//     public function mount(){
-//         $this->url = 'auth.registration';
-//     }
-
-//     public function login(){
-//         // $this->url = 'auth.registration';
-//         $this->emitUp('login');
-//     }
-
-//     public function render()
-//     {
-//         return view('livewire.layouts.' . $this->url);
-//     }
-// }

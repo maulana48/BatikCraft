@@ -4,9 +4,6 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Laravel\Sanctum\PersonalAccessToken as PAT;
-use App\Models\{
-    ProductCategory
-};
 
 class Dashboard extends Component
 {
@@ -16,7 +13,7 @@ class Dashboard extends Component
     public $urlT;
     public $admin;
     public Location $location;
-    public $listeners = ['home' => 'mount'];
+    // public $listeners = ['home' => 'mount'];
 
     public function mount()
     {
@@ -27,74 +24,23 @@ class Dashboard extends Component
 
         if ($token == '' || !session()->has('admin')) {
             $this->url = 'auth.login';
-            $this->login();
             session()->flash('warning', 'Silahkan login terlebih dahulu');
         } else {
             $token = PAT::findToken($token->plainTextToken);
             $this->admin = $token->tokenable;
-            $this->url = 'index';
+            $this->url = 'home';
             // $this->location->refresh();
         }
-    }
-
-    public function home()
-    {
-        return view('livewire.dashboard.index');
-        return;
-    }
-
-    public function product()
-    {
-        $this->url = 'product';
-    }
-
-    public function transaksi()
-    {
-        $this->url = 'transaksi';
-    }
-
-    public function footer()
-    {
-        $this->url = 'layouts.footer';
-    }
-
-    public function profile()
-    {
-        $this->url = 'profile';
-    }
-
-    public function login()
-    {
-        if ($this->admin) {
-            return;
-        }
-        $this->url = 'auth.login';
-        $this->title = 'Login Page';
-        $this->icon = 'batik(1).png';
-    }
-
-    public function logout()
-    {
-        $this->url = 'auth.login';
-        session()->invalidate();
-        session()->regenerateToken();
-        return redirect('/dashboard');
-    }
-
-    public function registration()
-    {
-        $this->url = 'auth.registration';
     }
 
     public function render()
     {
         $this->title = 'BatikCraft';
         $this->icon = 'batik(1).png';
-        // $this->emitTo('index', 'render');
-        return view('livewire.dashboard')->layout('layouts.app', [
+
+        return view('livewire.dashboard')->layout('layouts.dashboard', [
             'title' => $this->title,
             'icon' => $this->icon,
-            'admin' => $this->admin
         ]);
     }
 }

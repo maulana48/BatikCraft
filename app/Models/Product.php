@@ -32,6 +32,11 @@ class Product extends Model
 
     public function media()
     {
-        return $this->hasOne(Media::class, 'parent_id', 'id')->where('parent_type', 'product');
+        return $this->hasMany(Media::class, 'parent_id', 'id')->where('parent_type', 'products');
+    }
+
+    public function main_media()
+    {
+        return $this->hasOne(Media::class, 'parent_id', 'id')->where('parent_type', 'products');
     }
 }

@@ -12,15 +12,15 @@ class Registration extends Component
     use WithFileUploads;
 
     public $url;
-    public $nama;
+    public $name;
     public $gender;
     public $email;
-    public $alamat;
-    public $no_telepon;
-    public $tanggal_lahir;
+    public $address;
+    public $phone_number;
+    public $birth_date;
     public $password;
     public $password_confirmation;
-    public $media;
+    public $profile_picture;
 
     public function mount()
     {
@@ -36,19 +36,19 @@ class Registration extends Component
         ];
 
         $rules = [
-            'nama' => 'required',
+            'name' => 'required',
             'gender' => 'required|max:1',
             'email' => 'required|email',
-            'alamat' => 'required',
-            'no_telepon' => 'required|min:12',
-            'tanggal_lahir' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required|min:12',
+            'birth_date' => 'required',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
-            'media' => 'required|image|max:2048',
+            'profile_picture' => 'required|image|max:2048',
         ];
 
         $payload = $this->validate($rules, $messages);
-        $payload['media'] = $this->media->store('img/User', ['disk' => 'public_uploads']);
+        $payload['profile_picture'] = '/storage/' . $this->profile_picture->store('img/User');
 
         $payload['role'] = 2;
 
@@ -66,13 +66,9 @@ class Registration extends Component
         }
 
         session()->flash('success', 'Pendaftaran berhasil');
-        return $this->login();
-    }
 
-    public function login()
-    {
-        // $this->url = 'auth.registration';
-        $this->emitUp('login');
+        $this->dispatch('login');
+        return;
     }
 
     public function render()

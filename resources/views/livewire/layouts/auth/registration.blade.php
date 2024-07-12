@@ -9,25 +9,25 @@
                     Daftarkan diri anda
                 </p>
             </div>
-            @if($errors->any())
+            @if ($errors->any())
                 @foreach ($errors->all() as $e)
-                    <div class="bg-red-500 w-full p-2 m-2">{{ $e }}</div>
+                    <div class="bg-red-500 w-full p-2 my-2">{{ $e }}</div>
                 @endforeach
             @endif
             @if (session()->has('success'))
-                <div class="bg-green-500 w-full p-2 m-2">
+                <div class="bg-green-500 w-full p-2 my-2">
                     {{ session('success') }}
                 </div>
             @endif
             <form wire:submit.prevent="registration" method="post">
                 <div class="space-y-2">
                     <div>
-                        <label for="nama" class="text-gray-600 mb-2 block">Nama Lengkap</label>
-                        <input type="text" wire:model.defer="nama" name="nama" id="nama"
+                        <label for="name" class="text-gray-600 mb-2 block">Nama Lengkap</label>
+                        <input type="text" wire:model.defer="name" name="name" id="name"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="masukkan nama anda" required>
+                            placeholder="masukkan nama anda">
                     </div>
-                <div>
+                    <div>
                         <label for="gender" class="text-gray-600 mb-2 block">Gender</label>
                         <select wire:model.defer="gender" name="gender" id="gender"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400">
@@ -40,49 +40,50 @@
                         <label for="email" class="text-gray-600 mb-2 block">Email</label>
                         <input type="email" wire:model.defer="email" name="email" id="email"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="email.@domain.com" required>
+                            placeholder="email.@domain.com">
                     </div>
                     <div>
-                        <label for="alamat" class="text-gray-600 mb-2 block">Alamat</label>
-                        <input type="text" wire:model.defer="alamat" name="alamat" id="alamat"
+                        <label for="address" class="text-gray-600 mb-2 block">Alamat</label>
+                        <input type="text" wire:model.defer="address" name="address" id="address"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="masukkan alamat anda" required>
+                            placeholder="masukkan alamat anda">
                     </div>
                     <div>
-                        <label for="no_telepon" class="text-gray-600 mb-2 block">No Telepon</label>
-                        <input type="text" wire:model.defer="no_telepon" name="no_telepon" id="no_telepon"
+                        <label for="phone_number" class="text-gray-600 mb-2 block">No Telepon</label>
+                        <input type="text" wire:model.defer="phone_number" name="phone_number" id="phone_number"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="masukkan no telepon anda" required>
+                            placeholder="masukkan no telepon anda">
                     </div>
                     <div>
-                        <label for="tanggal_lahir" class="text-gray-600 mb-2 block">Tanggal Lahir</label>
-                        <input type="date" wire:model.defer="tanggal_lahir" name="tanggal_lahir" id="tanggal_lahir"
+                        <label for="birth_date" class="text-gray-600 mb-2 block">Tanggal Lahir</label>
+                        <input type="date" wire:model.defer="birth_date" name="birth_date" id="birth_date"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="masukkan tanggal lahir anda" required>
+                            placeholder="masukkan tanggal lahir anda">
                     </div>
                     <div>
-                        <label for="media" class="text-gray-600 mb-2 block">Foto</label>
-                        <input type="file" wire:model="media" name="media" id="media"
+                        <label for="profile_picture" class="text-gray-600 mb-2 block">Foto</label>
+                        <input type="file" wire:model="profile_picture" name="profile_picture" id="profile_picture"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="masukkan foto anda" required>
+                            placeholder="masukkan foto anda">
                     </div>
                     <div>
                         <label for="password" class="text-gray-600 mb-2 block">Password</label>
                         <input type="password" wire:model.defer="password" name="password" id="password"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="*******" required>
+                            placeholder="*******">
                     </div>
                     <div>
                         <label for="password_confirmation" class="text-gray-600 mb-2 block">Konfirmasi password</label>
-                        <input type="password" wire:model.defer="password_confirmation" name="password_confirmation" id="password_confirmation"
+                        <input type="password" wire:model.defer="password_confirmation" name="password_confirmation"
+                            id="password_confirmation"
                             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-[#6B4226] placeholder-gray-400"
-                            placeholder="*******" required>
+                            placeholder="*******">
                     </div>
                 </div>
                 <div class="mt-6">
                     <div class="flex items-center">
                         <input type="checkbox" name="aggrement" id="aggrement"
-                            class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer" required>
+                            class="text-[#6B4226] focus:ring-0 rounded-sm cursor-pointer">
                         <label for="aggrement" class="text-gray-600 ml-3 cursor-pointer">I have read and agree to the <a
                                 href="#" class="text-[#6B4226]">terms & conditions</a></label>
                     </div>
@@ -92,7 +93,7 @@
                         class="block w-full py-2 bg-[#6B4226] border border-[#6B4226] rounded hover:bg-transparent hover:text-[#6B4226] transition uppercase font-roboto font-medium">Daftarkan</button>
                 </div>
             </form>
-    
+
             <p class="mt-4 text-center text-gray-600">Sudah punya akun? <button wire:click="login"
                     class="text-[#6B4226]">Login sekarang</button></p>
         </div>

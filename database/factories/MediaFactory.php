@@ -18,6 +18,7 @@ class MediaFactory extends Factory
     {
         $product_category_images = ['img/product_category/batik_pria.jpg', 'img/product_category/batik_wanita.jpg', 'img/product_category/batik_anak.jpg', 'img/product_category/batik_couple.jpg', 'img/product_category/batik_keluarga.jpg', 'img/product_category/batik_kain.jpg'];
 
+        // /img/daster_belang.jpeg, daster_garis.jpeg, daster_merah.jpeg, daster_merah_muda.jpeg, daster_pola.jpeg
         $products_images = ['img/products/batik_pria.jpg', 'img/products/batik_wanita.jpg', 'img/products/batik_anak.jpg', 'img/products/batik_couple.jpg', 'img/products/batik_keluarga.jpg', 'img/products/batik_kain.jpg'];
 
         $product_review_images = ['img/product_review/batik_pria.jpg', 'img/product_review/batik_wanita.jpg', 'img/product_review/batik_anak.jpg', 'img/product_review/batik_couple.jpg', 'img/product_review/batik_keluarga.jpg', 'img/product_review/batik_kain.jpg'];
@@ -27,12 +28,12 @@ class MediaFactory extends Factory
         $resources = array_merge($product_category_images, $products_images, $product_review_images, $user_images);
         $randomImage = $this->faker->randomElement($resources);
 
-        $image = pathinfo($randomImage, PATHINFO_FILENAME);
+        $image = pathinfo($randomImage, PATHINFO_DIRNAME) . '/' . pathinfo($randomImage, PATHINFO_FILENAME);
         $image_extensions = pathinfo($randomImage, PATHINFO_EXTENSION);
 
         return [
             'parent_id' => $this->faker->numberBetween($min = 1, $max = 15),
-            'parent_type' => $this->faker->randomElement(['product_category', 'products', 'product_review', 'user']),
+            'parent_type' => $this->faker->randomElement(['product_category', 'product_review', 'user']), // 'products'
             'file' => $image,
             'extension' => $image_extensions,
         ];

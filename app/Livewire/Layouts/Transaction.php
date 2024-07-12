@@ -3,6 +3,7 @@
 namespace App\Livewire\Layouts;
 
 use Livewire\Component;
+use App\Livewire\Component\Content;
 use Illuminate\Support\Facades\{Validator, DB};
 use Livewire\WithFileUploads;
 use App\Models\{
@@ -17,49 +18,52 @@ class Transaction extends Component
 {
     use WithFileUploads;
 
-    public $detailPemesanan;
-    public $pemesanan;
-    public $product_pesanan;
+    public $url;
+    public $pageName;
+    public $user;
+    private $orderDetail;
+    private $order_list;
+    private $orderedProduct;
 
     public $media = [];
     public $reviewData = [];
 
-    public function mount($user)
+    public function mount($user = null, $url = "", $pageName = "")
     {
+        $this->url = $url;
+        $this->pageName = $pageName;
         $this->user = $user;
-        $this->pemesanan = CartOrder::query()
-            ->where('keranjang_id', $this->user->keranjang->id)
+
+        $this->order_list = CartOrder::query()
+            ->where('cart_id', $this->user->cart->id)
             ->get();
 
-        $this->pemesanan = Order::query()
-            ->with(['pembayaran', 'productpesanan'])
-            ->whereIn('id', $this->pemesanan->map->only(['pemesanan_id']))
+        $this->order_list = Order::query()
+            ->with(['payment', 'orderProduct'])
+            ->whereIn('id', $this->order_list->map->only(['order_id']))
             ->get();
-        $this->url = 'transaksi';
     }
 
-    public function detailP($id)
+    public function detailOrder($id)
     {
-        if ($this->user == null) {
-            $this->url = 'auth.login';
-            session()->flash('warning', 'Silahkan login terlebih dahulu');
-        }
-        $this->url = 'pembayaran';
+        $this->dispatch('detailOrder_open', orderId: $id)->to(Content::class);
+        // if ($this->user == null) {
+        //     session()->flash('warning', 'Silahkan login terlebih dahulu');
+        // }
 
-        $this->pemesanan = Order::query()
-            ->with(['pembayaran'])
-            ->where('id', $id)
-            ->get();
+        // $this->orderDetail = Order::query()
+        //     ->with(['payment'])
+        //     ->find($id);
 
-        $this->product_pesanan = OrderProduct::query()
-            ->with(['Product', 'reviewproduct'])
-            ->withCount([
-                'reviewproduct as review_count' => function ($query) {
-                    $query->where('user_id', '=', $this->user->id);
-                }
-            ])
-            ->where('pemesanan_id', $this->pemesanan[0]->id)
-            ->get();
+        // $this->orderedProduct = OrderProduct::query()
+        //     ->with(['product', 'productReview'])
+        //     ->withCount([
+        //         'productReview as review_count' => function ($query) {
+        //             $query->where('user_id', '=', $this->user->id);
+        //         }
+        //     ])
+        //     ->where('order_id', $this->orderDetail->id)
+        //     ->get();
     }
 
     public function bayar()
@@ -100,13 +104,12 @@ class Transaction extends Component
         ];
 
         dd(Validator::validate($reviewData, $rules, $messages));
-        dd('test', $reviewData);
         $reviewData = Validator::validate($reviewData, $rules, $messages);
-        $review = $batik->reviewproduct()->create($reviewData);
+        $review = $batik->productReviews()->create($reviewData);
 
         if ($this->media) {
             foreach ($this->media as $media) {
-                $media = '/' . $media->store('img/Review', ['disk' => 'public_uploads']);
+                $media = '/storage/' . $media->store('img/Review');
                 $payload = [
                     'entitas_id' => $review->id,
                     'nama_entitas' => 'review_product',
@@ -123,6 +126,12 @@ class Transaction extends Component
 
     public function render()
     {
-        return view('livewire.layouts.' . $this->url);
+        return view('livewire.layouts.transaction', [
+            'url' => $this->url,
+            'pageName' => $this->pageName,
+            'user' => $this->user,
+            'order_list' => $this->order_list,
+            'orderedProduct' => $this->orderedProduct,
+        ]);
     }
 }

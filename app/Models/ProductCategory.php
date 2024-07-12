@@ -15,8 +15,13 @@ class ProductCategory extends Model
     {
         return $this->hasMany(Product::class, 'product_category_id', 'id');
     }
-    public function medias()
+    public function media()
     {
-        return Media::query()->where([['parent_id', '=', $this->id], ['parent_type', '=', $this->media_type]])->get();
+        return $this->hasMany(Media::class, 'parent_id', 'id')->where('parent_type', 'product_category');
+    }
+
+    public function main_media()
+    {
+        return $this->hasOne(Media::class, 'parent_id', 'id')->where('parent_type', 'products');
     }
 }

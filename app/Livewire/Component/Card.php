@@ -9,7 +9,8 @@ use App\Models\{
 
 class Card extends Component
 {
-    public $product = [];
+    private $productId;
+    private $product;
     public $url;
 
     public function mount($product)
@@ -28,18 +29,35 @@ class Card extends Component
         }
         $product->rating = $rating;
         $product->jumlah_review = $jumlah_review;
-        $this->product = [$product];
+        $this->product = $product;
     }
 
     public function productDetail($id)
     {
-        $this->dispatch('detailProduct', $id);
+        $this->productId = $id;
+        $product = Product::find($this->productId)->with(['productReviews', 'productCategory', 'main_media'])->first();
+        $review = $product->productReviews()->get();
+        $jumlah_review = count($review);
+        if ($jumlah_review == 0) {
+            $rating = 0;
+        } else {
+            $rating = 0;
+            foreach ($review as $r) {
+                $rating += $r->rating;
+            }
+            $rating = $rating / $jumlah_review;
+        }
+        $product->rating = $rating;
+        $product->jumlah_review = $jumlah_review;
+        $this->product = $product;
+
+        $this->dispatch('detailProduct_open', $id);
     }
 
     public function render()
     {
         return view('livewire.' . $this->url, [
-            'batik' => $this->product[0]
+            'batik' => $this->product,
         ]);
     }
 }

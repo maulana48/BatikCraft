@@ -9,39 +9,40 @@ use App\Models\{
 
 class Navbar extends Component
 {
-    public $url = 'index';
-    public $urlT;
-    private $kategoriNav;
+    public $user;
+    public $category_list;
 
-    public function loginNav()
+    public function mount($user)
     {
-        dd($this->emit('Landing', 'login'));
+        $this->user = $user;
+        $this->category_list = ProductCategory::query()->limit(6)->get();
     }
 
-    public function logoutNav()
+    public function home()
     {
-        $this->emit('logout');
+        $this->dispatch('home');
     }
 
-    public function registrationNav()
+    public function open_shop()
     {
-        $this->emit('registration');
+        $this->dispatch('shop_open');
     }
 
-    public function detailBatik($urlT)
+    public function registration()
     {
-        $this->emit('detailBatik', $urlT);
+        $this->dispatch('registration');
     }
 
-    public function kategoriBatik($urlT)
+    public function login()
     {
-        $this->emit('detailBatik', $urlT);
+        $this->dispatch('login');
     }
+
     public function render()
     {
-        $this->kategoriNav = ProductCategory::all();
         return view('livewire.component.navbar', [
-            'kategori' => $this->kategoriNav
+            'user' => $this->user,
+            'category_list' => $this->category_list,
         ]);
     }
 }

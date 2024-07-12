@@ -1,22 +1,10 @@
 <div x-data="{
-    jumlah: 1,
-    increment() { this.jumlah == {{ $batik['stok'] }} ? this.jumlah : this.jumlah++ },
+    jumlah: 0,
+    increment() { this.jumlah == {{ $batik ? $batik['stock'] : 0 }} ? this.jumlah : this.jumlah++ },
     decrement() { this.jumlah == 0 ? this.jumlah : this.jumlah-- },
     btnK: ''
 }">
     {{-- Because she competes with no one, no one can compete with her. --}}
-    <!-- breadcrumb -->
-    <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-[#6B4226] text-base">
-            <i class="fa-solid fa-house"></i>
-        </a>
-        <span class="text-sm text-gray-400">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
-        <p class="text-gray-600 font-medium">Detail Batik</p>
-    </div>
-    <!-- ./breadcrumb -->
-
     <!-- product-detail -->
     <div class="container grid grid-cols-2 gap-6">
         <div>
@@ -29,7 +17,7 @@
             <div class="grid grid-cols-5 gap-4 mt-4">
                 @foreach ($product_with_same_color_type as $ct)
                     @if ($ct['media'])
-                        <img src="{{ asset($ct['media']) }}" alt="product2" class="w-full cursor-pointer border">
+                        <img src="{{ asset($ct['media']) }}" alt="product" class="w-full cursor-pointer border">
                     @else
                         <img src="{{ asset('ecommerce-template-tailwind-1-main/public') }}../assets/images/products/product3.jpg"
                             alt="product2" class="w-full cursor-pointer border">
@@ -42,8 +30,8 @@
             <h2 class="text-3xl font-medium uppercase mb-2">{{ $batik['name'] }}</h2>
             <div class="flex items-center mb-4">
                 <div class="flex gap-1 text-sm text-yellow-400">
-                    @for ($i = 0; $i < 5; $i++)
-                        @if ($i < $rating)
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $rating)
                             <span><i class="fa-solid fa-star"></i></span>
                         @else
                             <span><i class="fa-solid fa-star text-gray-500"></i></span>
@@ -51,20 +39,20 @@
                     @endfor
                 </div>
                 <div class="text-xs text-gray-500 ml-3">
-                    ({{ $batik['reviewproduct'] ? count($batik['reviewproduct']) : '0' }} Review)</div>
+                    ({{ $batik['productReviews'] ? count($batik['productReviews']) : '0' }} Review)</div>
             </div>
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
                     <span>Stok barang : </span>
-                    @if ($batik['stok'])
-                        <span class="text-green-600">{{ $batik['stok'] . ' Tersedia' }}</span>
+                    @if ($batik['stock'])
+                        <span class="text-green-600">{{ $batik['stock'] . ' Tersedia' }}</span>
                     @else
                         <span class="text-red-600">{{ 'Habis' }}</span>
                     @endif
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Merk: </span>
-                    <span class="text-gray-600">{{ $batik['merk'] }}</span>
+                    <span class="text-gray-600">{{ $batik['merch'] }}</span>
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Kategori: </span>
@@ -88,7 +76,7 @@
             </div>
 
             <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                <button x-on:click="btnK = await $wire.addCart(jumlah)"
+                <button @click="btnK = await $wire.addCart(jumlah)"
                     class="bg-[#6B4226] border border-[#6B4226] text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-[#6B4226] transition">
                     <i x-bind:class="btnK == '' ? 'fa-solid fa-bag-shopping' : 'fa-solid fa-circle-check'"></i>
                     <p x-text="(btnK == '') ? 'Tambah ke Keranjang' : btnK"></p>
@@ -104,7 +92,7 @@
         <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Product details</h3>
         <div class="w-3/5 pt-6">
             <div class="text-gray-600">
-                {{ $batik['deskripsi'] }}
+                {{ $batik['description'] }}
             </div>
 
             <table class="table-auto border-collapse w-full text-left text-gray-600 text-sm mt-6">
@@ -114,11 +102,11 @@
                 </tr>
                 <tr>
                     <th class="py-2 px-4 border border-gray-300 w-40 font-medium">Motif Batik</th>
-                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['motif_batik'] }}</th>
+                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['batik_motif'] }}</th>
                 </tr>
                 <tr>
                     <th class="py-2 px-4 border border-gray-300 w-40 font-medium">Asal Kota</th>
-                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['asal_kota'] }}</th>
+                    <th class="py-2 px-4 border border-gray-300 ">{{ $batik['city_origin'] }}</th>
                 </tr>
             </table>
         </div>
@@ -130,9 +118,14 @@
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Kategori Terkait</h2>
         <div class="grid grid-cols-4 gap-6">
             @foreach ($product_with_same_category as $cat)
-                @livewire('component.card', ['product' => $cat], key($cat['id']))
+                @livewire('component.card', ['product' => $cat], key($cat['id'] . now()))
             @endforeach
         </div>
     </div>
     <!-- ./related product -->
+    @push('scripts')
+        @once
+            {!! "<script>console.log(\"test\");window.scrollTo({top: 0,behavior: 'smooth'});</script>" !!}
+        @endonce
+    @endpush
 </div>
