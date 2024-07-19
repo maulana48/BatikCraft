@@ -5,7 +5,6 @@ namespace App\Livewire\Dashboard;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
-use App\Custom\Rule\{MediaCount, MediaSize};
 use Illuminate\Support\Facades\{File, DB};
 use App\Models\{
     Product as ProductModel,
@@ -38,8 +37,6 @@ class Product extends Component
     public $batik_motif;
     public $original_media = [];
 
-    // #[Validate(['media' => [new MediaCount(), new MediaSize()]])] // 1MB Max
-    #[Validate(['uploaded_media.*' => [new MediaCount, new MediaSize]])]
     public $uploaded_media = [];
 
     public function mount()
